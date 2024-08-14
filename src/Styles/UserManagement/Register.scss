@@ -1,5 +1,7 @@
 .register {
   margin: 30px $main-padding;
+  min-width: 500px;
+
   .heading {
     font-size: $heading-2;
     font-weight: bold;

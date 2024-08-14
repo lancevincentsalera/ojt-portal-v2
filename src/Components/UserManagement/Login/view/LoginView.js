@@ -9,7 +9,7 @@ const Login = () => {
           <FaGraduationCap size={40} />
           <span className="heading">OJT Management Portal</span>
         </div>
-        <div className="login-content">
+        <form className="login-content">
           <label>Email</label>
           <input
             name="Email"
@@ -27,7 +27,7 @@ const Login = () => {
           <button type="submit" className="button-main">
             Login
           </button>
-        </div>
+        </form>
         <div className="login-footer">
           <a href="/">Forgot Password?</a>
           <a href="/register">Register</a>

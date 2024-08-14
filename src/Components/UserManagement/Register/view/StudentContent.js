@@ -2,7 +2,7 @@ import React from "react";
 
 const StudentContent = () => {
   return (
-    <div className="register-content">
+    <form className="register-content">
       <div className="tapad">
         <input
           name="FirstName"
@@ -46,7 +46,7 @@ const StudentContent = () => {
       <button type="submit" className="button-main">
         Register
       </button>
-    </div>
+    </form>
   );
 };
 
