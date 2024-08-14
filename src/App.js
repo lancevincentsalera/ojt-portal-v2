@@ -4,6 +4,7 @@ import { AuthProvider } from "./Components/Common/AuthContext";
 import LoginController from "./Components/UserManagement/Login/controller/LoginController";
 import RegisterController from "./Components/UserManagement/Register/controller/RegisterController";
 import ActivateAccountController from "./Components/UserManagement/ActivateAccount/controller/ActivateAccountController";
+import ForgotPasswordController from "./Components/UserManagement/ForgotPassword/controller/ForgotPasswordController";
 
 const App = () => {
   return (
@@ -16,6 +17,10 @@ const App = () => {
             <Route
               path="/activate-account"
               element={<ActivateAccountController />}
+            />
+            <Route
+              path="/forgot-password"
+              element={<ForgotPasswordController />}
             />
           </Routes>
         </div>
