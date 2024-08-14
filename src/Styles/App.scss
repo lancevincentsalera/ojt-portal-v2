@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 30px;
+}
+
+html {
+  background-color: #f3f4f6;
+}
+
+// colors
+$main-red: #ff6b6b;
+$gray-shade: #bdc3c7;
+$darker-red: #e74c3c;
+$darker-gray: #94a3b8;
+
+// font-sizes
+$heading: 100%;
+$heading-2: 80%;
+$sub-heading: 60%;
+$placeholder: 50%;
+$small-text: 50%;
+$button-text: 60%;
+
+//dimensions
+$header-height: 50px;
+$sidebar-width: 300px;
+$button-height: 50px;
+$bar-padding: 20px;
+$main-padding: 50px;
+
+// main container
+@import "./Common/Container.scss";
+
+// User Management
+@import "./UserManagement/Login.scss";
+@import "./UserManagement/Register.scss";

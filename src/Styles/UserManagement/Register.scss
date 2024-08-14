@@ -1,0 +1,55 @@
+.register {
+  margin: 30px $main-padding;
+  .heading {
+    font-size: $heading-2;
+    font-weight: bold;
+  }
+
+  .register-tabs {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 0.8px solid $darker-gray;
+    margin-bottom: 0.5rem;
+
+    .tab {
+      font-size: $placeholder;
+      padding: 0.5rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    .tab:hover,
+    .tab.active {
+      font-weight: bold;
+      border-bottom: 3px solid $main-red;
+      cursor: pointer;
+    }
+  }
+
+  .register-content {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.2rem;
+
+    .tapad {
+      display: flex;
+
+      input {
+        flex: 1;
+      }
+
+      input:first-child {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  a {
+    font-size: $small-text;
+    color: black;
+  }
+
+  a:hover {
+    font-weight: bold;
+  }
+}
