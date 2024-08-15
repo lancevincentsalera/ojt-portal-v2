@@ -35,8 +35,11 @@ $button-height: 50px;
 $bar-padding: 20px;
 $main-padding: 50px;
 
+// modal
+@import "./Common/Modal.scss";
+
 // main container
-@import "./Common/Container.scss";
+@import "./Common/Common.scss";
 
 // User Management
 @import "./UserManagement/Login.scss";
