@@ -29,8 +29,8 @@ $small-text: 50%;
 $button-text: 60%;
 
 //dimensions
-$header-height: 50px;
-$sidebar-width: 300px;
+$header-height: 70px;
+$sidebar-width: 250px;
 $button-height: 50px;
 $bar-padding: 20px;
 $main-padding: 50px;
@@ -40,6 +40,10 @@ $main-padding: 50px;
 
 // main container
 @import "./Common/Common.scss";
+
+// common
+@import "./Common/Sidebar.scss";
+@import "./Common/Header.scss";
 
 // User Management
 @import "./UserManagement/Login.scss";

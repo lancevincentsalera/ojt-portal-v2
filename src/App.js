@@ -5,24 +5,30 @@ import LoginController from "./Components/UserManagement/Login/controller/LoginC
 import RegisterController from "./Components/UserManagement/Register/controller/RegisterController";
 import ActivateAccountController from "./Components/UserManagement/ActivateAccount/controller/ActivateAccountController";
 import ForgotPasswordController from "./Components/UserManagement/ForgotPassword/controller/ForgotPasswordController";
+import Sidebar from "./Components/Common/Sidebar";
+import Header from "./Components/Common/Header";
 
 const App = () => {
   return (
     <AuthProvider>
       <Router>
         <div className="App">
-          <Routes>
-            <Route path="/" element={<LoginController />} />
-            <Route path="/register" element={<RegisterController />} />
-            <Route
-              path="/activate-account"
-              element={<ActivateAccountController />}
-            />
-            <Route
-              path="/forgot-password"
-              element={<ForgotPasswordController />}
-            />
-          </Routes>
+          <Header />
+          <Sidebar />
+          <main>
+            <Routes>
+              <Route path="/" element={<LoginController />} />
+              <Route path="/register" element={<RegisterController />} />
+              <Route
+                path="/activate-account"
+                element={<ActivateAccountController />}
+              />
+              <Route
+                path="/forgot-password"
+                element={<ForgotPasswordController />}
+              />
+            </Routes>
+          </main>
         </div>
       </Router>
     </AuthProvider>

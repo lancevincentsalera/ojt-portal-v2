@@ -1,0 +1,53 @@
+.Sidebar {
+  top: $header-height;
+  position: fixed;
+  width: $sidebar-width;
+  height: 100%;
+  display: flex;
+  box-shadow: 3px 0 5px 0 #f6f6f6;
+  background-color: white;
+
+  ul {
+    flex: 1;
+
+    li {
+      padding: 0.5rem 0.5rem 0;
+      display: flex;
+      a {
+        color: inherit;
+        font-weight: bold;
+        font-size: $small-text;
+        padding: 0.5rem;
+        flex: 1;
+        border-radius: 10px;
+
+        &:hover {
+          background-color: $gray-shade;
+        }
+      }
+
+      .active {
+        background-color: $gray-shade !important;
+      }
+
+      &:last-child {
+        position: absolute;
+        bottom: 8%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        width: 100%;
+      }
+    }
+
+    .logout {
+      display: flex;
+      align-items: center;
+
+      span {
+        margin-left: 0.5rem;
+        font-size: inherit;
+      }
+    }
+  }
+}
