@@ -15,4 +15,14 @@
       font-size: $heading-2;
     }
   }
+
+  .header-user {
+    display: flex;
+    align-items: center;
+
+    .user-name {
+      margin-right: 0.3rem;
+      font-size: $sub-heading;
+    }
+  }
 }

@@ -11,7 +11,7 @@ const Header = () => {
       </div>
       <div className="header-user">
         <span className="user-name">John Doe</span>
-        <FaUserCircle />
+        <FaUserCircle size={25} />
       </div>
     </header>
   );
