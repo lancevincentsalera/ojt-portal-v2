@@ -61,7 +61,6 @@ input {
   border-radius: 10px;
   font-size: $button-text;
   color: $main-red;
-  margin-right: 0.5rem;
 
   &:hover {
     cursor: pointer;
@@ -69,3 +68,5 @@ input {
     color: white;
   }
 }
+
+@import "./Table.scss";

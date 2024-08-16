@@ -7,6 +7,7 @@ import ActivateAccountController from "./Components/UserManagement/ActivateAccou
 import ForgotPasswordController from "./Components/UserManagement/ForgotPassword/controller/ForgotPasswordController";
 import Sidebar from "./Components/Common/Sidebar";
 import Header from "./Components/Common/Header";
+import UsersController from "./Components/Admin/UsersDashboard/controller/UsersController";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
                 path="/forgot-password"
                 element={<ForgotPasswordController />}
               />
+              <Route path="/admin-users" element={<UsersController />} />
             </Routes>
           </main>
         </div>

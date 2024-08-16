@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { FaRightFromBracket } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = ({ userRole }) => {
@@ -59,7 +58,7 @@ const Sidebar = ({ userRole }) => {
 
   const adminLinks = [
     {
-      goto: "/users",
+      goto: "/admin-users",
       name: "Users",
     },
     {
@@ -102,7 +101,7 @@ const Sidebar = ({ userRole }) => {
         case "ROLE_INSTRUCTOR":
           return instructorLinks;
         default:
-          return studentLinks;
+          return adminLinks;
       }
     }
   };

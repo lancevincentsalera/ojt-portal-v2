@@ -1,0 +1,22 @@
+.users-dashboard {
+  .users-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+
+    .heading {
+      font-weight: bold;
+    }
+
+    .create {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 0.8rem;
+      font-weight: bold;
+      font-size: $small-text;
+      height: 40px;
+    }
+  }
+}

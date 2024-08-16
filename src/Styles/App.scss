@@ -44,9 +44,13 @@ $main-padding: 50px;
 // common
 @import "./Common/Sidebar.scss";
 @import "./Common/Header.scss";
+@import "./Common/Main.scss";
 
 // User Management
 @import "./UserManagement/Login.scss";
 @import "./UserManagement/Register.scss";
 @import "./UserManagement/ActivateAccount.scss";
 @import "./UserManagement/ForgotPassword.scss";
+
+// Admin
+@import "./Admin/UsersDashboard/Users.scss";
