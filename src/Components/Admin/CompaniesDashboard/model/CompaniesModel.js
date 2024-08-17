@@ -1,74 +1,74 @@
-export const Users = [
+export const Companies = [
   {
-    Name: "John Doe",
+    Name: "Company A",
     Email: "contact@example.com",
     Role: "Student",
     Status: "Pending",
   },
   {
-    Name: "John Doe",
+    Name: "Company A",
     Email: "contact@example.com",
     Role: "Student",
     Status: "Pending",
   },
   {
-    Name: "John Doe",
+    Name: "Company A",
     Email: "contact@example.com",
     Role: "Student",
     Status: "Pending",
   },
   {
-    Name: "John Doe",
+    Name: "Company A",
     Email: "contact@example.com",
     Role: "Student",
     Status: "Pending",
   },
   {
-    Name: "John Doe",
+    Name: "Company A",
     Email: "contact@example.com",
     Role: "Student",
     Status: "Pending",
   },
   {
-    Name: "John Doe",
+    Name: "Company A",
     Email: "contact@example.com",
     Role: "Student",
     Status: "Pending",
   },
   {
-    Name: "John Doe",
+    Name: "Company A",
     Email: "contact@example.com",
     Role: "Student",
     Status: "Pending",
   },
   {
-    Name: "John Doe",
+    Name: "Company A",
     Email: "contact@example.com",
     Role: "Student",
     Status: "Pending",
   },
   {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-  {
-    Name: "John Doe",
+    Name: "Company A",
     Email: "contact@example.com",
     Role: "Student",
     Status: "Pending",
   },
 
   {
-    Name: "John Doe",
+    Name: "Company A",
+    Email: "contact@example.com",
+    Role: "Student",
+    Status: "Pending",
+  },
+  {
+    Name: "Company A",
+    Email: "contact@example.com",
+    Role: "Student",
+    Status: "Pending",
+  },
+
+  {
+    Name: "Company A",
     Email: "contact@example.com",
     Role: "Student",
     Status: "Pending",
@@ -81,33 +81,33 @@ export const Users = [
   },
 
   {
-    Name: "John Doe",
+    Name: "Company A",
     Email: "contact@example.com",
     Role: "Student",
     Status: "Pending",
   },
   {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-
-  {
-    Name: "John Doe",
+    Name: "Company A",
     Email: "contact@example.com",
     Role: "Student",
     Status: "Pending",
   },
 
   {
-    Name: "John Doe",
+    Name: "Company A",
+    Email: "contact@example.com",
+    Role: "Student",
+    Status: "Pending",
+  },
+
+  {
+    Name: "Company A",
     Email: "contact@example.com",
     Role: "Student",
     Status: "Pending",
   },
   {
-    Name: "John Doe",
+    Name: "Company A",
     Email: "contact@example.com",
     Role: "Student",
     Status: "Pending",

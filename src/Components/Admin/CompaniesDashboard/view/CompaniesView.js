@@ -8,7 +8,7 @@ import {
 } from "react-icons/md";
 import SearchBar from "../../../Common/SearchBar";
 
-const UsersView = ({
+const CompaniesView = ({
   page,
   dataByPage,
   dataPerPage,
@@ -16,12 +16,12 @@ const UsersView = ({
   handleInputPageChange,
 }) => {
   return (
-    <div className="users-dashboard">
-      <div className="users-header">
-        <p className="heading">Users</p>
+    <div className="companies-dashboard">
+      <div className="companies-header">
+        <p className="heading">Companies</p>
         <button className="button-main create">
           <FaPlus size={20} />
-          &nbsp; Create New User
+          &nbsp; Create New Company
         </button>
       </div>
       <div className="table-container">
@@ -92,4 +92,4 @@ const UsersView = ({
   );
 };
 
-export default UsersView;
+export default CompaniesView;

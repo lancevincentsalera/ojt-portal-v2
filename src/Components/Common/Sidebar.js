@@ -62,7 +62,7 @@ const Sidebar = ({ userRole }) => {
       name: "Users",
     },
     {
-      goto: "/companies",
+      goto: "/admin-companies",
       name: "Companies",
     },
     {

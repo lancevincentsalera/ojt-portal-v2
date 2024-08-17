@@ -8,6 +8,7 @@ import ForgotPasswordController from "./Components/UserManagement/ForgotPassword
 import Sidebar from "./Components/Common/Sidebar";
 import Header from "./Components/Common/Header";
 import UsersController from "./Components/Admin/UsersDashboard/controller/UsersController";
+import CompaniesController from "./Components/Admin/CompaniesDashboard/controller/CompaniesController";
 
 const App = () => {
   return (
@@ -29,6 +30,10 @@ const App = () => {
                 element={<ForgotPasswordController />}
               />
               <Route path="/admin-users" element={<UsersController />} />
+              <Route
+                path="/admin-companies"
+                element={<CompaniesController />}
+              />
             </Routes>
           </main>
         </div>

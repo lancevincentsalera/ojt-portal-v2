@@ -52,6 +52,16 @@ input {
     cursor: pointer;
     background-color: $darker-red;
   }
+
+  &.create {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0.8rem;
+    font-weight: bold;
+    font-size: $small-text;
+    height: 40px;
+  }
 }
 
 .button-secondary {
