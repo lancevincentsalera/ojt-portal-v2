@@ -3,6 +3,7 @@ import CompaniesView from "../view/CompaniesView";
 import { Companies } from "../model/CompaniesModel";
 
 const CompaniesController = () => {
+  const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState(1);
   const [dataPerPage] = useState(
     Array.from({ length: Math.ceil(Companies.length / 15) }, (_, i) =>
@@ -33,6 +34,9 @@ const CompaniesController = () => {
       setDataByPage(dataPerPage[page - 1]);
     }
   }, [page, dataPerPage]);
+
+  const handleModalAction = () => setShowModal(!showModal);
+
   return (
     <CompaniesView
       page={page}
@@ -40,6 +44,8 @@ const CompaniesController = () => {
       dataPerPage={dataPerPage}
       handlePageChange={handlePageChange}
       handleInputPageChange={handleInputPageChange}
+      showModal={showModal}
+      handleModalAction={handleModalAction}
     />
   );
 };

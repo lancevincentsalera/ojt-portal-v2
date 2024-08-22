@@ -1,44 +1,42 @@
 import React from "react";
 
-const UsersModalView = ({ showModal, handleModalAction }) => {
+const CompaniesModalView = ({ showModal, handleModalAction }) => {
   return (
     <>
       <div className="modal-overlay" onClick={handleModalAction}></div>
       <div className="modal">
         <div className="modal-content">
           <div className="modal-header">
-            <p className="heading">Create User</p>
+            <p className="heading">Create Company</p>
             <span className="close" onClick={handleModalAction}>
               &times;
             </span>
           </div>
           <form className="modal-form no-subh">
-            <div className="user-type">
-              <label htmlFor="userType">User Type: &nbsp;</label>
-              <select id="userType" name="userType" className="smaller">
-                <option value="admin">Admin</option>
-                <option value="user">User</option>
-              </select>
-            </div>
             <input
               type="text"
-              id="firstName"
-              name="firstName"
-              placeholder="First Name"
+              id="companyName"
+              name="companyName"
+              placeholder="Company Name"
             />
             <input
               type="text"
-              id="lastName"
-              name="lastName"
-              placeholder="Last Name"
+              id="companyEmail"
+              name="companyEmail"
+              placeholder="Company Email"
             />
             <input
               type="text"
-              id="idNumber"
-              name="idNumber"
-              placeholder="ID Number"
+              id="phoneNumber"
+              name="phoneNumber"
+              placeholder="Phone Number"
             />
-            <input type="email" id="email" name="email" placeholder="Email" />
+            <input
+              type="text"
+              id="address"
+              name="address"
+              placeholder="Address"
+            />
             <div className="button-group smaller">
               <button
                 type="button"
@@ -58,4 +56,4 @@ const UsersModalView = ({ showModal, handleModalAction }) => {
   );
 };
 
-export default UsersModalView;
+export default CompaniesModalView;
