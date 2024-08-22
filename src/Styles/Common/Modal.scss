@@ -71,6 +71,15 @@
         button {
           flex: 1;
         }
+
+        &.smaller {
+          margin-left: auto;
+          width: 60%;
+        }
+      }
+
+      &.no-subh {
+        min-width: 600px;
       }
     }
   }

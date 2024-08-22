@@ -12,23 +12,39 @@ const UsersModalView = ({ showModal, handleModalAction }) => {
               &times;
             </span>
           </div>
-          <form className="modal-form">
+          <form className="modal-form no-subh">
             <div className="user-type">
               <label htmlFor="userType">User Type: &nbsp;</label>
-              <select id="userType" name="userType">
+              <select id="userType" name="userType" className="smaller">
                 <option value="admin">Admin</option>
                 <option value="user">User</option>
               </select>
             </div>
-
-            <label htmlFor="email">Email</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              placeholder="First Name"
+            />
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              placeholder="Last Name"
+            />
+            <input
+              type="text"
+              id="idNumber"
+              name="idNumber"
+              placeholder="ID Number"
+            />
             <input
               type="email"
               id="email"
               name="email"
               placeholder="Enter your email"
             />
-            <div className="button-group">
+            <div className="button-group smaller">
               <button
                 type="button"
                 className="button-secondary"

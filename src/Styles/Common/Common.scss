@@ -38,6 +38,11 @@ select {
   &:hover {
     box-shadow: 2px 2px 4px rgba(3, 3, 3, 0.2);
   }
+
+  &.smaller {
+    height: 70%;
+    width: 20%;
+  }
 }
 
 .button-main {
