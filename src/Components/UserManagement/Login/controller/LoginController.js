@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LoginView from "../view/LoginView";
 
-const LoginController = () => {
+const LoginController = ({ view }) => {
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
 
   const handleModalAction = () =>

@@ -3,6 +3,7 @@ import UsersView from "../view/UsersView";
 import { Users } from "../model/UsersModels";
 
 const UsersController = () => {
+  const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState(1);
   const [dataPerPage] = useState(
     Array.from({ length: Math.ceil(Users.length / 15) }, (_, i) =>
@@ -34,6 +35,8 @@ const UsersController = () => {
     }
   }, [page, dataPerPage]);
 
+  const handleModalAction = () => setShowModal(!showModal);
+
   return (
     <UsersView
       page={page}
@@ -41,6 +44,8 @@ const UsersController = () => {
       dataPerPage={dataPerPage}
       handlePageChange={handlePageChange}
       handleInputPageChange={handleInputPageChange}
+      showModal={showModal}
+      handleModalAction={handleModalAction}
     />
   );
 };

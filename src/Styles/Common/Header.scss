@@ -9,6 +9,7 @@
   background-color: $main-red;
   height: $header-height;
   padding: 10px $bar-padding;
+  z-index: 1;
   border-bottom: 2px solid $main-red;
 
   .header-title {

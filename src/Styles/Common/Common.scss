@@ -15,12 +15,12 @@ label {
   margin-bottom: 0.2rem;
 }
 
-input {
+input,
+select {
   height: 50px;
   border: 0.8px solid #ececec;
   border-radius: 10px;
   box-shadow: 2px 2px 4px rgba(3, 3, 3, 0.1);
-  z-index: 100;
   padding: 10px;
   margin-bottom: 0.5rem;
   font-size: $placeholder;
@@ -77,6 +77,10 @@ input {
     background-color: #ffb8b2;
     color: white;
   }
+}
+
+option {
+  font-size: 100%;
 }
 
 @import "./Table.scss";

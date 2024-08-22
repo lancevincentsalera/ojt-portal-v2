@@ -6,7 +6,7 @@ const SearchBar = () => {
       type="text"
       name="search"
       className="search"
-      placeholder="Search a user..."
+      placeholder="Search..."
     />
   );
 };

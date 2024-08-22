@@ -10,6 +10,7 @@ import Header from "./Components/Common/Header";
 import UsersController from "./Components/Admin/UsersDashboard/controller/UsersController";
 import CompaniesController from "./Components/Admin/CompaniesDashboard/controller/CompaniesController";
 import OJTRecordsController from "./Components/Admin/OJTRecordsDashboard/controller/OJTRecordsController";
+import TrainingPlansController from "./Components/Admin/TrainingPlansDashboard/controller/TrainingPlansController";
 
 const App = () => {
   return (
@@ -38,6 +39,10 @@ const App = () => {
               <Route
                 path="/admin-ojt-records"
                 element={<OJTRecordsController />}
+              />
+              <Route
+                path="/admin-training-plans"
+                element={<TrainingPlansController />}
               />
             </Routes>
           </main>

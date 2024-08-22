@@ -4,7 +4,7 @@ import ForgotPasswordModalController from "../../Modals/ForgotPassword/controlle
 
 const Login = ({ showForgotPasswordModal, handleModalAction }) => {
   return (
-    <div>
+    <>
       {showForgotPasswordModal && (
         <ForgotPasswordModalController
           showModal={showForgotPasswordModal}
@@ -42,7 +42,7 @@ const Login = ({ showForgotPasswordModal, handleModalAction }) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

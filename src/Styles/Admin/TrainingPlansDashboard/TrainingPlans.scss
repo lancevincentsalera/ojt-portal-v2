@@ -1,0 +1,44 @@
+.cards-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 1rem;
+  width: 100%;
+
+  .card {
+    padding: $bar-padding;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba($color: #000000, $alpha: 0.25);
+    width: 386.5px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .card-header {
+      .card-title {
+        font-size: $heading-2;
+        font-weight: bold;
+      }
+    }
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      .card-desc {
+        font-size: $small-text;
+      }
+
+      .card-date {
+        font-size: $small-text;
+      }
+
+      .card-supervisor {
+        font-size: $small-text;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}

@@ -70,7 +70,7 @@ const Sidebar = ({ userRole }) => {
       name: "OJT Records",
     },
     {
-      goto: "/tp-table",
+      goto: "/admin-training-plans",
       name: "Training Plans",
     },
   ];
