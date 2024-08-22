@@ -1,12 +1,7 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa6";
-import {
-  MdKeyboardDoubleArrowLeft,
-  MdKeyboardArrowLeft,
-  MdKeyboardDoubleArrowRight,
-  MdKeyboardArrowRight,
-} from "react-icons/md";
 import SearchBar from "../../../Common/SearchBar";
+import Pagination from "../../Pagination";
 
 const CompaniesView = ({
   page,
@@ -16,9 +11,9 @@ const CompaniesView = ({
   handleInputPageChange,
 }) => {
   return (
-    <div className="companies-dashboard">
-      <div className="companies-header">
-        <p className="heading">Companies</p>
+    <div className="main-dashboard">
+      <div className="main-header">
+        <p className="main-heading">Companies</p>
         <button className="button-main create">
           <FaPlus size={20} />
           &nbsp; Create New Company
@@ -54,39 +49,12 @@ const CompaniesView = ({
             ))}
           </ul>
         </div>
-        <div className="pagination">
-          <div className="left-page">
-            <MdKeyboardDoubleArrowLeft
-              size={20}
-              onClick={() => handlePageChange(1)}
-            />
-            <MdKeyboardArrowLeft
-              size={25}
-              onClick={() => handlePageChange(page - 1)}
-            />
-          </div>
-          <p>
-            <input
-              className="page"
-              type="number"
-              value={page || ""}
-              min={1}
-              max={dataPerPage.length}
-              onChange={handleInputPageChange}
-            />
-            &nbsp;/&nbsp; 10
-          </p>
-          <div className="right-page">
-            <MdKeyboardArrowRight
-              size={25}
-              onClick={() => handlePageChange(page + 1)}
-            />
-            <MdKeyboardDoubleArrowRight
-              size={20}
-              onClick={() => handlePageChange(dataPerPage.length)}
-            />
-          </div>
-        </div>
+        <Pagination
+          page={page}
+          dataPerPage={dataPerPage}
+          handlePageChange={handlePageChange}
+          handleInputPageChange={handleInputPageChange}
+        />
       </div>
     </div>
   );

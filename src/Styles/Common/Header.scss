@@ -6,30 +6,30 @@
   right: 0;
   display: flex;
   justify-content: space-between;
-  background-color: white;
+  background-color: $main-red;
   height: $header-height;
   padding: 10px $bar-padding;
-  z-index: 10;
   border-bottom: 2px solid $main-red;
 
   .header-title {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $main-red;
+    color: white;
 
     span {
-      font-size: $heading-2;
+      font-size: calc(($heading-2) - 5px);
     }
   }
 
   .header-user {
     display: flex;
     align-items: center;
+    color: white;
 
     .user-name {
       margin-right: 0.3rem;
-      font-size: $sub-heading;
+      font-size: $small-text;
     }
   }
 }

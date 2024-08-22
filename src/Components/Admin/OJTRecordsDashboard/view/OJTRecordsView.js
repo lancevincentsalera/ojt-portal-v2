@@ -1,9 +1,8 @@
 import React from "react";
-import { FaPlus } from "react-icons/fa6";
 import SearchBar from "../../../Common/SearchBar";
 import Pagination from "../../Pagination";
 
-const UsersView = ({
+const OJTRecordsView = ({
   page,
   dataByPage,
   dataPerPage,
@@ -13,11 +12,7 @@ const UsersView = ({
   return (
     <div className="main-dashboard">
       <div className="main-header">
-        <p className="main-heading">Users</p>
-        <button className="button-main create">
-          <FaPlus size={20} />
-          &nbsp; Create New User
-        </button>
+        <p className="main-heading">OJT Records</p>
       </div>
       <div className="table-container">
         <SearchBar />
@@ -29,7 +24,6 @@ const UsersView = ({
                   {key}
                 </li>
               ))}
-            <li className="th">Actions</li>
           </ul>
           <ul className="tbody">
             {Object.values(dataByPage).map((data, index) => (
@@ -39,12 +33,6 @@ const UsersView = ({
                     {value}
                   </div>
                 ))}
-                <div className="td actions">
-                  <button className="button-main btn-active">Activate</button>
-                  <button className="button-secondary btn-restrict">
-                    Restrict
-                  </button>
-                </div>
               </li>
             ))}
           </ul>
@@ -60,4 +48,4 @@ const UsersView = ({
   );
 };
 
-export default UsersView;
+export default OJTRecordsView;

@@ -2,4 +2,17 @@ main {
   margin-left: $sidebar-width;
   margin-top: $header-height;
   padding: $bar-padding;
+
+  .main-dashboard {
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+
+      .main-heading {
+        font-weight: bold;
+      }
+    }
+  }
 }

@@ -62,6 +62,18 @@
           }
         }
       }
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        border: 1px solid #cacaca;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #a6a6a6;
+      }
     }
   }
 
