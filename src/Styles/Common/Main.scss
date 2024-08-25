@@ -4,6 +4,8 @@ main {
   padding: $bar-padding;
 
   .main-dashboard {
+    height: 75vh;
+
     .main-header {
       display: flex;
       justify-content: space-between;

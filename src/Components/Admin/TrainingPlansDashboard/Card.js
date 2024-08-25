@@ -1,6 +1,6 @@
 import React from "react";
 
-const Card = ({ trainingPlan }) => {
+const Card = ({ trainingPlan, handleModalAction }) => {
   return (
     <div className="card">
       <div className="card-header">
@@ -13,7 +13,13 @@ const Card = ({ trainingPlan }) => {
         <p className="card-supervisor">Supervisor: {trainingPlan.Supervisor}</p>
       </div>
       <div className="card-footer">
-        <button className="button-main create">View Tasks</button>
+        <button
+          type="button"
+          className="button-main create"
+          onClick={handleModalAction}
+        >
+          View Tasks
+        </button>
       </div>
     </div>
   );

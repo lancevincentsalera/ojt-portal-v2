@@ -23,6 +23,7 @@
   .modal-content {
     min-width: 300px;
     margin: calc(($main-padding) - 20px);
+    overflow: hidden;
 
     .modal-header {
       display: flex;
@@ -72,14 +73,47 @@
           flex: 1;
         }
 
-        &.smaller {
+        &.double {
           margin-left: auto;
           width: 60%;
+        }
+
+        &.single {
+          flex: none;
+          width: 10%;
+          margin-left: auto;
+          margin-top: 1rem;
         }
       }
 
       &.no-subh {
         min-width: 500px;
+      }
+
+      .task-list {
+        height: 400px;
+        overflow-y: auto;
+
+        .task {
+          border: 0.8px solid #ececec;
+          border-radius: 10px;
+          box-shadow: 0 4px 12px rgba($color: #000000, $alpha: 0.25);
+          width: 760px;
+          padding: $bar-padding;
+
+          .task-title {
+            font-size: $sub-heading;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+          }
+
+          .task-desc,
+          .task-date,
+          .task-status {
+            font-size: $placeholder;
+            margin-bottom: 0.2rem;
+          }
+        }
       }
     }
   }

@@ -39,7 +39,7 @@ const UsersModalView = ({ showModal, handleModalAction }) => {
               placeholder="ID Number"
             />
             <input type="email" id="email" name="email" placeholder="Email" />
-            <div className="button-group smaller">
+            <div className="button-group double">
               <button
                 type="button"
                 className="button-secondary"

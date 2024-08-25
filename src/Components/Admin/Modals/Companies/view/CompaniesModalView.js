@@ -37,7 +37,7 @@ const CompaniesModalView = ({ showModal, handleModalAction }) => {
               name="address"
               placeholder="Address"
             />
-            <div className="button-group smaller">
+            <div className="button-group double">
               <button
                 type="button"
                 className="button-secondary"
