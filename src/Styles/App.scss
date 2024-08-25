@@ -14,6 +14,13 @@ html {
   background-color: #f3f4f6;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
 // colors
 $main-red: #ff6b6b;
 $gray-shade: #bdc3c7;
@@ -56,3 +63,6 @@ $main-padding: 50px;
 @import "./Admin/UsersDashboard/Users.scss";
 @import "./Admin/CompaniesDashboard/Companies.scss";
 @import "./Admin/TrainingPlansDashboard/TrainingPlans.scss";
+
+// Intern
+@import "./Intern/Dashboard/InternDashboard.scss";

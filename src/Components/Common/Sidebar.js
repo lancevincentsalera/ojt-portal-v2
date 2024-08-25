@@ -9,7 +9,7 @@ const Sidebar = ({ userRole }) => {
   const { authUser } = useAuth();
   const studentLinks = [
     {
-      goto: "/student-info",
+      goto: "/intern-dashboard",
       name: "Dashboard",
     },
     {
@@ -101,7 +101,7 @@ const Sidebar = ({ userRole }) => {
         case "ROLE_INSTRUCTOR":
           return instructorLinks;
         default:
-          return adminLinks;
+          return studentLinks;
       }
     }
   };

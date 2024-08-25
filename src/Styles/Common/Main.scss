@@ -2,10 +2,10 @@ main {
   margin-left: $sidebar-width;
   margin-top: $header-height;
   padding: $bar-padding;
+  flex: 1;
+  overflow: auto;
 
   .main-dashboard {
-    height: 75vh;
-
     .main-header {
       display: flex;
       justify-content: space-between;

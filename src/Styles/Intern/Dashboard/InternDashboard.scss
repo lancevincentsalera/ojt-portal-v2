@@ -1,0 +1,99 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+
+  .heading {
+    font-size: $heading-2;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .dashboard-container {
+    background-color: white;
+    padding: $bar-padding;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba($color: #000000, $alpha: 0.25);
+
+    &.details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+      width: 100%;
+    }
+
+    &.progress {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .progress-bar {
+        width: 100%;
+        height: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      progress::-webkit-progress-bar {
+        background-color: $gray-shade;
+      }
+
+      progress::-webkit-progress-value {
+        background-color: $main-red;
+        border-radius: 10px;
+      }
+
+      progress::-moz-progress-bar {
+        background-color: $main-red;
+        border-radius: 10px;
+      }
+    }
+
+    &.task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      background-color: $darker-gray;
+      max-height: 365px;
+      overflow-y: auto;
+
+      .task {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem;
+        background-color: white;
+        border-radius: 10px;
+
+        .task-details {
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
+        }
+      }
+    }
+
+    .dashboard-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.3rem;
+
+      .dashboard-heading {
+        font-size: $sub-heading;
+        font-weight: bold;
+      }
+
+      .detail,
+      .status {
+        font-size: $small-text;
+      }
+
+      .status {
+        color: $main-red;
+        font-weight: bold;
+      }
+    }
+  }
+}
