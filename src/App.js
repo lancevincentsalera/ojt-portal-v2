@@ -12,6 +12,7 @@ import CompaniesController from "./Components/Admin/CompaniesDashboard/controlle
 import OJTRecordsController from "./Components/Admin/OJTRecordsDashboard/controller/OJTRecordsController";
 import TrainingPlansController from "./Components/Admin/TrainingPlansDashboard/controller/TrainingPlansController";
 import InternDashboardController from "./Components/Intern/InternDashboard/controller/InternDashboardController";
+import TrainingPlanController from "./Components/Intern/TrainingPlan/controller/TrainingPlanController";
 
 const App = () => {
   return (
@@ -49,6 +50,7 @@ const App = () => {
                 path="/intern-dashboard"
                 element={<InternDashboardController />}
               />
+              <Route path="/intern-tp" element={<TrainingPlanController />} />
             </Routes>
           </main>
         </div>

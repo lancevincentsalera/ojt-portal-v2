@@ -6,17 +6,17 @@
   right: 0;
   display: flex;
   justify-content: space-between;
-  background-color: $main-red;
+  background-color: white;
   height: $header-height;
   padding: 10px $bar-padding;
   z-index: 1;
-  border-bottom: 2px solid $main-red;
+  border-bottom: 2px solid $gray-shade;
 
   .header-title {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: $main-red;
 
     span {
       font-size: calc(($heading-2) - 5px);
@@ -26,7 +26,7 @@
   .header-user {
     display: flex;
     align-items: center;
-    color: white;
+    color: $main-red;
 
     .user-name {
       margin-right: 0.3rem;

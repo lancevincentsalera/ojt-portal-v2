@@ -13,7 +13,7 @@ const Sidebar = ({ userRole }) => {
       name: "Dashboard",
     },
     {
-      goto: "/training-plan",
+      goto: "/intern-tp",
       name: "Training Plan",
     },
     {

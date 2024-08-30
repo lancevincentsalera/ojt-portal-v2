@@ -43,7 +43,7 @@ $bar-padding: 20px;
 $main-padding: 50px;
 
 // modal
-@import "./Common/Modal.scss";
+@import "./Modal/Modal.scss";
 
 // main container
 @import "./Common/Common.scss";
@@ -66,3 +66,4 @@ $main-padding: 50px;
 
 // Intern
 @import "./Intern/Dashboard/InternDashboard.scss";
+@import "./Intern/TrainingPlan/InternTrainingPlan.scss";

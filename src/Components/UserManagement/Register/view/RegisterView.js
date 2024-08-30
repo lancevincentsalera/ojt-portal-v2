@@ -7,7 +7,7 @@ const RegisterView = ({ handleUserTypeChange, userType }) => {
     <div className="container">
       <div className="register">
         <span className="heading">Register</span>
-        <div className="register-tabs">
+        <div className="tabs">
           <div
             className={userType.student ? "tab active" : "tab"}
             onClick={() => {

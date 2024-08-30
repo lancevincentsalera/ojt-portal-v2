@@ -7,26 +7,7 @@
     font-weight: bold;
   }
 
-  .register-tabs {
-    display: flex;
-    justify-content: space-around;
-    border-bottom: 0.8px solid $darker-gray;
-    margin-bottom: 0.5rem;
-
-    .tab {
-      font-size: $placeholder;
-      padding: 0.5rem;
-      width: 100%;
-      text-align: center;
-    }
-
-    .tab:hover,
-    .tab.active {
-      font-weight: bold;
-      border-bottom: 3px solid $main-red;
-      cursor: pointer;
-    }
-  }
+  
 
   .register-content {
     display: flex;

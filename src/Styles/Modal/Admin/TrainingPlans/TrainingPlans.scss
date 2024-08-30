@@ -1,0 +1,31 @@
+.task-list {
+  height: 400px;
+  overflow-y: auto;
+  border-radius: 10px;
+  border: none;
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .task {
+    border: 0.8px solid #ececec;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba($color: #000000, $alpha: 0.25);
+    width: 760px;
+    padding: $bar-padding;
+
+    .task-title {
+      font-size: $sub-heading;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .task-desc,
+    .task-date,
+    .task-status {
+      font-size: $placeholder;
+      margin-bottom: 0.2rem;
+    }
+  }
+}
