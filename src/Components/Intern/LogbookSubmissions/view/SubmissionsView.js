@@ -1,6 +1,7 @@
 import React from "react";
 import PendingFeedbackLogbooks from "../PendingFeedbackLogbooks";
 import FeedbackedLogbooks from "../FeedbackedLogbooks";
+import ViewLogbookModalController from "../../Modals/LogbookSubmissions/controller/ViewLogbookModalController";
 
 const SubmissionsView = ({
   showModal,
@@ -10,6 +11,12 @@ const SubmissionsView = ({
 }) => {
   return (
     <>
+      {showModal && (
+        <ViewLogbookModalController
+          showModal={showModal}
+          handleModalAction={handleModalAction}
+        />
+      )}
       <div className="main-dashboard">
         <div className="main-header">
           <p className="main-heading">My Logbooks</p>

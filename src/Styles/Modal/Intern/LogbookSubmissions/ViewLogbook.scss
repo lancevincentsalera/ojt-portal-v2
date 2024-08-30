@@ -1,0 +1,36 @@
+.entry-content-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 2px;
+
+  .entry-content-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    &.date {
+      flex-direction: row;
+      align-items: flex-end;
+    }
+
+    .label {
+      font-size: $sub-heading;
+      font-weight: bold;
+    }
+
+    .value {
+      font-size: $small-text;
+    }
+
+    .entry-content {
+      background-color: white;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      font-size: $small-text;
+      padding: $bar-padding;
+      height: 150px;
+      border: 1px solid $gray-shade;
+    }
+  }
+}

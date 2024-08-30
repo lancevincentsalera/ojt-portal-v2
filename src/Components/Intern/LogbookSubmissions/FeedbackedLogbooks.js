@@ -9,7 +9,11 @@ const FeedbackedLogbooks = ({ showModal, handleModalAction }) => {
           <p className="logbook-entry-date">Submitted on: Jun 07, 2024</p>
         </div>
 
-        <button type="button" className="button-main create">
+        <button
+          type="button"
+          className="button-main create"
+          onClick={handleModalAction}
+        >
           View
         </button>
       </div>
@@ -19,7 +23,11 @@ const FeedbackedLogbooks = ({ showModal, handleModalAction }) => {
           <p className="logbook-entry-date">Submitted on: Jun 07, 2024</p>
         </div>
 
-        <button type="button" className="button-main create">
+        <button
+          type="button"
+          className="button-main create"
+          onClick={handleModalAction}
+        >
           View
         </button>
       </div>
@@ -29,7 +37,11 @@ const FeedbackedLogbooks = ({ showModal, handleModalAction }) => {
           <p className="logbook-entry-date">Submitted on: Jun 10, 2024</p>
         </div>
 
-        <button type="button" className="button-main create">
+        <button
+          type="button"
+          className="button-main create"
+          onClick={handleModalAction}
+        >
           View
         </button>
       </div>
