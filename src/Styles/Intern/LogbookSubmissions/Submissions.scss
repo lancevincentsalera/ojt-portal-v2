@@ -1,0 +1,29 @@
+.logbook-entry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  .logbook-entry {
+    background-color: white;
+    border-radius: 10px;
+    padding: $bar-padding;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logbook-entry-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+
+      .logbook-entry-title {
+        font-size: $sub-heading;
+        font-weight: bold;
+      }
+
+      .logbook-entry-date {
+        font-size: $small-text;
+      }
+    }
+  }
+}
