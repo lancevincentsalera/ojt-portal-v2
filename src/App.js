@@ -15,6 +15,7 @@ import InternDashboardController from "./Components/Intern/InternDashboard/contr
 import TrainingPlanController from "./Components/Intern/TrainingPlan/controller/TrainingPlanController";
 import SubmissionsController from "./Components/Intern/LogbookSubmissions/controller/SubmissionsController";
 import SubmitLogbookController from "./Components/Intern/SubmitLogbook/controller/SubmitLogbookController";
+import SupervisorDashboardController from "./Components/Supervisor/Dashboard/controller/SupervisorDashboardController";
 
 const App = () => {
   return (
@@ -60,6 +61,10 @@ const App = () => {
               <Route
                 path="/intern-submit"
                 element={<SubmitLogbookController />}
+              />
+              <Route
+                path="/mentor-dashboard"
+                element={<SupervisorDashboardController />}
               />
             </Routes>
           </main>

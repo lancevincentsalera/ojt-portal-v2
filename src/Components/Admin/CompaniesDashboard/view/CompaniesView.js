@@ -1,7 +1,7 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa6";
 import SearchBar from "../../../Common/SearchBar";
-import Pagination from "../../Pagination";
+import Pagination from "../../../Common/Pagination";
 import CompaniesModalController from "../../Modals/Companies/controller/CompaniesModalController";
 
 const CompaniesView = ({

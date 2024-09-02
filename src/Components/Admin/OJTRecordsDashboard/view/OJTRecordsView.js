@@ -1,6 +1,6 @@
 import React from "react";
 import SearchBar from "../../../Common/SearchBar";
-import Pagination from "../../Pagination";
+import Pagination from "../../../Common/Pagination";
 
 const OJTRecordsView = ({
   page,

@@ -18,30 +18,35 @@ const Sidebar = ({ userRole }) => {
     },
     {
       goto: "/intern-entries",
-      name: "Logbook Entries",
+      name: "My Logbooks",
     },
     {
       goto: "/intern-submit",
-      name: "Submit Daily Logbook",
+      name: "Submit Logbook",
     },
   ];
 
   const supervisorLinks = [
     {
-      goto: "/intern-monitoring",
-      name: "Intern Monitoring",
+      goto: "/mentor-dashboard",
+      name: "Dashboard",
     },
     {
-      goto: "/task-monitoring",
-      name: "Task Monitoring",
+      goto: "/mentor-intern-list",
+      name: "Interns",
     },
     {
-      goto: "/submitted-logbook",
-      name: "View Logbook Submissions",
+      goto: "/mentor-evaluations",
+      name: "Evaluations",
     },
     {
-      goto: "/trainee-evaluation",
-      name: "Evaluate Trainee",
+      goto: "/mentor-tp",
+      name: "Training Plans",
+    },
+
+    {
+      goto: "/mentor-submissions",
+      name: "Logbook Submissions",
     },
   ];
 
@@ -101,7 +106,7 @@ const Sidebar = ({ userRole }) => {
         case "ROLE_INSTRUCTOR":
           return instructorLinks;
         default:
-          return studentLinks;
+          return supervisorLinks;
       }
     }
   };

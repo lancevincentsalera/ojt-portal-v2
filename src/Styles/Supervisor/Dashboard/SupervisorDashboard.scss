@@ -1,0 +1,76 @@
+.mentor-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  // small cards
+  .small-cards-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .small-card {
+      background-color: white;
+      padding: $bar-padding;
+      border-radius: 10px;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 115px;
+
+      .small-card-heading {
+        font-size: $sub-heading;
+        font-weight: bold;
+      }
+
+      .small-card-value {
+        font-weight: bolder;
+        font-size: $heading;
+      }
+
+      .value-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+    }
+  }
+
+  // large card section
+  .large-card-container {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: $bar-padding;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    height: 400px;
+    position: relative;
+    gap: 1rem;
+
+    .large-card-heading {
+      font-size: $heading-2;
+      font-weight: bold;
+    }
+
+    .large-card-list {
+      display: flex;
+      flex-direction: column;
+      max-height: 70%;
+      overflow: auto;
+
+      .list-value {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        align-items: center;
+        border-bottom: 1px solid $gray-shade;
+        p {
+          font-size: $sub-heading;
+        }
+      }
+    }
+  }
+}

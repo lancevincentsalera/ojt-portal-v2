@@ -64,47 +64,4 @@
       }
     }
   }
-
-  .pagination {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
-
-    .left-page,
-    .right-page {
-      color: $main-red;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
-    p {
-      font-size: $small-text;
-
-      .page {
-        box-shadow: none;
-        border: none;
-        border-radius: 0px;
-        margin: 0;
-        font-size: 100%;
-        border-bottom: 1px solid $main-red;
-        width: 1.5rem;
-        height: auto;
-        text-align: center;
-
-        &::placeholder {
-          font-size: 100%;
-        }
-      }
-    }
-  }
 }
