@@ -21,7 +21,7 @@ const Sidebar = ({ userRole }) => {
       name: "Logbook Entries",
     },
     {
-      goto: "/logbook",
+      goto: "/intern-submit",
       name: "Submit Daily Logbook",
     },
   ];

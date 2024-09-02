@@ -16,7 +16,8 @@ label {
 }
 
 input,
-select {
+select,
+textarea {
   height: 50px;
   border: 0.8px solid #ececec;
   border-radius: 10px;
@@ -26,8 +27,6 @@ select {
   font-size: $placeholder;
 
   &::placeholder {
-    position: absolute;
-    top: 30%;
     color: $darker-gray;
   }
 
@@ -42,6 +41,11 @@ select {
   &.smaller {
     height: 70%;
     width: 20%;
+  }
+
+  &.large-textarea {
+    height: 210px;
+    width: 100%;
   }
 }
 

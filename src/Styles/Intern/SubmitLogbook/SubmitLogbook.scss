@@ -1,0 +1,10 @@
+.logbook-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+}
