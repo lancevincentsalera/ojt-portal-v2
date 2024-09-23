@@ -1,4 +1,4 @@
-.mentor-dashboard {
+.supervisor-dashboard {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -46,9 +46,9 @@
     padding: $bar-padding;
     border-radius: 10px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-    height: 400px;
+    height: 450px;
     position: relative;
-    gap: 1rem;
+    gap: 0.5rem;
 
     .large-card-heading {
       font-size: $heading-2;
@@ -58,15 +58,15 @@
     .large-card-list {
       display: flex;
       flex-direction: column;
-      max-height: 70%;
-      overflow: auto;
+      gap: 0.5rem;
 
       .list-value {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px 0;
+        display: grid;
+        grid-template-columns: 0.5fr 0.5fr 0.1fr;
         align-items: center;
-        border-bottom: 1px solid $gray-shade;
+        padding: 10px $bar-padding;
+        background-color: $gray-shade;
+        border-radius: 10px;
         p {
           font-size: $sub-heading;
         }

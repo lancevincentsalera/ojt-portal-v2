@@ -28,24 +28,24 @@ const Sidebar = ({ userRole }) => {
 
   const supervisorLinks = [
     {
-      goto: "/mentor-dashboard",
+      goto: "/supervisor-dashboard",
       name: "Dashboard",
     },
     {
-      goto: "/mentor-intern-list",
+      goto: "/supervisor-intern-list",
       name: "Interns",
     },
     {
-      goto: "/mentor-evaluations",
+      goto: "/supervisor-evaluations",
       name: "Evaluations",
     },
     {
-      goto: "/mentor-tp",
+      goto: "/supervisor-tp",
       name: "Training Plans",
     },
 
     {
-      goto: "/mentor-submissions",
+      goto: "/supervisor-submissions",
       name: "Logbook Submissions",
     },
   ];

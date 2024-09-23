@@ -63,7 +63,7 @@ const App = () => {
                 element={<SubmitLogbookController />}
               />
               <Route
-                path="/mentor-dashboard"
+                path="/supervisor-dashboard"
                 element={<SupervisorDashboardController />}
               />
             </Routes>

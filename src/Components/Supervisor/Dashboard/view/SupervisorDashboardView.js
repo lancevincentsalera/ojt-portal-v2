@@ -1,14 +1,13 @@
 import React from "react";
-import SmallsCardsSection from "../SmallCardsSection";
-import InternsAtRisk from "../InternsAtRisk";
-import TopPerformingInterns from "../TopPerformingInterns";
-const SupervisorDashboardView = () => {
+import OverviewSection from "../OverviewSection";
+import RecentLogbookSubmissions from "../RecentLogbookSubmissions";
+
+const SupervisorDashboardView = ({ LogbookSubmissions }) => {
   return (
     <div className="main-dashboard">
-      <div className="mentor-dashboard">
-        <SmallsCardsSection />
-        <InternsAtRisk />
-        <TopPerformingInterns />
+      <div className="supervisor-dashboard">
+        <OverviewSection />
+        <RecentLogbookSubmissions LogbookSubmissions={LogbookSubmissions} />
       </div>
     </div>
   );

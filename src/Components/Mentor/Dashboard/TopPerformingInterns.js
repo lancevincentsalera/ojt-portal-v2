@@ -4,7 +4,7 @@ import Pagination from "../../Common/Pagination";
 const TopPerformingInterns = () => {
   return (
     <div className="large-card-container">
-      <div className="large-card-heading">Most Outstanding Interns</div>
+      <div className="large-card-heading">Ten Most Outstanding Interns</div>
       <div className="large-card-list">
         <div className="list-value">
           <p className="intern-name">Jane Doe</p>
