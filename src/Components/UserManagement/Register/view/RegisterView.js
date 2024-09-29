@@ -2,7 +2,15 @@ import React from "react";
 import StudentContent from "./StudentContent";
 import SupervisorContent from "./SupervisorContent";
 
-const RegisterView = ({ handleUserTypeChange, userType }) => {
+const RegisterView = ({
+  handleUserTypeChange,
+  userType,
+  handleFormChange,
+  handleRegister,
+  handleConfirmPasswordChange,
+  error,
+  loading,
+}) => {
   return (
     <div className="container">
       <div className="register">
@@ -25,7 +33,15 @@ const RegisterView = ({ handleUserTypeChange, userType }) => {
             Supervisor
           </div>
         </div>
-        {userType.student ? <StudentContent /> : <SupervisorContent />}
+        {userType.student ? (
+          <StudentContent
+            handleFormChange={handleFormChange}
+            handleRegister={handleRegister}
+            handleConfirmPasswordChange={handleConfirmPasswordChange}
+          />
+        ) : (
+          <SupervisorContent />
+        )}
         <a href="/">Back to Login</a>
       </div>
     </div>

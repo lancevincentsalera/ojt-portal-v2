@@ -17,6 +17,7 @@ import SubmissionsController from "./Components/Intern/LogbookSubmissions/contro
 import SubmitLogbookController from "./Components/Intern/SubmitLogbook/controller/SubmitLogbookController";
 import SupervisorDashboardController from "./Components/Supervisor/Dashboard/controller/SupervisorDashboardController";
 import InternListController from "./Components/Supervisor/InternList/controller/InternListController";
+import SupervisorEvaluationsController from "./Components/Supervisor/Evaluations/controller/SupervisorEvaluationsController";
 
 const App = () => {
   return (
@@ -70,6 +71,11 @@ const App = () => {
               <Route
                 path="/supervisor-intern-list"
                 element={<InternListController />}
+              />
+
+              <Route
+                path="/supervisor-evaluations"
+                element={<SupervisorEvaluationsController />}
               />
             </Routes>
           </main>
