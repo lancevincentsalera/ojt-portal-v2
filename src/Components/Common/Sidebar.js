@@ -114,15 +114,19 @@ const Sidebar = ({ userRole }) => {
   const [links] = useState(getLinks());
 
   useEffect(() => {
+    // setCurrentPageIndex(
+    //   links.findIndex((link) => link.goto === window.location.pathname)
+    // );
     setCurrentPageIndex(
-      links.findIndex((link) => link.goto === window.location.pathname)
+      studentLinks.findIndex((link) => link.goto === window.location.pathname)
     );
   }, [links]);
 
   return (
     <div className="Sidebar">
       <ul className="clicked-option">
-        {links.map((link, i) => {
+        {/* {links.map((link, i) => { */}
+        {studentLinks.map((link, i) => {
           return (
             <li>
               <Link
