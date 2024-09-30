@@ -1,5 +1,5 @@
 import "./Styles/App.scss";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import { AuthProvider } from "./Components/Common/AuthContext";
 import LoginController from "./Components/UserManagement/Login/controller/LoginController";
 import RegisterController from "./Components/UserManagement/Register/controller/RegisterController";
@@ -19,67 +19,42 @@ import SupervisorDashboardController from "./Components/Supervisor/Dashboard/con
 import InternListController from "./Components/Supervisor/InternList/controller/InternListController";
 import SupervisorEvaluationsController from "./Components/Supervisor/Evaluations/controller/SupervisorEvaluationsController";
 
+const Layout = () => {
+  const location = useLocation();
+  const hideSidebarPaths = ["/", "/register", "/forgot-password", "/activate-account"];
+
+  return (
+    <div className="App">
+      <Header />
+      {!hideSidebarPaths.includes(location.pathname) && <Sidebar />}
+      <main>
+        <Routes>
+          <Route path="/" element={<LoginController />} />
+          <Route path="/register" element={<RegisterController />} />
+          <Route path="/activate-account" element={<ActivateAccountController />} />
+          <Route path="/forgot-password" element={<ForgotPasswordController />} />
+          <Route path="/admin-users" element={<UsersController />} />
+          <Route path="/admin-companies" element={<CompaniesController />} />
+          <Route path="/admin-ojt-records" element={<OJTRecordsController />} />
+          <Route path="/admin-training-plans" element={<TrainingPlansController />} />
+          <Route path="/intern-dashboard" element={<InternDashboardController />} />
+          <Route path="/intern-tp" element={<TrainingPlanController />} />
+          <Route path="/intern-entries" element={<SubmissionsController />} />
+          <Route path="/intern-submit" element={<SubmitLogbookController />} />
+          <Route path="/supervisor-dashboard" element={<SupervisorDashboardController />} />
+          <Route path="/supervisor-intern-list" element={<InternListController />} />
+          <Route path="/supervisor-evaluations" element={<SupervisorEvaluationsController />} />
+        </Routes>
+      </main>
+    </div>
+  );
+};
+
 const App = () => {
   return (
     <AuthProvider>
       <Router>
-        <div className="App">
-          <Header />
-          <Sidebar />
-          <main>
-            <Routes>
-              <Route path="/" element={<LoginController />} />
-              <Route path="/register" element={<RegisterController />} />
-              <Route
-                path="/activate-account"
-                element={<ActivateAccountController />}
-              />
-              <Route
-                path="/forgot-password"
-                element={<ForgotPasswordController />}
-              />
-              <Route path="/admin-users" element={<UsersController />} />
-              <Route
-                path="/admin-companies"
-                element={<CompaniesController />}
-              />
-              <Route
-                path="/admin-ojt-records"
-                element={<OJTRecordsController />}
-              />
-              <Route
-                path="/admin-training-plans"
-                element={<TrainingPlansController />}
-              />
-              <Route
-                path="/intern-dashboard"
-                element={<InternDashboardController />}
-              />
-              <Route path="/intern-tp" element={<TrainingPlanController />} />
-              <Route
-                path="/intern-entries"
-                element={<SubmissionsController />}
-              />
-              <Route
-                path="/intern-submit"
-                element={<SubmitLogbookController />}
-              />
-              <Route
-                path="/supervisor-dashboard"
-                element={<SupervisorDashboardController />}
-              />
-              <Route
-                path="/supervisor-intern-list"
-                element={<InternListController />}
-              />
-
-              <Route
-                path="/supervisor-evaluations"
-                element={<SupervisorEvaluationsController />}
-              />
-            </Routes>
-          </main>
-        </div>
+        <Layout /> 
       </Router>
     </AuthProvider>
   );
