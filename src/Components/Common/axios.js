@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "https://ojtportal.azurewebsites.net/api",
+  baseURL: process.env.REACT_APP_API_BASE_URL,
 });

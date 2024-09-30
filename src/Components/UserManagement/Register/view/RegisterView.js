@@ -10,6 +10,7 @@ const RegisterView = ({
   handleConfirmPasswordChange,
   error,
   loading,
+  degreePrograms
 }) => {
   return (
     <div className="container">
@@ -38,6 +39,9 @@ const RegisterView = ({
             handleFormChange={handleFormChange}
             handleRegister={handleRegister}
             handleConfirmPasswordChange={handleConfirmPasswordChange}
+            error={error}
+            loading={loading}
+            degreePrograms={degreePrograms}
           />
         ) : (
           <SupervisorContent />

@@ -17,6 +17,22 @@
   padding: 5px 0;
 }
 
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 label {
   font-size: $sub-heading;
   font-weight: bold;
@@ -55,6 +71,11 @@ textarea {
     height: 210px;
     width: 100%;
   }
+}
+
+.button-main:disabled {
+  background-color: $disabled-red; 
+  cursor: not-allowed;
 }
 
 .button-main {

@@ -4,6 +4,9 @@ const StudentContent = ({
   handleFormChange,
   handleRegister,
   handleConfirmPasswordChange,
+  error,
+  loading,
+  degreePrograms 
 }) => {
   return (
     <form className="register-content">
@@ -24,13 +27,22 @@ const StudentContent = ({
         />
       </div>
 
-      <input
-        name="degreeProgram"
+      <select
+        name="degreeProgramId" 
         className="program"
-        type="text"
-        placeholder="Degree Program"
         onChange={handleFormChange}
-      />
+        defaultValue="" 
+      >
+        <option value="" disabled>
+          Select Degree Program
+        </option>
+        {degreePrograms.map((program) => (
+          <option key={program.id} value={program.id}> 
+            {program.programName}
+          </option>
+        ))}
+      </select>
+
       <input
         name="studentId"
         className="idNumber"
@@ -59,9 +71,19 @@ const StudentContent = ({
         placeholder="Confirm password"
         onChange={handleConfirmPasswordChange}
       />
-      <button type="submit" className="button-main" onClick={handleRegister}>
-        Register
-      </button>
+
+      {error && <div className="error">{error}</div>}
+
+      {loading ? (
+        <button type="submit" className="button-main" disabled>
+          <div className="spinner"></div>
+          Loading...
+        </button>
+      ) : (
+        <button type="submit" className="button-main" onClick={handleRegister}>
+          Register
+        </button>
+      )}
     </form>
   );
 };
