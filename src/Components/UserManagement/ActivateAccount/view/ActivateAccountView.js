@@ -6,7 +6,7 @@ const ActivateAccountView = ({ handleResendActivationEmail }) => {
   const navigate = useNavigate();
   const { isLoading, error } = useGlobalState();
 
-  const countdownDuration = 1; 
+  const countdownDuration = 120; 
 
   const getRemainingTime = () => {
     const savedTime = localStorage.getItem('activationStartTime');
