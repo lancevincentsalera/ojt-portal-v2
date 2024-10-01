@@ -138,9 +138,8 @@ const RegisterController = () => {
   
       const response = await axios.post(url, payload);
 
-      if(response.statusCode === 422) setAllowPath(true);
-
       if (response.status === 201) {
+        setAllowPath(true);  
         navigate("/activate-account", { state: { email: userData.email } });
       } else {
         setError("Registration failed. Please try again.");

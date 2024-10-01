@@ -41,8 +41,6 @@ const LoginController = ({ view }) => {
       };
 
       const response = await axios.request(config);
-
-      if(response.statusCode === 422) setAllowPath(true);
         
       setAuthUser(userData, response.data); 
       setIsLoggedIn(true); 
@@ -50,6 +48,10 @@ const LoginController = ({ view }) => {
       navigate('/intern-dashboard');
       setIsLoading(false);
     } catch (err) {
+      if(err.response.status === 422) {
+        setAllowPath(true);  
+        navigate('/activate-account', { state: { email: email, login: true } });
+      }
       setIsLoading(false);
       if (err.response && err.response.data && err.response.data.errors) {
         const serverError = err.response.data.errors[0].message;

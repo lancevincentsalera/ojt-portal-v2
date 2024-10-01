@@ -7,7 +7,8 @@ import { useAuth } from "../../../Common/AuthContext";
 
 const ActivateAccountController = () => {
   const { setIsLoading, setError, apiBaseUrl, setAllowPath } = useGlobalState();
-  const email = useLocation.state?.email;
+  const location = useLocation();
+  const { email } = location.state || {};  
 
   const handleResendActivationEmail = async() => {
       setIsLoading(true);
