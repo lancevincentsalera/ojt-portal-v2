@@ -54,6 +54,7 @@ textarea {
   padding: 10px;
   margin-bottom: 0.5rem;
   font-size: $placeholder;
+  display: block;
 
   &::placeholder {
     color: $darker-gray;
@@ -78,11 +79,6 @@ textarea {
   }
 }
 
-.button-main:disabled {
-  background-color: $disabled-red; 
-  cursor: not-allowed;
-}
-
 .button-main {
   height: $button-height;
   background-color: $main-red;
@@ -104,6 +100,16 @@ textarea {
     font-weight: bold;
     font-size: $small-text;
     height: 40px;
+  }
+
+  &:disabled {
+    background-color: $disabled-red; 
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: $disabled-red; 
+      cursor: not-allowed;             
+    }
   }
 }
 

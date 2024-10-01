@@ -15,14 +15,30 @@ const RegisterController = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [degreePrograms, setDegreePrograms] = useState([]);
+  const [teachers, setTeachers] = useState([]);
   const navigate = useNavigate();
+  const [selectedDegreeProgram, setSelectedDegreeProgram] = useState(null); // Corrected typo
 
   const handleUserTypeChange = (stu, sup) => {
     setUserType({ student: stu, supervisor: sup });
   };
 
   const handleFormChange = (e) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    
+    setUserData({ ...userData, [name]: value });
+
+    if (name === "degreeProgramId") {
+      const selectedProgram = degreePrograms.find(
+        (program) => program.id === parseInt(value, 10)
+      );
+      
+      if (selectedProgram) {
+        setSelectedDegreeProgram(selectedProgram.departmentCode);
+      } else {
+        setSelectedDegreeProgram(null); 
+      }
+    }
   };
 
   const handleConfirmPasswordChange = (e) => {
@@ -38,60 +54,67 @@ const RegisterController = () => {
   };
 
   const checkEmptyFields = () => {
-    const emptyFields = Object.keys(userData).filter((key) => {
-      const value = userData[key];
-  
-      if (typeof value === 'object' && value !== null) {
-        return Object.values(value).some(
-          (subValue) => subValue === "" || subValue === 0
-        );
-      }
-  
-      if (typeof value === 'string') {
-        return !value.trim();
-      }
-  
-      if (typeof value === 'number') {
-        return value === 0;
-      }
-  
-      return false;
-    });
-  
-    if (emptyFields.length > 0) {
+    if(!userData.firstName || !userData.lastName || !userData.studentId || !userData.email || !userData.degreeProgramId) {
       setError("Please fill in all required fields.");
-      return false;
+      return false
     }
     return true;
-  };
+  };  
 
   const handleRegister = async (e) => {
     e.preventDefault();
-
+  
     if (!checkEmptyFields() || !confirmPasswordCheck()) {
       return;
     }
-
+  
     setLoading(true);
     setError(null);
     try {
       const endpoint = userType.student ? "/students" : "/mentors";
       const url = `${apiBaseUrl}${endpoint}`;
-
-      const response = await axios.post(url, userData);
-
+  
+      const payload = {
+        newStudent: true,
+        email: userData.email,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        studentId: userData.studentId,
+        degreeProgramId: parseInt(userData.degreeProgramId, 10),
+        designation: userData.designation || null,
+        mentorId: userData.mentorId ? parseInt(userData.mentorId, 10) : 0,
+        teacherId: userData.teacherId ? parseInt(userData.teacherId, 10) : null,
+        division: userData.division || null,
+        startDate: userData.startDate || null,
+        hrsToRender: userData.hrsToRender ? parseInt(userData.hrsToRender, 10) : null,
+        shift: {
+          start: userData.start || null,
+          end: userData.end || null,
+          dailyDutyHrs: userData.dailyDutyHrs ? parseInt(userData.dailyDutyHrs, 10) : null,
+          workingDays: userData.workingDays || null,
+        },
+      };
+  
+      const response = await axios.post(url, payload);
       if (response.status === 200) {
         navigate("/activate-account");
       } else {
         setError("Registration failed. Please try again.");
       }
     } catch (error) {
-      setError("Registration failed. Please try again.");
+      if (error.response && error.response.data && error.response.data.errors) {
+        const serverError = error.response.data.errors[0].message;
+        setError(serverError);  
+      } else {
+        setError("Registration failed. Please try again.");
+      }
       console.error("Error during registration:", error);
     } finally {
       setLoading(false);
     }
   };
+  
+  
 
   const handleGetDegreePrograms = async () => {
     try {
@@ -99,7 +122,6 @@ const RegisterController = () => {
       const response = await axios.get(url);
 
       if (response.status === 200) {
-        // Store the degree programs in state
         setDegreePrograms(response.data);
       } else {
         setError("An error occurred while fetching the degree programs.");
@@ -110,9 +132,32 @@ const RegisterController = () => {
     }
   };
 
+  const handleGetTeachers = async () => {
+    if (!selectedDegreeProgram) return; 
+    try {
+      const url = `${apiBaseUrl}/teachers/departments/${selectedDegreeProgram}`;
+      const response = await axios.get(url);
+
+      if (response.status === 200) {
+        setTeachers(response.data); 
+      } else {
+        setError("An error occurred while fetching the teachers.");
+      }
+    } catch (error) {
+      setError("Error fetching teachers.");
+      console.error("Error fetching teachers:", error);
+    }
+  };
+
   useEffect(() => {
     handleGetDegreePrograms();
   }, []);
+
+  useEffect(() => {
+    if (selectedDegreeProgram) {
+      handleGetTeachers();
+    }
+  }, [selectedDegreeProgram]); 
 
   return (
     <RegisterView
@@ -124,6 +169,7 @@ const RegisterController = () => {
       error={error}
       loading={loading}
       degreePrograms={degreePrograms} 
+      teachers={teachers} 
     />
   );
 };

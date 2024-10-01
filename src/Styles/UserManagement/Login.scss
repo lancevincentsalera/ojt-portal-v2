@@ -39,3 +39,11 @@
     }
   }
 }
+
+label {
+  display: block; /* Ensures the label takes up the full width above the input */
+  font-size: 14px; /* Adjust the font size */
+  font-weight: bold; /* Make the label bold */
+  margin-bottom: 5px; /* Adds space between the label and the input */
+  color: #333; /* Color for the label text */
+}

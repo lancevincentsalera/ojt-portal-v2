@@ -7,6 +7,7 @@ const LoginController = ({ view }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();   
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
 
@@ -15,14 +16,17 @@ const LoginController = ({ view }) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
+    setIsLoading(true);
     try {
       setError(null); 
       const userData = await LoginModel.login(email, password); 
       console.log("Login successful", userData); 
       navigate('/intern-dashboard'); 
+      setIsLoading(false);
     } catch (err) {
-      setError("Login failed. Please check your credentials."); 
+      setIsLoading(false);
+      const serverError = err.response.data.errors[0].message;
+      setError(serverError);      
     }
   };
 
@@ -36,6 +40,7 @@ const LoginController = ({ view }) => {
       handleLogin={handleLogin}
       showForgotPasswordModal={showForgotPasswordModal}
       handleModalAction={handleModalAction}
+      isLoading={isLoading}
     />
   );
 };

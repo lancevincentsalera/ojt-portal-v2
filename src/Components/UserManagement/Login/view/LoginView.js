@@ -11,6 +11,7 @@ const Login = ({
   handleLogin,
   showForgotPasswordModal,
   handleModalAction,
+  isLoading
 }) => {
   return (
     <>
@@ -46,9 +47,19 @@ const Login = ({
               onChange={(e) => setPassword(e.target.value)}
             />
             {error && <div className="error">{error}</div>} 
-            <button type="submit" className="button-main">
-              Login
-            </button>
+
+            {
+              isLoading ? (
+                <button type="submit" className="button-main" disabled>
+                  Loading...
+                </button>
+              ) : (
+                <button type="submit" className="button-main">
+                  Login
+                </button>
+              )
+            }
+            
           </form>
           <div className="login-footer">
             <p onClick={handleModalAction}>Forgot Password?</p>
