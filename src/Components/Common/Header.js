@@ -5,8 +5,6 @@ import { useAuth } from "./AuthContext";
 const Header = () => {
   const { userInfo } = useAuth();
 
-  console.log(userInfo);
-
   return (
     <header className="Header">
       <div className="header-title">
@@ -14,10 +12,13 @@ const Header = () => {
         &ensp;
         <span>OJT Management Portal</span>
       </div>
-      <div className="header-user">
-        <span className="user-name">{userInfo.user.firstName} {userInfo.user.lastName}</span>
-        <FaUserCircle size={20} />
-      </div>
+      {
+        userInfo &&
+        <div className="header-user">
+          <span className="user-name">{userInfo.user.firstName} {userInfo.user.lastName}</span>
+          <FaUserCircle size={20} />
+        </div>
+      }
     </header>
   );
 };
