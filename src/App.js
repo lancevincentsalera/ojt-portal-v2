@@ -26,9 +26,8 @@ const ProtectedRoute = ({ children }) => {
   const { setAllowPath } = useGlobalState();
 
   if (!authUser || !isLoggedIn) {
-    return <Navigate to="/" />;
-  } else {
     setAllowPath(false); 
+    return <Navigate to="/" />;
   }
 
   return children ? children : <Outlet />;
