@@ -6,13 +6,14 @@ import axios from "axios";
 import { useAuth } from "../../../Common/AuthContext";
 
 const ActivateAccountController = () => {
-  const { setIsLoading, setError, apiBaseUrl } = useGlobalState();
+  const { setIsLoading, setError, apiBaseUrl, setAllowPath } = useGlobalState();
   const email = useLocation.state?.email;
 
   const handleResendActivationEmail = async() => {
       setIsLoading(true);
       try {
         await axios.get(`${apiBaseUrl}/users/resend/activation`, {email})
+        setAllowPath(false);
       } catch(error) {
         setError(error);
       } finally {

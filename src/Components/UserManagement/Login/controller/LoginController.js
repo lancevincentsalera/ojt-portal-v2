@@ -4,6 +4,7 @@ import LoginModel from "../model/LoginModel";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../../../Common/AuthContext";
 import axios from "axios";
+import { useGlobalState } from "../../../Globals/variables";
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -14,7 +15,7 @@ const LoginController = ({ view }) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();   
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
-
+  const { setAllowPath } = useGlobalState();
   const { setAuthUser, setIsLoggedIn } = useAuth();
 
 
@@ -41,6 +42,8 @@ const LoginController = ({ view }) => {
 
       const response = await axios.request(config);
 
+      if(response.statusCode === 422) setAllowPath(true);
+        
       setAuthUser(userData, response.data); 
       setIsLoggedIn(true); 
 

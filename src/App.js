@@ -18,13 +18,22 @@ import SubmitLogbookController from "./Components/Intern/SubmitLogbook/controlle
 import SupervisorDashboardController from "./Components/Supervisor/Dashboard/controller/SupervisorDashboardController";
 import InternListController from "./Components/Supervisor/InternList/controller/InternListController";
 import SupervisorEvaluationsController from "./Components/Supervisor/Evaluations/controller/SupervisorEvaluationsController";
-import { GlobalStateProvider } from "./Components/Globals/variables";
+import { GlobalStateProvider, useGlobalState } from "./Components/Globals/variables";
 import NotFound from "./Components/Common/NotFound";
 
 const ProtectedRoute = ({ children }) => {
   const { authUser, isLoggedIn } = useAuth();
   if (!authUser || !isLoggedIn) {
     return <Navigate to="/" />;
+  }
+  return children ? children : <Outlet />;
+};
+
+const ConditionalRoute = ({ children }) => {
+  const { allowPath } = useGlobalState(); 
+
+  if (!allowPath) {
+    return <NotFound />; 
   }
   return children ? children : <Outlet />;
 };
@@ -52,8 +61,16 @@ const App = () => {
           <Routes>
             <Route path="/" element={<LoginController />} />
             <Route path="/register" element={<RegisterController />} />
-            <Route path="/activate-account" element={<ActivateAccountController />} />
             <Route path="/forgot-password" element={<ForgotPasswordController />} />
+
+            <Route
+              path="/activate-account"
+              element={
+                <ConditionalRoute>
+                  <ActivateAccountController />
+                </ConditionalRoute>
+              }
+            />
 
             <Route element={<Layout />}>
               <Route element={<ProtectedRoute />}>

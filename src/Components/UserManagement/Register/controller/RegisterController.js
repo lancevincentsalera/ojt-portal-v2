@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { StudentModel } from "../model/RegisterModel";
 import { useAuth } from "../../../Common/AuthContext";
+import { useGlobalState } from "../../../Globals/variables";
 
 const RegisterController = () => {
   const [userType, setUserType] = useState({
@@ -19,7 +20,8 @@ const RegisterController = () => {
   const [teachers, setTeachers] = useState([]);
   const navigate = useNavigate();
   const [selectedDegreeProgram, setSelectedDegreeProgram] = useState(null); 
-  
+  const { setAllowPath } = useGlobalState();
+
   const handleUserTypeChange = (stu, sup) => {
     setUserType({ student: stu, supervisor: sup });
   };
@@ -135,6 +137,9 @@ const RegisterController = () => {
           };
   
       const response = await axios.post(url, payload);
+
+      if(response.statusCode === 422) setAllowPath(true);
+
       if (response.status === 201) {
         navigate("/activate-account", { state: { email: userData.email } });
       } else {

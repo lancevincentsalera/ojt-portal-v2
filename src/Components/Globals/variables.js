@@ -7,9 +7,9 @@ export const GlobalStateProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-
+  const [allowPath, setAllowPath] = useState(false);
   return (
-    <GlobalStateContext.Provider value={{ isLoading, setIsLoading, error, setError, success, setSuccess, apiBaseUrl }}>
+    <GlobalStateContext.Provider value={{ isLoading, setIsLoading, error, setError, success, setSuccess, apiBaseUrl, allowPath, setAllowPath }}>
       {children}
     </GlobalStateContext.Provider>
   );
