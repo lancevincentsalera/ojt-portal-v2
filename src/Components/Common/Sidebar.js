@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = ({ userRole }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const { authUser, handleLogout } = useAuth();
+  const { isLoggedIn, handleLogout, userInfo } = useAuth();
   const studentLinks = [
     {
       goto: "/intern-dashboard",
@@ -93,17 +93,17 @@ const Sidebar = ({ userRole }) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getLinks = () => {
-    if (authUser) {
-      switch (authUser.accountType) {
-        case "ROLE_STUDENT":
+    if (isLoggedIn) {
+      switch (userInfo.userType) {
+        case "Student":
           return studentLinks;
-        case "ROLE_SUPERVISOR":
+        case "Mentor":
           return supervisorLinks;
-        case "ROLE_CHAIR":
+        case "Chair":
           return deanLinks;
-        case "ROLE_ADMIN":
+        case "Admin":
           return adminLinks;
-        case "ROLE_INSTRUCTOR":
+        case "Teacher":
           return instructorLinks;
         default:
           return supervisorLinks;
@@ -114,19 +114,19 @@ const Sidebar = ({ userRole }) => {
   const [links] = useState(getLinks());
 
   useEffect(() => {
-    // setCurrentPageIndex(
-    //   links.findIndex((link) => link.goto === window.location.pathname)
-    // );
     setCurrentPageIndex(
-      studentLinks.findIndex((link) => link.goto === window.location.pathname)
+      links.findIndex((link) => link.goto === window.location.pathname)
     );
+    // setCurrentPageIndex(
+    //   studentLinks.findIndex((link) => link.goto === window.location.pathname)
+    // );
   }, [links]);
 
   return (
     <div className="Sidebar">
       <ul className="clicked-option">
-        {/* {links.map((link, i) => { */}
-        {studentLinks.map((link, i) => {
+        {links.map((link, i) => {
+        {/* {studentLinks.map((link, i) => { */}
           return (
             <li>
               <Link
