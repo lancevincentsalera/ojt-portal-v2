@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useMemo } from "react";
 import ActivateAccountView from "../view/ActivateAccountView";
 import { useGlobalState } from "../../../Globals/variables";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../../../Common/AuthContext";
 
 const ActivateAccountController = () => {
   const { setIsLoading, setError, apiBaseUrl } = useGlobalState();
   const email = useLocation.state?.email;
+  const { handleLogout, isLoggedIn } = useAuth();
+
+  useMemo(() => {
+    if(isLoggedIn)
+      handleLogout();
+  }, [])
 
   const handleResendActivationEmail = async() => {
       setIsLoading(true);

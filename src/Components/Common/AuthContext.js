@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import Cookies from "js-cookie"; // Import the js-cookie library
 
 const AuthContext = React.createContext();
 
@@ -8,40 +9,43 @@ export function useAuth() {
 
 export function AuthProvider(props) {
   const [authUser, setAuthUserState] = useState(() => {
-    const savedAuthUser = localStorage.getItem("authUser");
+    const savedAuthUser = Cookies.get("authUser");
     return savedAuthUser ? JSON.parse(savedAuthUser) : null;
   });
 
   const [userInfo, setUserInfoState] = useState(() => {
-    const savedUserInfo = localStorage.getItem("userInfo");
+    const savedUserInfo = Cookies.get("userInfo");
     return savedUserInfo ? JSON.parse(savedUserInfo) : null;
   });
 
   const [isLoggedIn, setIsLoggedInState] = useState(() => {
-    const savedLoginState = localStorage.getItem("isLoggedIn");
-    return JSON.parse(savedLoginState);
+    const savedLoginState = Cookies.get("isLoggedIn");
+    return savedLoginState === "true"; 
   });
 
   const setAuthUser = (tokenData, userData) => {
-    localStorage.setItem("authUser", JSON.stringify(tokenData)); 
-    localStorage.setItem("userInfo", JSON.stringify(userData)); 
-    setAuthUserState(tokenData); 
-    setUserInfoState(userData); 
+    Cookies.set("authUser", JSON.stringify(tokenData), { expires: 7 }); 
+    Cookies.set("userInfo", JSON.stringify(userData), { expires: 7 });
+
+    setAuthUserState(tokenData);
+    setUserInfoState(userData);
   };
 
   const setIsLoggedIn = (loggedIn) => {
-    localStorage.setItem("isLoggedIn", loggedIn);
+    Cookies.set("isLoggedIn", loggedIn ? "true" : "false", { expires: 7 });
+    
     setIsLoggedInState(loggedIn);
   };
 
   const handleLogout = (e) => {
     e.preventDefault();
-    setIsLoggedIn(null);
+    setIsLoggedIn(false);
     setAuthUserState(null);
     setUserInfoState(null);
-    localStorage.removeItem("authUser");
-    localStorage.removeItem("userInfo");
-    localStorage.removeItem("isLoggedIn");
+
+    Cookies.remove("authUser");
+    Cookies.remove("userInfo");
+    Cookies.remove("isLoggedIn");
   };
 
   const value = {

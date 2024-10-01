@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import RegisterView from "../view/RegisterView";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { StudentModel } from "../model/RegisterModel";
+import { useAuth } from "../../../Common/AuthContext";
 
 const RegisterController = () => {
   const [userType, setUserType] = useState({
@@ -18,6 +19,12 @@ const RegisterController = () => {
   const [teachers, setTeachers] = useState([]);
   const navigate = useNavigate();
   const [selectedDegreeProgram, setSelectedDegreeProgram] = useState(null); 
+  const { handleLogout, isLoggedIn } = useAuth();
+
+  useMemo(() => {
+    if(isLoggedIn)
+      handleLogout();
+  }, [])
   
   const handleUserTypeChange = (stu, sup) => {
     setUserType({ student: stu, supervisor: sup });

@@ -36,7 +36,7 @@ const Layout = () => {
           <Route path="/activate-account" element={<ActivateAccountController />} />
           <Route path="/forgot-password" element={<ForgotPasswordController />} />
           
-          {authUser && isLoggedIn && (
+          {authUser && isLoggedIn ? (
             <>
               <Route path="/admin-users" element={<UsersController />} />
               <Route path="/admin-companies" element={<CompaniesController />} />
@@ -50,6 +50,8 @@ const Layout = () => {
               <Route path="/supervisor-intern-list" element={<InternListController />} />
               <Route path="/supervisor-evaluations" element={<SupervisorEvaluationsController />} />
             </>
+          ) : (
+            <Route path="*" element={<h1>Invalid Credentials</h1>} />
           )}
         </Routes>
       </main>

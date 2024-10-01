@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo , useState } from "react";
 import LoginView from "../view/LoginView";
 import LoginModel from "../model/LoginModel"; 
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,13 @@ const LoginController = ({ view }) => {
   const navigate = useNavigate();   
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
 
-  const { setAuthUser, setIsLoggedIn } = useAuth();
+  const { setAuthUser, setIsLoggedIn, isLoggedIn, handleLogout } = useAuth();
+
+
+  useMemo(() => {
+    if(isLoggedIn)
+      handleLogout();
+  }, [])
 
   const handleModalAction = () =>
     setShowForgotPasswordModal(!showForgotPasswordModal);

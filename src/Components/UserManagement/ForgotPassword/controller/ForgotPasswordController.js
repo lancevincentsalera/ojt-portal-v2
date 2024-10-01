@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import ForgotPasswordView from "../view/ForgotPasswordView";
 import { ForgotPasswordModel } from "../model/ForgotPasswordModel";
 import axios from "axios";
 import { useGlobalState } from "../../../Globals/variables";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../../Common/AuthContext";
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -12,6 +13,12 @@ const ForgotPasswordController = () => {
   const { setIsLoading, setError, setSuccess } = useGlobalState();
   const email = useLocation().state?.email;
   const navigate = useNavigate();
+  const {handleLogout,isLoggedIn } = useAuth();
+
+  useMemo(() => {
+    if(isLoggedIn)
+      handleLogout();
+  }, [])
 
   useEffect(() => {
     if (formData.success) {
