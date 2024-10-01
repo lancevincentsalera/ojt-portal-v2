@@ -18,6 +18,7 @@ import SubmitLogbookController from "./Components/Intern/SubmitLogbook/controlle
 import SupervisorDashboardController from "./Components/Supervisor/Dashboard/controller/SupervisorDashboardController";
 import InternListController from "./Components/Supervisor/InternList/controller/InternListController";
 import SupervisorEvaluationsController from "./Components/Supervisor/Evaluations/controller/SupervisorEvaluationsController";
+import { GlobalStateProvider } from "./Components/Globals/variables";
 
 const Layout = () => {
   const location = useLocation();
@@ -54,7 +55,9 @@ const App = () => {
   return (
     <AuthProvider>
       <Router>
-        <Layout /> 
+        <GlobalStateProvider>
+          <Layout /> 
+        </GlobalStateProvider>
       </Router>
     </AuthProvider>
   );
