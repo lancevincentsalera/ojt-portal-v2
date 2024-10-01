@@ -17,8 +17,8 @@ const RegisterController = () => {
   const [degreePrograms, setDegreePrograms] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const navigate = useNavigate();
-  const [selectedDegreeProgram, setSelectedDegreeProgram] = useState(null); // Corrected typo
-
+  const [selectedDegreeProgram, setSelectedDegreeProgram] = useState(null); 
+  
   const handleUserTypeChange = (stu, sup) => {
     setUserType({ student: stu, supervisor: sup });
   };
@@ -54,12 +54,29 @@ const RegisterController = () => {
   };
 
   const checkEmptyFields = () => {
-    if(!userData.firstName || !userData.lastName || !userData.studentId || !userData.email || !userData.degreeProgramId) {
-      setError("Please fill in all required fields.");
-      return false
+    if (userType.student && (!userData.firstName || !userData.lastName || !userData.studentId || !userData.email || !userData.degreeProgramId)) {
+      setError("Please fill in all required fields for the student.");
+      return false;
+    } else if (userType.supervisor && (
+      !userData.firstName ||
+      !userData.lastName ||
+      !userData.email ||
+      !userData.companyName ||
+      !userData.department ||
+      !userData.designation ||
+      !userData.contactNo ||
+      !userData.contactEmail ||
+      !userData.street ||
+      !userData.city ||
+      !userData.state ||
+      !userData.country
+    )) {
+      setError("Please fill in all required fields for the supervisor.");
+      return false;    
     }
     return true;
-  };  
+  };
+  
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -74,27 +91,47 @@ const RegisterController = () => {
       const endpoint = userType.student ? "/students" : "/mentors";
       const url = `${apiBaseUrl}${endpoint}`;
   
-      const payload = {
-        newStudent: true,
-        email: userData.email,
-        password: userData.password,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        studentId: userData.studentId,
-        degreeProgramId: parseInt(userData.degreeProgramId, 10),
-        designation: userData.designation || null,
-        mentorId: userData.mentorId ? parseInt(userData.mentorId, 10) : null,
-        teacherId: userData.teacherId ? parseInt(userData.teacherId, 10) : null,
-        division: userData.division || null,
-        startDate: userData.startDate || null,
-        hrsToRender: userData.hrsToRender ? parseInt(userData.hrsToRender, 10) : null,
-        shift: {
-          start: userData.start || null,
-          end: userData.end || null,
-          dailyDutyHrs: userData.dailyDutyHrs ? parseInt(userData.dailyDutyHrs, 10) : null,
-          workingDays: userData.workingDays || null,
-        },
-      };
+      const payload = userType.student
+        ? {
+            newStudent: true,
+            email: userData.email,
+            password: userData.password,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            studentId: userData.studentId,
+            degreeProgramId: parseInt(userData.degreeProgramId, 10),
+            designation: userData.designation || null,
+            mentorId: userData.mentorId ? parseInt(userData.mentorId, 10) : null,
+            teacherId: userData.teacherId ? parseInt(userData.teacherId, 10) : null,
+            division: userData.division || null,
+            startDate: userData.startDate || null,
+            hrsToRender: userData.hrsToRender ? parseInt(userData.hrsToRender, 10) : null,
+            shift: {
+              start: userData.start || null,
+              end: userData.end || null,
+              dailyDutyHrs: userData.dailyDutyHrs ? parseInt(userData.dailyDutyHrs, 10) : null,
+              workingDays: userData.workingDays || null,
+            },
+          }
+        : {
+            email: userData.email,
+            password: userData.password,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            company: {
+              companyName: userData.companyName,
+              contactNo: userData.companyContactNo,
+              contactEmail: userData.companyContactEmail,
+              address: {
+                street: userData.companyAddressStreet,
+                city: userData.companyAddressCity,
+                state: userData.companyAddressState,
+                country: userData.companyAddressCountry,
+              },
+            },
+            department: userData.department,
+            designation: userData.designation,
+          };
   
       const response = await axios.post(url, payload);
       if (response.status === 201) {
@@ -105,7 +142,7 @@ const RegisterController = () => {
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
         const serverError = error.response.data.errors[0].message;
-        setError(serverError);  
+        setError(serverError);
       } else {
         setError("Registration failed. Please try again.");
       }
@@ -115,8 +152,6 @@ const RegisterController = () => {
     }
   };
   
-  
-
   const handleGetDegreePrograms = async () => {
     try {
       const url = `${apiBaseUrl}/degree-programs`;

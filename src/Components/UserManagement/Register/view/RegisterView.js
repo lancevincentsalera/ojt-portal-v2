@@ -46,7 +46,13 @@ const RegisterView = ({
             teachers={teachers}
           />
         ) : (
-          <SupervisorContent />
+          <SupervisorContent 
+            error={error}
+            loading={loading}
+            handleRegister={handleRegister}
+            handleFormChange={handleFormChange}
+            handleConfirmPasswordChange={handleConfirmPasswordChange}
+          />
         )}
         <a href="/">Back to Login</a>
       </div>
