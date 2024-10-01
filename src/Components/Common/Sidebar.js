@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = ({ userRole }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const { authUser } = useAuth();
+  const { authUser, handleLogout } = useAuth();
   const studentLinks = [
     {
       goto: "/intern-dashboard",
@@ -141,7 +141,7 @@ const Sidebar = ({ userRole }) => {
           );
         })}
         <li>
-          <Link to="/" className="logout">
+          <Link to="/" className="logout" onClick={handleLogout}>
             <FontAwesomeIcon
               icon={faRightFromBracket}
               style={{ fontSize: "20" }}
