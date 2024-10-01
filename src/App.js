@@ -23,9 +23,14 @@ import NotFound from "./Components/Common/NotFound";
 
 const ProtectedRoute = ({ children }) => {
   const { authUser, isLoggedIn } = useAuth();
+  const { setAllowPath } = useGlobalState();
+
   if (!authUser || !isLoggedIn) {
     return <Navigate to="/" />;
+  } else {
+    setAllowPath(false); 
   }
+
   return children ? children : <Outlet />;
 };
 
