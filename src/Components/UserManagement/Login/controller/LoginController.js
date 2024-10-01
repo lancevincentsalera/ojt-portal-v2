@@ -15,13 +15,8 @@ const LoginController = ({ view }) => {
   const navigate = useNavigate();   
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
 
-  const { setAuthUser, setIsLoggedIn, isLoggedIn, handleLogout } = useAuth();
+  const { setAuthUser, setIsLoggedIn } = useAuth();
 
-
-  useMemo(() => {
-    if(isLoggedIn)
-      handleLogout();
-  }, [])
 
   const handleModalAction = () =>
     setShowForgotPasswordModal(!showForgotPasswordModal);

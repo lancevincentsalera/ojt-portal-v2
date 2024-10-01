@@ -13,12 +13,6 @@ const ForgotPasswordController = () => {
   const { setIsLoading, setError, setSuccess } = useGlobalState();
   const email = useLocation().state?.email;
   const navigate = useNavigate();
-  const {handleLogout,isLoggedIn } = useAuth();
-
-  useMemo(() => {
-    if(isLoggedIn)
-      handleLogout();
-  }, [])
 
   useEffect(() => {
     if (formData.success) {

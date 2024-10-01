@@ -19,12 +19,6 @@ const RegisterController = () => {
   const [teachers, setTeachers] = useState([]);
   const navigate = useNavigate();
   const [selectedDegreeProgram, setSelectedDegreeProgram] = useState(null); 
-  const { handleLogout, isLoggedIn } = useAuth();
-
-  useMemo(() => {
-    if(isLoggedIn)
-      handleLogout();
-  }, [])
   
   const handleUserTypeChange = (stu, sup) => {
     setUserType({ student: stu, supervisor: sup });

@@ -1,5 +1,5 @@
 import "./Styles/App.scss";
-import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from "react-router-dom";
 import { AuthProvider, useAuth } from "./Components/Common/AuthContext";
 import LoginController from "./Components/UserManagement/Login/controller/LoginController";
 import RegisterController from "./Components/UserManagement/Register/controller/RegisterController";
@@ -31,11 +31,31 @@ const Layout = () => {
       {!hideSidebarPaths.includes(location.pathname) && <Sidebar />}
       <main>
         <Routes>
-          <Route path="/" element={<LoginController />} />
-          <Route path="/register" element={<RegisterController />} />
-          <Route path="/activate-account" element={<ActivateAccountController />} />
-          <Route path="/forgot-password" element={<ForgotPasswordController />} />
-          
+          <Route
+            path="/"
+            element={
+              isLoggedIn ? <Navigate to="/dashboard" /> : <LoginController />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              isLoggedIn ? <Navigate to="/dashboard" /> : <RegisterController />
+            }
+          />
+          <Route
+            path="/activate-account"
+            element={
+              isLoggedIn ? <Navigate to="/dashboard" /> : <ActivateAccountController />
+            }
+          />
+          <Route
+            path="/forgot-password"
+            element={
+              isLoggedIn ? <Navigate to="/dashboard" /> : <ForgotPasswordController />
+            }
+          />
+
           {authUser && isLoggedIn ? (
             <>
               <Route path="/admin-users" element={<UsersController />} />
