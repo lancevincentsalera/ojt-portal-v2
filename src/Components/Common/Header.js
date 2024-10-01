@@ -15,7 +15,13 @@ const Header = () => {
       {
         userInfo &&
         <div className="header-user">
-          <span className="user-name">{userInfo.user.firstName} {userInfo.user.lastName}</span>
+          {
+            userInfo.userType === "Admin" ? (
+              <span className="user-name">{userInfo.firstName} {userInfo.lastName}</span>
+            ) : (
+              <span className="user-name">{userInfo.user.firstName} {userInfo.user.lastName}</span>
+            )
+          }
           <FaUserCircle size={20} />
         </div>
       }
