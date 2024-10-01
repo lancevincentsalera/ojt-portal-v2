@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import LoginView from "../view/LoginView";
 import LoginModel from "../model/LoginModel"; 
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../../../Common/AuthContext";
+import axios from "axios";
+
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const LoginController = ({ view }) => {
   const [email, setEmail] = useState("");
@@ -11,6 +15,8 @@ const LoginController = ({ view }) => {
   const navigate = useNavigate();   
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
 
+  const { setAuthUser, setIsLoggedIn } = useAuth();
+
   const handleModalAction = () =>
     setShowForgotPasswordModal(!showForgotPasswordModal);
 
@@ -18,15 +24,36 @@ const LoginController = ({ view }) => {
     event.preventDefault();
     setIsLoading(true);
     try {
-      setError(null); 
-      const userData = await LoginModel.login(email, password); 
-      console.log("Login successful", userData); 
-      navigate('/intern-dashboard'); 
+      setError(null);
+      
+      const userData = await LoginModel.login(email, password);
+
+      const config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `${apiBaseUrl}/users/info`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${userData.tokenType} ${userData.accessToken}`, 
+        },
+      };
+
+      const response = await axios.request(config);
+
+      setAuthUser(userData, response.data); 
+      setIsLoggedIn(true); 
+
+      navigate('/intern-dashboard');
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
-      const serverError = err.response.data.errors[0].message;
-      setError(serverError);      
+      if (err.response && err.response.data && err.response.data.errors) {
+        const serverError = err.response.data.errors[0].message;
+        setError(serverError);
+      } else {
+        setError("Login failed. Please try again.");
+      }
+      console.error("Error during login:", err);
     }
   };
 

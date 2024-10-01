@@ -77,12 +77,13 @@ const RegisterController = () => {
       const payload = {
         newStudent: true,
         email: userData.email,
+        password: userData.password,
         firstName: userData.firstName,
         lastName: userData.lastName,
         studentId: userData.studentId,
         degreeProgramId: parseInt(userData.degreeProgramId, 10),
         designation: userData.designation || null,
-        mentorId: userData.mentorId ? parseInt(userData.mentorId, 10) : 0,
+        mentorId: userData.mentorId ? parseInt(userData.mentorId, 10) : null,
         teacherId: userData.teacherId ? parseInt(userData.teacherId, 10) : null,
         division: userData.division || null,
         startDate: userData.startDate || null,
@@ -96,7 +97,7 @@ const RegisterController = () => {
       };
   
       const response = await axios.post(url, payload);
-      if (response.status === 200) {
+      if (response.status === 201) {
         navigate("/activate-account");
       } else {
         setError("Registration failed. Please try again.");

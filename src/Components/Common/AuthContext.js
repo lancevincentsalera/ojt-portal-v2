@@ -11,14 +11,22 @@ export function AuthProvider(props) {
     const savedAuthUser = localStorage.getItem("authUser");
     return savedAuthUser ? JSON.parse(savedAuthUser) : null;
   });
+
+  const [userInfo, setUserInfoState] = useState(() => {
+    const savedUserInfo = localStorage.getItem("userInfo");
+    return savedUserInfo ? JSON.parse(savedUserInfo) : null;
+  });
+
   const [isLoggedIn, setIsLoggedInState] = useState(() => {
     const savedLoginState = localStorage.getItem("isLoggedIn");
     return JSON.parse(savedLoginState);
   });
 
-  const setAuthUser = (userData) => {
-    localStorage.setItem("authUser", JSON.stringify(userData));
-    setAuthUserState(userData);
+  const setAuthUser = (tokenData, userData) => {
+    localStorage.setItem("authUser", JSON.stringify(tokenData)); 
+    localStorage.setItem("userInfo", JSON.stringify(userData)); 
+    setAuthUserState(tokenData); 
+    setUserInfoState(userData); 
   };
 
   const setIsLoggedIn = (loggedIn) => {
@@ -29,11 +37,16 @@ export function AuthProvider(props) {
   const handleLogout = (e) => {
     e.preventDefault();
     setIsLoggedIn(null);
-    setAuthUser(null);
+    setAuthUserState(null);
+    setUserInfoState(null);
+    localStorage.removeItem("authUser");
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("isLoggedIn");
   };
 
   const value = {
-    authUser,
+    authUser,   
+    userInfo,   
     setAuthUser,
     isLoggedIn,
     setIsLoggedIn,
@@ -41,6 +54,8 @@ export function AuthProvider(props) {
   };
 
   return (
-    <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
+    <AuthContext.Provider value={value}>
+      {props.children}
+    </AuthContext.Provider>
   );
 }

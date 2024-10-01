@@ -1,4 +1,5 @@
 .activate {
+  text-align: center; 
   margin: $main-padding;
 
   .heading {
@@ -11,10 +12,12 @@
     margin-bottom: 1rem;
     max-width: 400px;
     line-height: 1.5;
+    margin: 0 auto; 
   }
 
   .activate-content {
     display: flex;
     flex-direction: column;
+    align-items: center; 
   }
 }

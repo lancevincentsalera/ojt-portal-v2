@@ -1,7 +1,10 @@
 import React from "react";
 import ViewDashboardTasksController from "../../Modals/InternDashboard/controller/ViewDashboardTasksController";
+import { useAuth } from "../../../Common/AuthContext";
 
 const InternDashboardView = ({ showModal, handleModalAction }) => {
+  const { authUser } = useAuth();
+  console.log(authUser);
   return (
     <>
       {showModal && (
