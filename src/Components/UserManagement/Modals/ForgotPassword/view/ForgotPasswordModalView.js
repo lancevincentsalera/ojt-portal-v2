@@ -1,6 +1,14 @@
 import React from "react";
 
-const ForgotPasswordModalView = ({ showModal, handleModalAction }) => {
+const ForgotPasswordModalView = ({
+  showModal,
+  handleModalAction,
+  handleSubmit,
+  email,
+  handleEmailChange,
+  error,
+  isLoading
+}) => {
   return (
     <>
       <div className="modal-overlay" onClick={handleModalAction}></div>
@@ -16,14 +24,18 @@ const ForgotPasswordModalView = ({ showModal, handleModalAction }) => {
             Enter your email address and we will send you a code to reset your
             password.
           </p>
-          <form className="modal-form">
+          <form className="modal-form" onSubmit={handleSubmit}>
             <label htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
               name="email"
               placeholder="Enter your email"
+              value={email}
+              onChange={handleEmailChange}
+              required
             />
+            {error && <p className="error">{error}</p>}
             <div className="button-group">
               <button
                 type="button"
@@ -32,9 +44,17 @@ const ForgotPasswordModalView = ({ showModal, handleModalAction }) => {
               >
                 Cancel
               </button>
-              <button type="submit" className="button-main">
-                Confirm
-              </button>
+              {
+                isLoading ? (
+                  <button type="submit" className="button-main" disabled>
+                    Loading...
+                  </button>
+                ) : (
+                  <button type="submit" className="button-main">
+                    Login
+                  </button>
+                )
+              }
             </div>
           </form>
         </div>
