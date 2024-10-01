@@ -49,6 +49,10 @@ const RegisterController = () => {
   };
 
   const confirmPasswordCheck = () => {
+    if (!userData.password || !confirmPassword) {
+      return true; 
+    }
+
     if (userData.password !== confirmPassword) {
       setError("Passwords do not match");
       return false;
@@ -98,22 +102,22 @@ const RegisterController = () => {
         ? {
             newStudent: true,
             email: userData.email,
-            password: userData.password,
+            password: userData.password ? (userData.password) : (null),
             firstName: userData.firstName,
             lastName: userData.lastName,
             studentId: userData.studentId,
             degreeProgramId: parseInt(userData.degreeProgramId, 10),
-            designation: userData.designation || null,
+            designation: userData.designation,
             mentorId: userData.mentorId ? parseInt(userData.mentorId, 10) : null,
             teacherId: userData.teacherId ? parseInt(userData.teacherId, 10) : null,
-            division: userData.division || null,
+            division: userData.division,
             startDate: userData.startDate || null,
-            hrsToRender: userData.hrsToRender ? parseInt(userData.hrsToRender, 10) : null,
+            hrsToRender: parseInt(userData.hrsToRender, 10),
             shift: {
               start: userData.start || null,
               end: userData.end || null,
-              dailyDutyHrs: userData.dailyDutyHrs ? parseInt(userData.dailyDutyHrs, 10) : null,
-              workingDays: userData.workingDays || null,
+              dailyDutyHrs: userData.dailyDutyHrs ? (parseInt(userData.dailyDutyHrs, 10)) : 0,
+              workingDays: userData.workingDays ? (userData.workingDays) : ("WeekdaysOnly"),
             },
           }
         : {

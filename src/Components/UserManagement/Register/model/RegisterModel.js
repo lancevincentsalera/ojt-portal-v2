@@ -1,21 +1,21 @@
 import { getCurrentDate } from "../../../../Functions/common";
 
 export const StudentModel = {
-    email: "",
-    firstName: "",
-    lastName: "",
-    password: "",
-    studentId: "",
-    degreeProgramId: 0, 
+    email: null,
+    firstName: null,
+    lastName: null,
+    password: null,
+    studentId: null,
+    degreeProgramId: null, 
     designation: "",
-    mentorId: 0,
-    teacherId: 0,
+    mentorId: null,
+    teacherId: null,
     division: "",
-    startDate: getCurrentDate(), 
+    startDate: null, 
     hrsToRender: 0,
     shift: {
-        start: "",
-        end: "",
+        start: null,
+        end: null,
         dailyDutyHrs: 0,
         workingDays: "WeekdaysOnly"
     }
