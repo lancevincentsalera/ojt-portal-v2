@@ -2,7 +2,7 @@ import React from "react";
 import { useGlobalState } from "../../../Globals/variables";
 
 const ForgotPasswordView = ({ formData, handleChange, handleSubmit }) => {
-  const { isLoading, error } = useGlobalState();
+  const { isLoading, error, success } = useGlobalState();
 
   return (
     <div className="container">
@@ -38,6 +38,7 @@ const ForgotPasswordView = ({ formData, handleChange, handleSubmit }) => {
           onChange={handleChange}
         />
         {error && <div className="error">{error}</div>}
+        {success && <div className="success">{success}</div>}
 
         {isLoading ? (
           <button type="submit" className="button-main" disabled>

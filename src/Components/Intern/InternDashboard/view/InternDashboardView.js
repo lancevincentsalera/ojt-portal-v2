@@ -3,8 +3,7 @@ import ViewDashboardTasksController from "../../Modals/InternDashboard/controlle
 import { useAuth } from "../../../Common/AuthContext";
 
 const InternDashboardView = ({ showModal, handleModalAction }) => {
-  const { authUser } = useAuth();
-  console.log(authUser);
+  const { userInfo } = useAuth();
   return (
     <>
       {showModal && (
@@ -19,27 +18,27 @@ const InternDashboardView = ({ showModal, handleModalAction }) => {
           <div className="dashboard-container details">
             <div className="dashboard-group">
               <p className="dashboard-heading">Intern Name</p>
-              <p className="detail">John Doe</p>
+              <p className="detail">{userInfo.user.firstName} {userInfo.user.lastName}</p>
             </div>
             <div className="dashboard-group">
               <p className="dashboard-heading">Company</p>
               <p className="detail">Tech Solutions Inc.</p>
             </div>
             <div className="dashboard-group">
-              <p className="dashboard-heading">Duration</p>
-              <p className="detail">3 Months</p>
+              <p className="dashboard-heading">Hours To Render</p>
+              <p className="detail">{userInfo.hrsToRender}</p>
             </div>
             <div className="dashboard-group">
               <p className="dashboard-heading">Supervisor</p>
               <p className="detail">Jane Doe</p>
             </div>
             <div className="dashboard-group">
-              <p className="dashboard-heading">Department</p>
-              <p className="detail">Software Development</p>
+              <p className="dashboard-heading">Department/Division</p>
+              <p className="detail">{userInfo.division}</p>
             </div>
             <div className="dashboard-group">
               <p className="dashboard-heading">Status</p>
-              <p className="detail">Active</p>
+              <p className="detail">{userInfo.internshipStatus}</p>
             </div>
           </div>
         </div>

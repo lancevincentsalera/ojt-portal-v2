@@ -21,7 +21,7 @@ const ForgotPasswordModalController = ({ showModal, handleModalAction }) => {
     }
     setIsLoading(true);
     try {
-      const response = await axios.patch(`${apiBaseUrl}/users/forget/password`, { email });
+      const response = await axios.patch(`${apiBaseUrl}/users/forget/password?email=${email}`);
       
       if (response.status === 200) {
         navigate('/forgot-password', { state: { email } });
