@@ -93,8 +93,10 @@ const Sidebar = ({ userRole }) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getLinks = () => {
+    console.log(isLoggedIn);
+    console.log(userInfo);
     if (isLoggedIn) {
-      switch (userInfo.userType) {
+      switch (userInfo.user.userType) {
         case "Student":
           return studentLinks;
         case "Mentor":
@@ -126,7 +128,9 @@ const Sidebar = ({ userRole }) => {
     <div className="Sidebar">
       <ul className="clicked-option">
         {links.map((link, i) => {
-        {/* {studentLinks.map((link, i) => { */}
+          {
+            /* {studentLinks.map((link, i) => { */
+          }
           return (
             <li>
               <Link

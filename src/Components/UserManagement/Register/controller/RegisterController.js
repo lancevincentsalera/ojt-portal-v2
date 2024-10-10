@@ -19,7 +19,7 @@ const RegisterController = () => {
   const [degreePrograms, setDegreePrograms] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const navigate = useNavigate();
-  const [selectedDegreeProgram, setSelectedDegreeProgram] = useState(null); 
+  const [selectedDegreeProgram, setSelectedDegreeProgram] = useState(null);
   const { setAllowPath } = useGlobalState();
 
   const handleUserTypeChange = (stu, sup) => {
@@ -28,18 +28,18 @@ const RegisterController = () => {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    
+
     setUserData({ ...userData, [name]: value });
 
     if (name === "degreeProgramId") {
       const selectedProgram = degreePrograms.find(
         (program) => program.id === parseInt(value, 10)
       );
-      
+
       if (selectedProgram) {
         setSelectedDegreeProgram(selectedProgram.departmentCode);
       } else {
-        setSelectedDegreeProgram(null); 
+        setSelectedDegreeProgram(null);
       }
     }
   };
@@ -50,7 +50,7 @@ const RegisterController = () => {
 
   const confirmPasswordCheck = () => {
     if (!userData.password || !confirmPassword) {
-      return true; 
+      return true;
     }
 
     if (userData.password !== confirmPassword) {
@@ -61,63 +61,79 @@ const RegisterController = () => {
   };
 
   const checkEmptyFields = () => {
-    if (userType.student && (!userData.firstName || !userData.lastName || !userData.studentId || !userData.email || !userData.degreeProgramId)) {
+    if (
+      userType.student &&
+      (!userData.firstName ||
+        !userData.lastName ||
+        !userData.studentId ||
+        !userData.email ||
+        !userData.degreeProgramId)
+    ) {
       setError("Please fill in all required fields for the student.");
       return false;
-    } else if (userType.supervisor && (
-      !userData.firstName ||
-      !userData.lastName ||
-      !userData.email ||
-      !userData.companyName ||
-      !userData.department ||
-      !userData.designation ||
-      !userData.contactNo ||
-      !userData.contactEmail ||
-      !userData.street ||
-      !userData.city ||
-      !userData.state ||
-      !userData.country
-    )) {
+    } else if (
+      userType.supervisor &&
+      (!userData.firstName ||
+        !userData.lastName ||
+        !userData.email ||
+        !userData.companyName ||
+        !userData.department ||
+        !userData.designation ||
+        !userData.contactNo ||
+        !userData.contactEmail ||
+        !userData.street ||
+        !userData.city ||
+        !userData.state ||
+        !userData.country)
+    ) {
       setError("Please fill in all required fields for the supervisor.");
-      return false;    
+      return false;
     }
     return true;
   };
-  
 
   const handleRegister = async (e) => {
     e.preventDefault();
-  
+
     if (!checkEmptyFields() || !confirmPasswordCheck()) {
       return;
     }
-  
+
     setLoading(true);
     setError(null);
     try {
       const endpoint = userType.student ? "/students" : "/mentors";
       const url = `${apiBaseUrl}${endpoint}`;
-  
+
+      console.log("userData", userData);
       const payload = userType.student
         ? {
             newStudent: true,
             email: userData.email,
-            password: userData.password ? (userData.password) : (null),
+            password: userData.password ? userData.password : null,
             firstName: userData.firstName,
             lastName: userData.lastName,
             studentId: userData.studentId,
             degreeProgramId: parseInt(userData.degreeProgramId, 10),
             designation: userData.designation,
-            mentorId: userData.mentorId ? parseInt(userData.mentorId, 10) : null,
-            teacherId: userData.teacherId ? parseInt(userData.teacherId, 10) : null,
+            mentorId: userData.mentorId
+              ? parseInt(userData.mentorId, 10)
+              : null,
+            teacherId: userData.teacherId
+              ? parseInt(userData.teacherId, 10)
+              : null,
             division: userData.division,
             startDate: userData.startDate || null,
             hrsToRender: parseInt(userData.hrsToRender, 10),
             shift: {
               start: userData.start || null,
               end: userData.end || null,
-              dailyDutyHrs: userData.dailyDutyHrs ? (parseInt(userData.dailyDutyHrs, 10)) : 0,
-              workingDays: userData.workingDays ? (userData.workingDays) : ("WeekdaysOnly"),
+              dailyDutyHrs: userData.dailyDutyHrs
+                ? parseInt(userData.dailyDutyHrs, 10)
+                : 0,
+              workingDays: userData.workingDays
+                ? userData.workingDays
+                : "WeekdaysOnly",
             },
           }
         : {
@@ -127,31 +143,31 @@ const RegisterController = () => {
             lastName: userData.lastName,
             company: {
               companyName: userData.companyName,
-              contactNo: userData.companyContactNo,
-              contactEmail: userData.companyContactEmail,
+              contactNo: userData.contactNo,
+              contactEmail: userData.contactEmail,
               address: {
-                street: userData.companyAddressStreet,
-                city: userData.companyAddressCity,
-                state: userData.companyAddressState,
-                country: userData.companyAddressCountry,
+                street: userData.street,
+                city: userData.city,
+                state: userData.state,
+                country: userData.country,
               },
             },
             department: userData.department,
             designation: userData.designation,
           };
-  
+
       const response = await axios.post(url, payload);
 
       if (response.status === 201) {
-        setAllowPath(true);  
+        setAllowPath(true);
         navigate("/activate-account", { state: { email: userData.email } });
       } else {
         setError("Registration failed. Please try again.");
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
-        const serverError = error.response.data.errors[0].message;
-        setError(serverError);
+        // const serverError = error.response.data.errors[0].message;
+        // setError(serverError);
       } else {
         setError("Registration failed. Please try again.");
       }
@@ -160,7 +176,7 @@ const RegisterController = () => {
       setLoading(false);
     }
   };
-  
+
   const handleGetDegreePrograms = async () => {
     try {
       const url = `${apiBaseUrl}/degree-programs`;
@@ -178,13 +194,13 @@ const RegisterController = () => {
   };
 
   const handleGetTeachers = async () => {
-    if (!selectedDegreeProgram) return; 
+    if (!selectedDegreeProgram) return;
     try {
       const url = `${apiBaseUrl}/teachers/departments/${selectedDegreeProgram}`;
       const response = await axios.get(url);
 
       if (response.status === 200) {
-        setTeachers(response.data); 
+        setTeachers(response.data);
       } else {
         setError("An error occurred while fetching the teachers.");
       }
@@ -202,7 +218,7 @@ const RegisterController = () => {
     if (selectedDegreeProgram) {
       handleGetTeachers();
     }
-  }, [selectedDegreeProgram]); 
+  }, [selectedDegreeProgram]);
 
   return (
     <RegisterView
@@ -213,8 +229,8 @@ const RegisterController = () => {
       handleConfirmPasswordChange={handleConfirmPasswordChange}
       error={error}
       loading={loading}
-      degreePrograms={degreePrograms} 
-      teachers={teachers} 
+      degreePrograms={degreePrograms}
+      teachers={teachers}
     />
   );
 };

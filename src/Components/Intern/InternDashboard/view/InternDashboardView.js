@@ -4,6 +4,7 @@ import { useAuth } from "../../../Common/AuthContext";
 
 const InternDashboardView = ({ showModal, handleModalAction }) => {
   const { userInfo } = useAuth();
+  console.log(userInfo);
   return (
     <>
       {showModal && (
@@ -18,7 +19,9 @@ const InternDashboardView = ({ showModal, handleModalAction }) => {
           <div className="dashboard-container details">
             <div className="dashboard-group">
               <p className="dashboard-heading">Intern Name</p>
-              <p className="detail">{userInfo.user.firstName} {userInfo.user.lastName}</p>
+              <p className="detail">
+                {userInfo.user.firstName} {userInfo.user.lastName}
+              </p>
             </div>
             <div className="dashboard-group">
               <p className="dashboard-heading">Company</p>
