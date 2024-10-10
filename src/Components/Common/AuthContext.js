@@ -20,11 +20,11 @@ export function AuthProvider(props) {
 
   const [isLoggedIn, setIsLoggedInState] = useState(() => {
     const savedLoginState = Cookies.get("isLoggedIn");
-    return savedLoginState === "true"; 
+    return savedLoginState === "true";
   });
 
   const setAuthUser = (tokenData, userData) => {
-    Cookies.set("authUser", JSON.stringify(tokenData), { expires: 7 }); 
+    Cookies.set("authUser", JSON.stringify(tokenData), { expires: 7 });
     Cookies.set("userInfo", JSON.stringify(userData), { expires: 7 });
 
     setAuthUserState(tokenData);
@@ -33,7 +33,7 @@ export function AuthProvider(props) {
 
   const setIsLoggedIn = (loggedIn) => {
     Cookies.set("isLoggedIn", loggedIn ? "true" : "false", { expires: 7 });
-    
+
     setIsLoggedInState(loggedIn);
   };
 
@@ -49,8 +49,8 @@ export function AuthProvider(props) {
   };
 
   const value = {
-    authUser,   
-    userInfo,   
+    authUser,
+    userInfo,
     setAuthUser,
     isLoggedIn,
     setIsLoggedIn,
@@ -58,8 +58,6 @@ export function AuthProvider(props) {
   };
 
   return (
-    <AuthContext.Provider value={value}>
-      {props.children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
   );
 }

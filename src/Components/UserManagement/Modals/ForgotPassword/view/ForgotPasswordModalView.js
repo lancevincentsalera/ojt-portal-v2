@@ -7,7 +7,7 @@ const ForgotPasswordModalView = ({
   email,
   handleEmailChange,
   error,
-  isLoading
+  isLoading,
 }) => {
   return (
     <>
@@ -44,17 +44,15 @@ const ForgotPasswordModalView = ({
               >
                 Cancel
               </button>
-              {
-                isLoading ? (
-                  <button type="submit" className="button-main" disabled>
-                    Loading...
-                  </button>
-                ) : (
-                  <button type="submit" className="button-main">
-                    Login
-                  </button>
-                )
-              }
+              {isLoading ? (
+                <button type="submit" className="button-main" disabled>
+                  Loading...
+                </button>
+              ) : (
+                <button type="submit" className="button-main">
+                  Confirm
+                </button>
+              )}
             </div>
           </form>
         </div>
