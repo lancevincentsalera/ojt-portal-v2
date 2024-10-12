@@ -9,6 +9,10 @@ const Sidebar = ({ userRole }) => {
   const { isLoggedIn, handleLogout, userInfo } = useAuth();
   const studentLinks = [
     {
+      goto: "/intern-attendance",
+      name: "Attendance",
+    },
+    {
       goto: "/intern-dashboard",
       name: "Dashboard",
     },

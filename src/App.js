@@ -20,6 +20,7 @@ import InternListController from "./Components/Supervisor/InternList/controller/
 import SupervisorEvaluationsController from "./Components/Supervisor/Evaluations/controller/SupervisorEvaluationsController";
 import { GlobalStateProvider, useGlobalState } from "./Components/Globals/variables";
 import NotFound from "./Components/Common/NotFound";
+import InternAttendanceController from "./Components/Intern/Attendance/controller/InternAttendanceController";
 
 const ProtectedRoute = ({ children }) => {
   const { authUser, isLoggedIn } = useAuth();
@@ -82,6 +83,7 @@ const App = () => {
                 <Route path="/admin-companies" element={<CompaniesController />} />
                 <Route path="/admin-ojt-records" element={<OJTRecordsController />} />
                 <Route path="/admin-training-plans" element={<TrainingPlansController />} />
+                <Route path="/intern-attendance" element={<InternAttendanceController />} />
                 <Route path="/intern-dashboard" element={<InternDashboardController />} />
                 <Route path="/intern-tp" element={<TrainingPlanController />} />
                 <Route path="/intern-entries" element={<SubmissionsController />} />
