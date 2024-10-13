@@ -59,6 +59,13 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+      height: 100%;
+
+      .empty {
+        font-size: $sub-heading;
+        font-weight: bold;
+        color: $main-red;
+      }
 
       .list-value {
         display: grid;

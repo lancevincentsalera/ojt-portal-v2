@@ -93,8 +93,6 @@ const Sidebar = ({ userRole }) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getLinks = () => {
-    console.log(isLoggedIn);
-    console.log(userInfo);
     if (isLoggedIn) {
       switch (userInfo.user.userType) {
         case "Student":
@@ -114,7 +112,6 @@ const Sidebar = ({ userRole }) => {
   };
 
   const [links] = useState(getLinks());
-
   useEffect(() => {
     setCurrentPageIndex(
       links.findIndex((link) => link.goto === window.location.pathname)
@@ -128,9 +125,6 @@ const Sidebar = ({ userRole }) => {
     <div className="Sidebar">
       <ul className="clicked-option">
         {links.map((link, i) => {
-          {
-            /* {studentLinks.map((link, i) => { */
-          }
           return (
             <li>
               <Link

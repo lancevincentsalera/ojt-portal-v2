@@ -1,7 +1,24 @@
-export const RecentlySubmittedLogbooks = [
-  { internName: "John Doe", submissionTime: "2 hours ago" },
-  { internName: "Jane Doe", submissionTime: "3 hours ago" },
-  { internName: "Chris Evans", submissionTime: "4 hours ago" },
-  { internName: "Jessica Alba", submissionTime: "5 hours ago" },
-  { internName: "Michael Ross", submissionTime: "6 hours ago" },
-];
+import axios from "axios";
+
+const fetchLogbooks = async (mentorId, params = {}) => {
+  try {
+    const url = `${process.env.REACT_APP_API_BASE_URL}/logbooks/mentor/${mentorId}`;
+    const response = await axios.get(url, { params });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      return "An error occurred while fetching the logbooks.";
+    }
+  } catch (error) {
+    return "Error fetching logbooks.";
+  }
+};
+
+export const RecentlySubmittedLogbooks = (userInfo) => {
+  return fetchLogbooks(userInfo.user.id);
+};
+
+export const LogbooksAwaitingFeedback = (userInfo) => {
+  return fetchLogbooks(userInfo.user.id, { logbookStatus: "Pending" });
+};

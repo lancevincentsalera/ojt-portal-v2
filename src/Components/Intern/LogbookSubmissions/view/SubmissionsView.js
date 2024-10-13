@@ -21,12 +21,13 @@ const SubmissionsView = ({
         <div className="main-header">
           <p className="main-heading">My Logbooks</p>
         </div>
-        <div className="tabs">
+        <div className="tabs" style={{ justifyContent: "normal" }}>
           <div
             className={tab.pending ? "tab active" : "tab"}
             onClick={() => {
               handleTabChange(true, false);
             }}
+            style={{ width: "15%" }}
           >
             Pending Feedback
           </div>
@@ -35,6 +36,7 @@ const SubmissionsView = ({
             onClick={() => {
               handleTabChange(false, true);
             }}
+            style={{ width: "15%" }}
           >
             Feedbacked
           </div>

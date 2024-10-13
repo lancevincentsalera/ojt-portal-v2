@@ -31,12 +31,13 @@ const TrainingPlanView = ({
             categorized into Completed, Ongoing, and Past Due. Make sure to keep
             track of your progress and complete all tasks on time.
           </p>
-          <div className="tabs">
+          <div className="tabs" style={{ justifyContent: "normal" }}>
             <div
               className={tab.tp ? "tab active" : "tab"}
               onClick={() => {
                 handleTabChange("tp");
               }}
+              style={{ width: "15%" }}
             >
               Training Plan Details
             </div>
@@ -45,6 +46,7 @@ const TrainingPlanView = ({
               onClick={() => {
                 handleTabChange("graded");
               }}
+              style={{ width: "15%" }}
             >
               Graded Tasks
             </div>
@@ -53,6 +55,7 @@ const TrainingPlanView = ({
               onClick={() => {
                 handleTabChange("completed");
               }}
+              style={{ width: "15%" }}
             >
               Completed Tasks
             </div>
@@ -61,6 +64,7 @@ const TrainingPlanView = ({
               onClick={() => {
                 handleTabChange("ongoing");
               }}
+              style={{ width: "15%" }}
             >
               Ongoing Tasks
             </div>
@@ -69,6 +73,7 @@ const TrainingPlanView = ({
               onClick={() => {
                 handleTabChange("pastDue");
               }}
+              style={{ width: "15%" }}
             >
               Past Due Tasks
             </div>

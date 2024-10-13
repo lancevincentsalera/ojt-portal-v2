@@ -1,5 +1,12 @@
 import "./Styles/App.scss";
-import { BrowserRouter as Router, Route, Routes, Navigate, Outlet, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+  Outlet,
+  useLocation,
+} from "react-router-dom";
 import { AuthProvider, useAuth } from "./Components/Common/AuthContext";
 import LoginController from "./Components/UserManagement/Login/controller/LoginController";
 import RegisterController from "./Components/UserManagement/Register/controller/RegisterController";
@@ -18,15 +25,20 @@ import SubmitLogbookController from "./Components/Intern/SubmitLogbook/controlle
 import SupervisorDashboardController from "./Components/Supervisor/Dashboard/controller/SupervisorDashboardController";
 import InternListController from "./Components/Supervisor/InternList/controller/InternListController";
 import SupervisorEvaluationsController from "./Components/Supervisor/Evaluations/controller/SupervisorEvaluationsController";
-import { GlobalStateProvider, useGlobalState } from "./Components/Globals/variables";
+import {
+  GlobalStateProvider,
+  useGlobalState,
+} from "./Components/Globals/variables";
 import NotFound from "./Components/Common/NotFound";
+import MentorTrainingPlansController from "./Components/Supervisor/TrainingPlans/controller/MentorTrainingPlansController";
+import TrainingTaskList from "./Components/Supervisor/TrainingPlans/TrainingTaskList";
 
 const ProtectedRoute = ({ children }) => {
   const { authUser, isLoggedIn } = useAuth();
   const { setAllowPath } = useGlobalState();
 
   if (!authUser || !isLoggedIn) {
-    setAllowPath(false); 
+    setAllowPath(false);
     return <Navigate to="/" />;
   }
 
@@ -34,16 +46,21 @@ const ProtectedRoute = ({ children }) => {
 };
 
 const ConditionalRoute = ({ children }) => {
-  const { allowPath } = useGlobalState(); 
+  const { allowPath } = useGlobalState();
 
   if (!allowPath) {
-    return <NotFound />; 
+    return <NotFound />;
   }
   return children ? children : <Outlet />;
 };
 
 const Layout = () => {
-  const hideSidebarPaths = ["/", "/register", "/forgot-password", "/activate-account"];
+  const hideSidebarPaths = [
+    "/",
+    "/register",
+    "/forgot-password",
+    "/activate-account",
+  ];
   const { pathname } = useLocation();
 
   return (
@@ -65,7 +82,10 @@ const App = () => {
           <Routes>
             <Route path="/" element={<LoginController />} />
             <Route path="/register" element={<RegisterController />} />
-            <Route path="/forgot-password" element={<ForgotPasswordController />} />
+            <Route
+              path="/forgot-password"
+              element={<ForgotPasswordController />}
+            />
 
             <Route
               path="/activate-account"
@@ -79,16 +99,48 @@ const App = () => {
             <Route element={<Layout />}>
               <Route element={<ProtectedRoute />}>
                 <Route path="/admin-users" element={<UsersController />} />
-                <Route path="/admin-companies" element={<CompaniesController />} />
-                <Route path="/admin-ojt-records" element={<OJTRecordsController />} />
-                <Route path="/admin-training-plans" element={<TrainingPlansController />} />
-                <Route path="/intern-dashboard" element={<InternDashboardController />} />
+                <Route
+                  path="/admin-companies"
+                  element={<CompaniesController />}
+                />
+                <Route
+                  path="/admin-ojt-records"
+                  element={<OJTRecordsController />}
+                />
+                <Route
+                  path="/admin-training-plans"
+                  element={<TrainingPlansController />}
+                />
+                <Route
+                  path="/intern-dashboard"
+                  element={<InternDashboardController />}
+                />
                 <Route path="/intern-tp" element={<TrainingPlanController />} />
-                <Route path="/intern-entries" element={<SubmissionsController />} />
-                <Route path="/intern-submit" element={<SubmitLogbookController />} />
-                <Route path="/supervisor-dashboard" element={<SupervisorDashboardController />} />
-                <Route path="/supervisor-intern-list" element={<InternListController />} />
-                <Route path="/supervisor-evaluations" element={<SupervisorEvaluationsController />} />
+                <Route
+                  path="/intern-entries"
+                  element={<SubmissionsController />}
+                />
+                <Route
+                  path="/intern-submit"
+                  element={<SubmitLogbookController />}
+                />
+                <Route
+                  path="/supervisor-dashboard"
+                  element={<SupervisorDashboardController />}
+                />
+                <Route
+                  path="/supervisor-intern-list"
+                  element={<InternListController />}
+                />
+                <Route
+                  path="/supervisor-evaluations"
+                  element={<SupervisorEvaluationsController />}
+                />
+                <Route
+                  path="/supervisor-tp"
+                  element={<MentorTrainingPlansController />}
+                />
+                <Route path="/task-list" element={<TrainingTaskList />} />
               </Route>
             </Route>
 
