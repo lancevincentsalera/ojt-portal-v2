@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import InternAttendanceView from "../view/InternAttendanceView";
 import { useAuth } from "../../../Common/AuthContext";
 import axios from "axios";
+import moment from "moment";  
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const InternAttendanceController = () => {
-  const { authUser, setTimeIn, setTimeOut, timeIn, timeOut } = useAuth();
+  const { authUser, userInfo, setTimeIn, setTimeOut, timeIn, timeOut } = useAuth();
   const [isTimeInDisabled, setIsTimeInDisabled] = useState(false);
   const [isTimeOutDisabled, setIsTimeOutDisabled] = useState(false);
-  
+
   useEffect(() => {
+    fetchInternAttendance();
     if (timeIn) {
       setIsTimeInDisabled(true); 
     }
@@ -20,10 +22,41 @@ const InternAttendanceController = () => {
     }
   }, [timeIn, timeOut]);
 
+  const fetchInternAttendance = async () => {
+    const studentId = userInfo.studentId; 
+    const today = moment().format("YYYY-MM-DD");
+
+    try {
+      const response = await axios.get(
+        `${apiBaseUrl}/attendance/student/${studentId}?start=${today}&end=${today}`,
+        {
+          headers: {
+            Authorization: `Bearer ${authUser.accessToken}`,
+          },
+        }
+      );
+
+      const attendanceRecords = response.data;
+
+      if (attendanceRecords.length > 0 && attendanceRecords[0].timeIn) {
+        setTimeIn(attendanceRecords[0].timeIn);
+        setIsTimeInDisabled(true);
+      }
+
+      if (attendanceRecords.length > 0 && attendanceRecords[0].timeOut) {
+        setTimeOut(attendanceRecords[0].timeOut);
+        setIsTimeOutDisabled(true);
+      }
+
+    } catch (error) {
+      console.error("Error fetching attendance records:", error);
+    }
+  };
+
   const handleTimeIn = async () => {
     try {
       const response = await axios.post(
-        `${apiBaseUrl}/attendance/time/in`,
+        `${apiBaseUrl}/attendance/time/in?proceedTimeIn=true`,
         {},
         {
           headers: {
@@ -31,10 +64,8 @@ const InternAttendanceController = () => {
           },
         }
       );
-      const currentTimeIn = new Date().toISOString();
-      setTimeIn(currentTimeIn); 
-      setIsTimeInDisabled(true);
-      console.log("Time In Success:", response.data);
+      setTimeIn(response.data.timeIn);
+      setIsTimeInDisabled(true); 
     } catch (error) {
       console.error("Error during Time In:", error);
     }
@@ -43,7 +74,7 @@ const InternAttendanceController = () => {
   const handleTimeOut = async () => {
     try {
       const response = await axios.post(
-        `${apiBaseUrl}/attendance/time/out`,
+        `${apiBaseUrl}/attendance/time/out?proceedTimeIn=true`,
         {},
         {
           headers: {
@@ -51,10 +82,8 @@ const InternAttendanceController = () => {
           },
         }
       );
-      const currentTimeOut = new Date().toISOString();
-      setTimeOut(currentTimeOut); 
+      setTimeOut(response.data.timeOut);
       setIsTimeOutDisabled(true);
-      console.log("Time Out Success:", response.data);
     } catch (error) {
       console.error("Error during Time Out:", error);
     }

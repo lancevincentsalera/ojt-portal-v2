@@ -23,12 +23,24 @@ import NotFound from "./Components/Common/NotFound";
 import InternAttendanceController from "./Components/Intern/Attendance/controller/InternAttendanceController";
 
 const ProtectedRoute = ({ children }) => {
-  const { authUser, isLoggedIn } = useAuth();
+  const { authUser, isLoggedIn, timeIn } = useAuth();
+  const { pathname } = useLocation();
   const { setAllowPath } = useGlobalState();
+
+  const restrictedPaths = [
+    "/intern-dashboard",
+    "/intern-tp",
+    "/intern-entries",
+    "/intern-submit",
+  ];
 
   if (!authUser || !isLoggedIn) {
     setAllowPath(false); 
     return <Navigate to="/" />;
+  }
+
+  if (timeIn === null && restrictedPaths.includes(pathname)) {
+    return <Navigate to="/intern-attendance" />;
   }
 
   return children ? children : <Outlet />;
