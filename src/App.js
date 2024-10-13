@@ -1,4 +1,4 @@
-import "./Styles/App.scss";
+import "./output.css";
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet, useLocation } from "react-router-dom";
 import { AuthProvider, useAuth } from "./Components/Common/AuthContext";
 import LoginController from "./Components/UserManagement/Login/controller/LoginController";
