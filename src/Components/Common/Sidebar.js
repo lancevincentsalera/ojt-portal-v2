@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Sidebar = ({ userRole }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const { isLoggedIn, handleLogout, userInfo, timeIn } = useAuth();
+  const [links, setLinks] = useState([]);
+
   const studentLinks = [
     {
       goto: "/intern-attendance",
@@ -95,36 +97,41 @@ const Sidebar = ({ userRole }) => {
     },
   ];
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getLinks = () => {
-    console.log(isLoggedIn);
-    console.log(userInfo);
-
-    if (!isLoggedIn || !userInfo) return [];
+  useEffect(() => {
+    if (!isLoggedIn || !userInfo) {
+      setLinks([]);
+      return;
+    }
 
     const userType = userInfo.user ? userInfo.user.userType : userInfo.userType;
     if (isLoggedIn) {
       switch (userType) {
         case "Student":
-          return studentLinks.map(link => ({
-            ...link,
-            disabled: timeIn === null && link.name !== "Attendance"
-          }));
+          setLinks(
+            studentLinks.map((link) => ({
+              ...link,
+              disabled: timeIn === null && link.name !== "Attendance",
+            }))
+          );
+          break;
         case "Mentor":
-          return supervisorLinks;
+          setLinks(supervisorLinks);
+          break;
         case "Chair":
-          return deanLinks;
+          setLinks(deanLinks);
+          break;
         case "Admin":
-          return adminLinks;
+          setLinks(adminLinks);
+          break;
         case "Teacher":
-          return instructorLinks;
+          setLinks(instructorLinks);
+          break;
         default:
-          return supervisorLinks;
+          setLinks(supervisorLinks);
+          break;
       }
     }
-  };
-
-  const [links] = useState(getLinks());
+  }, [isLoggedIn, userInfo, timeIn]);
 
   useEffect(() => {
     setCurrentPageIndex(
