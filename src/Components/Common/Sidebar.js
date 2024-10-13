@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = ({ userRole }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const { isLoggedIn, handleLogout, userInfo } = useAuth();
+  const { isLoggedIn, handleLogout, userInfo, timeIn } = useAuth();
   const studentLinks = [
     {
       goto: "/intern-attendance",
@@ -102,7 +102,10 @@ const Sidebar = ({ userRole }) => {
     if (isLoggedIn) {
       switch (userInfo.user.userType) {
         case "Student":
-          return studentLinks;
+          return studentLinks.map(link => ({
+            ...link,
+            disabled: timeIn === null && link.name !== "Attendance"
+          }));
         case "Mentor":
           return supervisorLinks;
         case "Chair":
@@ -123,25 +126,21 @@ const Sidebar = ({ userRole }) => {
     setCurrentPageIndex(
       links.findIndex((link) => link.goto === window.location.pathname)
     );
-    // setCurrentPageIndex(
-    //   studentLinks.findIndex((link) => link.goto === window.location.pathname)
-    // );
   }, [links]);
 
   return (
     <div className="Sidebar">
       <ul className="clicked-option">
         {links.map((link, i) => {
-          {
-            /* {studentLinks.map((link, i) => { */
-          }
           return (
-            <li>
+            <li key={i}>
               <Link
-                to={link.goto}
-                onClick={() => setCurrentPageIndex(i)}
-                key={i}
-                className={currentPageIndex === i && "active"}
+                to={link.disabled ? "#" : link.goto}
+                onClick={link.disabled ? (e) => e.preventDefault() : () => setCurrentPageIndex(i)}
+                className={
+                  `${currentPageIndex === i ? "active" : ""} ${link.disabled ? "disabled" : ""}`
+                }
+                style={link.disabled ? { pointerEvents: "none", opacity: 0.5 } : {}}
               >
                 {link.name}
               </Link>
