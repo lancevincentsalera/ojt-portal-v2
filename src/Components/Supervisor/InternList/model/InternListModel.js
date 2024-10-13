@@ -1,20 +1,12 @@
-export const Interns = [
-  {
-    Name: "John Doe",
-    Email: "johndoe@example.com",
-    Department: "Software Development",
-    Status: "Ongoing",
-  },
-  {
-    Name: "Jane Doe",
-    Email: "janedoe@example.com",
-    Department: "Software Development",
-    Status: "Ongoing",
-  },
-  {
-    Name: "Chris Evans",
-    Email: "chrisevans@example.com",
-    Department: "Project Management",
-    shipStatus: "Ongoing",
-  },
-];
+import axios from "axios";
+export const GetInternList = async (mentorId) => {
+  try {
+    const url =
+      process.env.REACT_APP_API_BASE_URL + `/mentors/${mentorId}/students`;
+    const response = await axios.get(url);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
