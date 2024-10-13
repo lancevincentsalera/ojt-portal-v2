@@ -1,26 +1,58 @@
 import React from "react";
 
-const SubmitLogbookView = () => {
+const SubmitLogbookView = ({
+  studentAttendance,
+  attendanceId,
+  setAttendanceId,
+  activities,
+  setActivities,
+  handleSubmitLogbook
+}) => {
   return (
     <>
       <div className="main-dashboard">
         <div className="main-header">
           <p className="main-heading">Submit Logbook Entry</p>
         </div>
-        <form className="logbook-form">
+        <form
+          className="logbook-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmitLogbook();
+          }}
+        >
           <div className="form-group">
-            <label for="dateOfEntry">Date of Entry:</label>
-            <input type="date" name="dateOfEntry"></input>
+            <label htmlFor="attendanceId">Select Attendance Date:</label>
+            {studentAttendance.length > 0 ? (
+              <select
+                name="attendanceId"
+                value={attendanceId}
+                onChange={(e) => setAttendanceId(Number(e.target.value))}
+                required
+              >
+                <option value="">Select a date</option>
+                {studentAttendance.map((attendance) => (
+                  <option key={attendance.attendanceId} value={attendance.attendanceId}>
+                    {new Date(attendance.timeIn).toLocaleDateString()} (Time In: {new Date(attendance.timeIn).toLocaleTimeString()})
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <p style={{ fontSize: '14px', color: '#e74c3c' }}>All logbooks have been submitted for your attendance days.</p>
+            )}
           </div>
           <div className="form-group">
-            <label for="dateOfEntry">Activities:</label>
+            <label htmlFor="activities">Activities:</label>
             <textarea
               className="large-textarea"
               required
               placeholder="Describe the activities you performed..."
+              value={activities}
+              onChange={(e) => setActivities(e.target.value)}
+              disabled={studentAttendance.length <= 0}
             />
           </div>
-          <button type="submit" className="button-main">
+          <button type="submit" className="button-main" disabled={studentAttendance.length <= 0}>
             Submit Logbook
           </button>
         </form>
