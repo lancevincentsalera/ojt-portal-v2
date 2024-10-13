@@ -1,0 +1,1826 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+*, ::before, ::after{
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+}
+
+::backdrop{
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+}
+
+/*
+! tailwindcss v3.4.13 | MIT License | https://tailwindcss.com
+*/
+
+/*
+1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
+*/
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  /* 1 */
+  border-width: 0;
+  /* 2 */
+  border-style: solid;
+  /* 2 */
+  border-color: #e5e7eb;
+  /* 2 */
+}
+
+::before,
+::after {
+  --tw-content: '';
+}
+
+/*
+1. Use a consistent sensible line-height in all browsers.
+2. Prevent adjustments of font size after orientation changes in iOS.
+3. Use a more readable tab size.
+4. Use the user's configured `sans` font-family by default.
+5. Use the user's configured `sans` font-feature-settings by default.
+6. Use the user's configured `sans` font-variation-settings by default.
+7. Disable tap highlights on iOS
+*/
+
+html,
+:host {
+  line-height: 1.5;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+  /* 3 */
+  tab-size: 4;
+  /* 3 */
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /* 4 */
+  font-feature-settings: normal;
+  /* 5 */
+  font-variation-settings: normal;
+  /* 6 */
+  -webkit-tap-highlight-color: transparent;
+  /* 7 */
+}
+
+/*
+1. Remove the margin in all browsers.
+2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
+*/
+
+body {
+  margin: 0;
+  /* 1 */
+  line-height: inherit;
+  /* 2 */
+}
+
+/*
+1. Add the correct height in Firefox.
+2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
+3. Ensure horizontal rules are visible by default.
+*/
+
+hr {
+  height: 0;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  border-top-width: 1px;
+  /* 3 */
+}
+
+/*
+Add the correct text decoration in Chrome, Edge, and Safari.
+*/
+
+abbr:where([title]) {
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+
+/*
+Remove the default font size and weight for headings.
+*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/*
+Reset links to optimize for opt-in styling instead of opt-out.
+*/
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+/*
+Add the correct font weight in Edge and Safari.
+*/
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+/*
+1. Use the user's configured `mono` font-family by default.
+2. Use the user's configured `mono` font-feature-settings by default.
+3. Use the user's configured `mono` font-variation-settings by default.
+4. Correct the odd `em` font sizing in all browsers.
+*/
+
+code,
+kbd,
+samp,
+pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* 1 */
+  font-feature-settings: normal;
+  /* 2 */
+  font-variation-settings: normal;
+  /* 3 */
+  font-size: 1em;
+  /* 4 */
+}
+
+/*
+Add the correct font size in all browsers.
+*/
+
+small {
+  font-size: 80%;
+}
+
+/*
+Prevent `sub` and `sup` elements from affecting the line height in all browsers.
+*/
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/*
+1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
+2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+3. Remove gaps between table borders by default.
+*/
+
+table {
+  text-indent: 0;
+  /* 1 */
+  border-color: inherit;
+  /* 2 */
+  border-collapse: collapse;
+  /* 3 */
+}
+
+/*
+1. Change the font styles in all browsers.
+2. Remove the margin in Firefox and Safari.
+3. Remove default padding in all browsers.
+*/
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+  font-feature-settings: inherit;
+  /* 1 */
+  font-variation-settings: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  font-weight: inherit;
+  /* 1 */
+  line-height: inherit;
+  /* 1 */
+  letter-spacing: inherit;
+  /* 1 */
+  color: inherit;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+  padding: 0;
+  /* 3 */
+}
+
+/*
+Remove the inheritance of text transform in Edge and Firefox.
+*/
+
+button,
+select {
+  text-transform: none;
+}
+
+/*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Remove default button styles.
+*/
+
+button,
+input:where([type='button']),
+input:where([type='reset']),
+input:where([type='submit']) {
+  -webkit-appearance: button;
+  /* 1 */
+  background-color: transparent;
+  /* 2 */
+  background-image: none;
+  /* 2 */
+}
+
+/*
+Use the modern Firefox focus style for all focusable elements.
+*/
+
+:-moz-focusring {
+  outline: auto;
+}
+
+/*
+Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
+*/
+
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+
+/*
+Add the correct vertical alignment in Chrome and Firefox.
+*/
+
+progress {
+  vertical-align: baseline;
+}
+
+/*
+Correct the cursor style of increment and decrement buttons in Safari.
+*/
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/*
+1. Correct the odd appearance in Chrome and Safari.
+2. Correct the outline style in Safari.
+*/
+
+[type='search'] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */
+}
+
+/*
+Remove the inner padding in Chrome and Safari on macOS.
+*/
+
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Change font properties to `inherit` in Safari.
+*/
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+}
+
+/*
+Add the correct display in Chrome and Safari.
+*/
+
+summary {
+  display: list-item;
+}
+
+/*
+Removes the default spacing and border for appropriate elements.
+*/
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+ol,
+ul,
+menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+Reset default styling for dialogs.
+*/
+
+dialog {
+  padding: 0;
+}
+
+/*
+Prevent resizing textareas horizontally by default.
+*/
+
+textarea {
+  resize: vertical;
+}
+
+/*
+1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
+2. Set the default placeholder color to the user's configured gray 400 color.
+*/
+
+input::placeholder,
+textarea::placeholder {
+  opacity: 1;
+  /* 1 */
+  color: #9ca3af;
+  /* 2 */
+}
+
+/*
+Set the default cursor for buttons.
+*/
+
+button,
+[role="button"] {
+  cursor: pointer;
+}
+
+/*
+Make sure disabled buttons don't get the pointer cursor.
+*/
+
+:disabled {
+  cursor: default;
+}
+
+/*
+1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
+2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
+   This can trigger a poorly considered lint error in some tools but is included by design.
+*/
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+  /* 1 */
+  vertical-align: middle;
+  /* 2 */
+}
+
+/*
+Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
+*/
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Make elements with the HTML hidden attribute stay hidden by default */
+
+[hidden] {
+  display: none;
+}
+
+.container{
+  width: 100%;
+}
+
+@media (min-width: 640px){
+  .container{
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px){
+  .container{
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px){
+  .container{
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px){
+  .container{
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px){
+  .container{
+    max-width: 1536px;
+  }
+}
+
+.mb-4{
+  margin-bottom: 1rem;
+}
+
+.mb-8{
+  margin-bottom: 2rem;
+}
+
+.mb-5{
+  margin-bottom: 1.25rem;
+}
+
+.mb-3{
+  margin-bottom: 0.75rem;
+}
+
+.mt-8{
+  margin-top: 2rem;
+}
+
+.flex{
+  display: flex;
+}
+
+.table{
+  display: table;
+}
+
+.contents{
+  display: contents;
+}
+
+.h-64{
+  height: 16rem;
+}
+
+.h-full{
+  height: 100%;
+}
+
+.rounded-lg{
+  border-radius: 0.5rem;
+}
+
+.bg-white{
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.p-5{
+  padding: 1.25rem;
+}
+
+.p-3{
+  padding: 0.75rem;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.text-2xl{
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.font-bold{
+  font-weight: 700;
+}
+
+.shadow-md{
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.filter{
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 30px;
+}
+
+html {
+  background-color: #f3f4f6;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.modal-overlay {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 3;
+}
+
+.modal {
+  z-index: 12;
+  background-color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.modal .modal-content {
+  min-width: 300px;
+  margin: 30px;
+  overflow: hidden;
+}
+
+.modal .modal-content .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.modal .modal-content .modal-header .heading {
+  font-size: 80%;
+  font-weight: bold;
+}
+
+.modal .modal-content .modal-header .close {
+  font-size: 80%;
+  background-color: #bdc3c7;
+  cursor: pointer;
+  width: 25px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.modal .modal-content .modal-header .close:hover {
+  background-color: #94a3b8;
+}
+
+.modal .modal-content .modal-sub-heading {
+  font-size: 60%;
+  max-width: 400px;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.modal .modal-content .modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal .modal-content .modal-form .button-group {
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  display: flex;
+}
+
+.modal .modal-content .modal-form .button-group button {
+  flex: 1;
+}
+
+.modal .modal-content .modal-form .button-group.double {
+  margin-left: auto;
+  width: 60%;
+}
+
+.modal .modal-content .modal-form .button-group.single {
+  flex: none;
+  width: 10%;
+  margin-left: auto;
+  margin-top: 1rem;
+}
+
+.modal .modal-content .modal-form.no-subh {
+  min-width: 500px;
+}
+
+.modal .modal-content .modal-form .task-list {
+  height: 400px;
+  overflow-y: auto;
+  border-radius: 10px;
+  border: none;
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.modal .modal-content .modal-form .task-list .task {
+  border: 0.8px solid #ececec;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  width: 760px;
+  padding: 20px;
+}
+
+.modal .modal-content .modal-form .task-list .task .task-title {
+  font-size: 60%;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.modal .modal-content .modal-form .task-list .task .task-desc,
+.modal .modal-content .modal-form .task-list .task .task-date,
+.modal .modal-content .modal-form .task-list .task .task-status {
+  font-size: 50%;
+  margin-bottom: 0.2rem;
+}
+
+.modal .modal-content .modal-form .view-task-details {
+  max-width: 550px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.modal .modal-content .modal-form .view-task-details .view-task-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.modal .modal-content .modal-form .view-task-details .view-task-group .view-task-title {
+  font-size: calc(80% - 3px);
+  font-weight: bold;
+}
+
+.modal .modal-content .modal-form .view-task-details .view-task-group .view-task-desc {
+  font-size: 50%;
+}
+
+.modal .modal-content .modal-form .view-task-details .mark-check {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.modal .modal-content .modal-form .view-task-details .mark-check .checkbox {
+  border: 1px solid #ff6b6b;
+  box-shadow: none;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin: 0;
+}
+
+.modal .modal-content .modal-form .view-task-details .mark-check .checkbox-label {
+  margin: 0;
+}
+
+.modal .modal-content .modal-form .entry-content-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 2px;
+}
+
+.modal .modal-content .modal-form .entry-content-list .entry-content-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.modal .modal-content .modal-form .entry-content-list .entry-content-group.date {
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.modal .modal-content .modal-form .entry-content-list .entry-content-group .label {
+  font-size: 60%;
+  font-weight: bold;
+}
+
+.modal .modal-content .modal-form .entry-content-list .entry-content-group .value {
+  font-size: 50%;
+}
+
+.modal .modal-content .modal-form .entry-content-list .entry-content-group .entry-content {
+  background-color: white;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  font-size: 50%;
+  padding: 20px;
+  height: 150px;
+  border: 1px solid #bdc3c7;
+}
+
+.container {
+  background-color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  padding-top: 20px;
+  max-height: 80vh;
+  overflow-y: auto;
+  width: 40%;
+}
+
+.error {
+  color: #e74c3c;
+  font-size: 50%;
+  font-weight: bold;
+  padding: 5px 0;
+}
+
+.success {
+  color: #4caf50;
+  font-size: 50%;
+  font-weight: bold;
+  padding: 5px 0;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+label {
+  font-size: 60%;
+  font-weight: bold;
+  margin-bottom: 0.2rem;
+}
+
+input,
+select,
+textarea {
+  height: 50px;
+  border: 0.8px solid #ececec;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px rgba(3, 3, 3, 0.1);
+  padding: 10px;
+  margin-bottom: 0.5rem;
+  font-size: 50%;
+  display: block;
+}
+
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  box-shadow: 2px 2px 4px rgba(3, 3, 3, 0.2);
+}
+
+input.smaller,
+select.smaller,
+textarea.smaller {
+  height: 70%;
+  width: 20%;
+}
+
+input.large-textarea,
+select.large-textarea,
+textarea.large-textarea {
+  height: 210px;
+  width: 100%;
+}
+
+.button-main {
+  height: 50px;
+  background-color: #ff6b6b;
+  border: none;
+  border-radius: 10px;
+  font-size: 60%;
+  color: white;
+}
+
+.button-main:hover {
+  cursor: pointer;
+  background-color: #e74c3c;
+}
+
+.button-main.create {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.8rem;
+  font-weight: bold;
+  font-size: 50%;
+  height: 40px;
+}
+
+.button-main:disabled {
+  background-color: #ff9e9e;
+  cursor: not-allowed;
+}
+
+.button-main:disabled:hover {
+  background-color: #ff9e9e;
+  cursor: not-allowed;
+}
+
+.button-secondary {
+  height: 50px;
+  background-color: white;
+  border: 1px solid #ff6b6b;
+  border-radius: 10px;
+  font-size: 60%;
+  color: #ff6b6b;
+}
+
+.button-secondary:hover {
+  cursor: pointer;
+  background-color: #ffb8b2;
+  color: white;
+}
+
+option {
+  font-size: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  border: 1px solid #bdc3c7;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #bdc3c7;
+}
+
+.sub-heading {
+  font-size: 50%;
+  line-height: 1.5;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 0.8px solid #94a3b8;
+  margin-bottom: 0.5rem;
+}
+
+.tabs .tab {
+  font-size: 50%;
+  padding: 0.5rem;
+  width: 100%;
+  text-align: center;
+}
+
+.tabs .tab:hover,
+.tabs .tab.active {
+  font-weight: bold;
+  border-bottom: 3px solid #ff6b6b;
+  cursor: pointer;
+}
+
+.pagination {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.pagination .left-page,
+.pagination .right-page {
+  color: #ff6b6b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination .left-page:hover,
+.pagination .right-page:hover {
+  cursor: pointer;
+}
+
+.pagination p {
+  font-size: 50%;
+}
+
+.pagination p .page {
+  box-shadow: none;
+  border: none;
+  border-radius: 0px;
+  margin: 0;
+  font-size: 100%;
+  border-bottom: 1px solid #ff6b6b;
+  width: 1.5rem;
+  height: auto;
+  text-align: center;
+}
+
+.pagination p .page::placeholder {
+  font-size: 100%;
+}
+
+.table-container {
+  width: 100%;
+  height: 75vh;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.table-container .search {
+  width: 100%;
+}
+
+.table-container .table {
+  max-height: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-container .table .thead {
+  display: flex;
+  background-color: #bdc3c7;
+  border-radius: 10px 10px 0 0;
+  padding: 0 0.5rem;
+}
+
+.table-container .table .thead .th {
+  flex: 1;
+  padding: 0.5rem 0;
+  font-size: 60%;
+  text-align: left;
+}
+
+.table-container .table .tbody {
+  overflow: auto;
+}
+
+.table-container .table .tbody .tr {
+  padding: 0rem 0.5rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px #bdc3c7 solid;
+}
+
+.table-container .table .tbody .tr:last-child {
+  border-bottom: none;
+  /* Remove border from the last row */
+}
+
+.table-container .table .tbody .tr .td {
+  flex: 1;
+  padding: 0.3rem 0;
+  font-size: 50%;
+  text-align: left;
+}
+
+.table-container .table .tbody .tr .td button {
+  height: 30px;
+  padding: 5px 10px;
+}
+
+.table-container .table .tbody .tr .td.actions {
+  font-size: 60%;
+  display: flex;
+  gap: 0.2rem;
+}
+
+.Sidebar {
+  top: 60px;
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  display: flex;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.Sidebar ul {
+  flex: 1;
+}
+
+.Sidebar ul li {
+  padding: 0.5rem 0.5rem 0;
+  display: flex;
+}
+
+.Sidebar ul li a {
+  color: inherit;
+  font-weight: bold;
+  font-size: 50%;
+  padding: 0.5rem;
+  flex: 1;
+  border-radius: 10px;
+}
+
+.Sidebar ul li a:hover {
+  background-color: #bdc3c7;
+}
+
+.Sidebar ul li .active {
+  background-color: #bdc3c7 !important;
+}
+
+.Sidebar ul li:last-child {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.Sidebar ul .logout {
+  display: flex;
+  align-items: center;
+}
+
+.Sidebar ul .logout span {
+  margin-left: 0.5rem;
+  font-size: inherit;
+}
+
+.Header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  height: 60px;
+  padding: 10px 20px;
+  z-index: 1;
+  border-bottom: 2px solid #bdc3c7;
+}
+
+.Header .header-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff6b6b;
+}
+
+.Header .header-title span {
+  font-size: calc(80% - 5px);
+}
+
+.Header .header-user {
+  display: flex;
+  align-items: center;
+}
+
+.Header .header-user .user-name {
+  margin-right: 0.3rem;
+  font-size: 50%;
+}
+
+main {
+  margin-left: 250px;
+  margin-top: 60px;
+  padding: 20px;
+  flex: 1;
+  overflow: auto;
+}
+
+main .main-dashboard .main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+main .main-dashboard .main-header .main-heading {
+  font-weight: bold;
+}
+
+main .main-dashboard .main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  background-color: #f4f4f4;
+}
+
+.not-found h1 {
+  font-size: 120px;
+  margin: 0;
+  color: #ff6b6b;
+}
+
+.not-found h2 {
+  font-size: 36px;
+  margin: 10px 0;
+  color: #333;
+}
+
+.not-found p {
+  font-size: 18px;
+  color: #666;
+}
+
+.not-found .btn-back-home {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #ff6b6b;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.not-found .btn-back-home:hover {
+  background-color: #e05656;
+}
+
+.login {
+  margin: 50px;
+  min-width: 500px;
+}
+
+.login .login-header {
+  font-size: 100%;
+  margin: 0rem 1rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  color: #ff6b6b;
+}
+
+.login .login-header span {
+  margin-left: 0.5rem;
+}
+
+.login .login-content {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.login .login-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login .login-footer a,
+.login .login-footer p {
+  font-size: 50%;
+  color: black;
+  cursor: pointer;
+}
+
+.login .login-footer a:hover,
+.login .login-footer p:hover {
+  font-weight: bold;
+}
+
+label {
+  display: block;
+  /* Ensures the label takes up the full width above the input */
+  font-size: 14px;
+  /* Adjust the font size */
+  font-weight: bold;
+  /* Make the label bold */
+  margin-bottom: 5px;
+  /* Adds space between the label and the input */
+  color: #333;
+  /* Color for the label text */
+}
+
+.register {
+  margin: 30px 50px;
+  min-width: 500px;
+}
+
+.register .heading {
+  font-size: 80%;
+  font-weight: bold;
+}
+
+.register .register-content {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.2rem;
+}
+
+.register .register-content .tapad {
+  display: flex;
+}
+
+.register .register-content .tapad input {
+  flex: 1;
+}
+
+.register .register-content .tapad input:first-child {
+  margin-right: 0.5rem;
+}
+
+.register a {
+  font-size: 50%;
+  color: black;
+}
+
+.register a:hover {
+  font-weight: bold;
+}
+
+.activate {
+  text-align: center;
+  margin: 50px;
+}
+
+.activate .heading {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.activate .description {
+  font-size: 50%;
+  margin-bottom: 1rem;
+  max-width: 400px;
+  line-height: 1.5;
+  margin: 0 auto;
+}
+
+.activate .activate-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.forgot {
+  margin: 50px;
+  min-width: 400px;
+}
+
+.forgot .heading {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.forgot .description {
+  font-size: 50%;
+  margin-bottom: 1rem;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+.forgot .forgot-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.forgot a {
+  font-size: 50%;
+  color: black;
+}
+
+.forgot a:hover {
+  font-weight: bold;
+}
+
+.cards-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.cards-content .card {
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  width: 386.5px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cards-content .card .card-header .card-title {
+  font-size: 80%;
+  font-weight: bold;
+}
+
+.cards-content .card .card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cards-content .card .card-body .card-desc {
+  font-size: 50%;
+}
+
+.cards-content .card .card-body .card-date {
+  font-size: 50%;
+}
+
+.cards-content .card .card-body .card-supervisor {
+  font-size: 50%;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard .heading {
+  font-size: 80%;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard .dashboard-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 0.5rem;
+}
+
+.dashboard .dashboard-container.details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.dashboard .dashboard-container.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dashboard .dashboard-container.progress .progress-bar {
+  width: 100%;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.dashboard .dashboard-container.progress progress::-webkit-progress-bar {
+  background-color: #bdc3c7;
+}
+
+.dashboard .dashboard-container.progress progress::-webkit-progress-value {
+  background-color: #ff6b6b;
+  border-radius: 10px;
+}
+
+.dashboard .dashboard-container.progress progress::-moz-progress-bar {
+  background-color: #ff6b6b;
+  border-radius: 10px;
+}
+
+.dashboard .dashboard-container.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: #94a3b8;
+  max-height: 365px;
+  overflow-y: auto;
+}
+
+.dashboard .dashboard-container.task-list .task {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.dashboard .dashboard-container.task-list .task .task-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.dashboard .dashboard-container .dashboard-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.dashboard .dashboard-container .dashboard-group .dashboard-heading {
+  font-size: 60%;
+  font-weight: bold;
+}
+
+.dashboard .dashboard-container .dashboard-group .detail,
+.dashboard .dashboard-container .dashboard-group .status {
+  font-size: 50%;
+}
+
+.dashboard .dashboard-container .dashboard-group .status {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.tp-details {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tp-details .tp-deet {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.tp-details .tp-more {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.tp-heading {
+  font-size: 80%;
+  font-weight: bold;
+}
+
+.normal {
+  font-size: 50%;
+}
+
+.bold {
+  font-size: 60%;
+  font-weight: bold;
+}
+
+.tp-tasklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.tp-tasklist .tp-task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 0.1rem;
+}
+
+.tp-tasklist .tp-task.past-due {
+  box-shadow: none;
+  border: 2px solid #ff6b6b;
+}
+
+.tp-tasklist .tp-task.past-due .bold,
+.tp-tasklist .tp-task.past-due .normal {
+  color: #ff6b6b;
+}
+
+.tp-tasklist .tp-task .detail-group1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.logbook-entry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.logbook-entry-list .logbook-entry {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logbook-entry-list .logbook-entry .logbook-entry-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.logbook-entry-list .logbook-entry .logbook-entry-content .logbook-entry-title {
+  font-size: 60%;
+  font-weight: bold;
+}
+
+.logbook-entry-list .logbook-entry .logbook-entry-content .logbook-entry-date {
+  font-size: 50%;
+}
+
+.logbook-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.logbook-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.supervisor-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.supervisor-dashboard .small-cards-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.supervisor-dashboard .small-cards-container .small-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 115px;
+}
+
+.supervisor-dashboard .small-cards-container .small-card .small-card-heading {
+  font-size: 60%;
+  font-weight: bold;
+}
+
+.supervisor-dashboard .small-cards-container .small-card .small-card-value {
+  font-weight: bolder;
+  font-size: 100%;
+}
+
+.supervisor-dashboard .small-cards-container .small-card .value-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.supervisor-dashboard .large-card-container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  height: 450px;
+  position: relative;
+  gap: 0.5rem;
+}
+
+.supervisor-dashboard .large-card-container .large-card-heading {
+  font-size: 80%;
+  font-weight: bold;
+}
+
+.supervisor-dashboard .large-card-container .large-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.supervisor-dashboard .large-card-container .large-card-list .list-value {
+  display: grid;
+  grid-template-columns: 0.5fr 0.5fr 0.1fr;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #bdc3c7;
+  border-radius: 10px;
+}
+
+.supervisor-dashboard .large-card-container .large-card-list .list-value p {
+  font-size: 60%;
+}
+
+/*# sourceMappingURL=output.css.map */
