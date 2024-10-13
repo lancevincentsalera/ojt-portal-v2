@@ -20,6 +20,8 @@ import InternListController from "./Components/Supervisor/InternList/controller/
 import SupervisorEvaluationsController from "./Components/Supervisor/Evaluations/controller/SupervisorEvaluationsController";
 import { GlobalStateProvider, useGlobalState } from "./Components/Globals/variables";
 import NotFound from "./Components/Common/NotFound";
+import InstructorDashboardController from "./Components/Teacher/InstructorDashboard/controller/InstructorDashboardController";
+import OJTAnalytics_InstructorController from "./Components/Teacher/OJTAnalytics/controller/OJTAnalytics_InstructorController";
 
 const ProtectedRoute = ({ children }) => {
   const { authUser, isLoggedIn } = useAuth();
@@ -32,7 +34,7 @@ const ProtectedRoute = ({ children }) => {
 
   return children ? children : <Outlet />;
 };
-
+  
 const ConditionalRoute = ({ children }) => {
   const { allowPath } = useGlobalState(); 
 
@@ -89,6 +91,8 @@ const App = () => {
                 <Route path="/supervisor-dashboard" element={<SupervisorDashboardController />} />
                 <Route path="/supervisor-intern-list" element={<InternListController />} />
                 <Route path="/supervisor-evaluations" element={<SupervisorEvaluationsController />} />
+                <Route path="/student-data" element={<InstructorDashboardController />} />
+                <Route path="/ojt-analytics" element={<OJTAnalytics_InstructorController />} />
               </Route>
             </Route>
 
