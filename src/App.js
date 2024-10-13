@@ -32,6 +32,7 @@ import {
 import NotFound from "./Components/Common/NotFound";
 import MentorTrainingPlansController from "./Components/Supervisor/TrainingPlans/controller/MentorTrainingPlansController";
 import TrainingTaskList from "./Components/Supervisor/TrainingPlans/TrainingTaskList";
+import MentorLogbookSubmissionsController from "./Components/Supervisor/LogbookSubmissions/controller/MentorLogbookSubmissionsController";
 
 const ProtectedRoute = ({ children }) => {
   const { authUser, isLoggedIn } = useAuth();
@@ -141,6 +142,10 @@ const App = () => {
                   element={<MentorTrainingPlansController />}
                 />
                 <Route path="/task-list" element={<TrainingTaskList />} />
+                <Route
+                  path="/supervisor-submissions"
+                  element={<MentorLogbookSubmissionsController />}
+                />
               </Route>
             </Route>
 
