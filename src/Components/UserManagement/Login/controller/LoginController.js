@@ -46,7 +46,7 @@ const LoginController = ({ view }) => {
       setIsLoggedIn(true); 
       if(response.data.userType === "Admin") navigate('/admin-users');
       else if(response.data.user.userType === "Teacher") navigate('/student-data');
-      else navigate('/intern-dashboard');
+      else navigate('/intern-attendance');
       setIsLoading(false);
     } catch (err) {
       if(err.response.status === 422) {

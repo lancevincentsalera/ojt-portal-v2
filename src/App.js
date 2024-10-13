@@ -20,23 +20,29 @@ import InternListController from "./Components/Supervisor/InternList/controller/
 import SupervisorEvaluationsController from "./Components/Supervisor/Evaluations/controller/SupervisorEvaluationsController";
 import { GlobalStateProvider, useGlobalState } from "./Components/Globals/variables";
 import NotFound from "./Components/Common/NotFound";
+import InternAttendanceController from "./Components/Intern/Attendance/controller/InternAttendanceController";
 import InstructorDashboardController from "./Components/Teacher/InstructorDashboard/controller/InstructorDashboardController";
 import OJTAnalytics_InstructorController from "./Components/Teacher/OJTAnalytics/controller/OJTAnalytics_InstructorController";
 
 const ProtectedRoute = ({ children }) => {
-  const { authUser, isLoggedIn } = useAuth();
+  const { authUser, isLoggedIn, timeIn } = useAuth();
+  const { pathname } = useLocation();
   const { setAllowPath } = useGlobalState();
 
   const restrictedPaths = [
-    // "/intern-dashboard",
-    // "/intern-tp",
-    // "/intern-entries",
-    // "/intern-submit",
+    "/intern-dashboard",
+    "/intern-tp",
+    "/intern-entries",
+    "/intern-submit",
   ];
 
   if (!authUser || !isLoggedIn) {
     setAllowPath(false); 
     return <Navigate to="/" />;
+  }
+
+  if (timeIn === null && restrictedPaths.includes(pathname)) {
+    return <Navigate to="/intern-attendance" />;
   }
 
   return children ? children : <Outlet />;
@@ -91,6 +97,7 @@ const App = () => {
                 <Route path="/admin-companies" element={<CompaniesController />} />
                 <Route path="/admin-ojt-records" element={<OJTRecordsController />} />
                 <Route path="/admin-training-plans" element={<TrainingPlansController />} />
+                <Route path="/intern-attendance" element={<InternAttendanceController />} />
                 <Route path="/intern-dashboard" element={<InternDashboardController />} />
                 <Route path="/intern-tp" element={<TrainingPlanController />} />
                 <Route path="/intern-entries" element={<SubmissionsController />} />

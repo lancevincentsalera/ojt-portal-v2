@@ -40,7 +40,7 @@ const InternDashboardView = ({ showModal, handleModalAction }) => {
               <p className="detail">{userInfo.division}</p>
             </div>
             <div className="dashboard-group">
-              <p className="dashboard-heading">Status</p>
+              <p className="dashboard-heading">Internship Status</p>
               <p className="detail">{userInfo.internshipStatus}</p>
             </div>
           </div>
@@ -62,7 +62,7 @@ const InternDashboardView = ({ showModal, handleModalAction }) => {
             </div>
             <div className="dashboard-group">
               <p className="dashboard-heading">Total Rendered Hours</p>
-              <progress className="progress-bar" value="80" max="100" />
+              <progress className="progress-bar" value={userInfo.shift.totalHrsRendered} max={userInfo.hrsToRender} />
             </div>
           </div>
         </div>
