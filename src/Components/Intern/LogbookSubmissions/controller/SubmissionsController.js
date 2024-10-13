@@ -6,7 +6,7 @@ import { useAuth } from "../../../Common/AuthContext";
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const SubmissionsController = () => {
-  const { userInfo } = useAuth();
+  const { userInfo, authUser } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [logbooks, setLogbooks] = useState([]);
   const [selectedLogbook, setSelectedLogbook] = useState(null);
@@ -20,7 +20,7 @@ const SubmissionsController = () => {
       try {
         const response = await axios.get(`${apiBaseUrl}/logbooks/student/${userInfo.user.id}`, {
           headers: {
-            Authorization: `Bearer ${userInfo.accessToken}`,
+            Authorization: `Bearer ${authUser.accessToken}`,
           },
         });
         setLogbooks(response.data);
