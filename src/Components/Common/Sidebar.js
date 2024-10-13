@@ -99,6 +99,10 @@ const Sidebar = ({ userRole }) => {
       switch (userInfo.user.userType) {
         case "Student":
           return studentLinks;
+          // return studentLinks.map(link => ({
+          //   ...link,
+          //   disabled: timeIn === null && link.name !== "Attendance"
+          // }));
         case "Mentor":
           return supervisorLinks;
         case "Chair":

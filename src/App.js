@@ -25,6 +25,13 @@ const ProtectedRoute = ({ children }) => {
   const { authUser, isLoggedIn } = useAuth();
   const { setAllowPath } = useGlobalState();
 
+  const restrictedPaths = [
+    // "/intern-dashboard",
+    // "/intern-tp",
+    // "/intern-entries",
+    // "/intern-submit",
+  ];
+
   if (!authUser || !isLoggedIn) {
     setAllowPath(false); 
     return <Navigate to="/" />;

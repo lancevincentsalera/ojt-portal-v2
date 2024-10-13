@@ -1,50 +1,40 @@
 import React from "react";
 
-const FeedbackedLogbooks = ({ showModal, handleModalAction }) => {
+const FeedbackedLogbooks = ({ logbooks, handleModalAction, setSelectedLogbook }) => {
   return (
     <div className="logbook-entry-list">
-      <div className="logbook-entry">
-        <div className="logbook-entry-content">
-          <p className="logbook-entry-title">Jun 06 Logbook</p>
-          <p className="logbook-entry-date">Submitted on: Jun 07, 2024</p>
-        </div>
+      {logbooks.map((logbook, index) => {
+        const creationDate = new Date(logbook.creationTimestamp).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: '2-digit',
+        });
+        const submissionDate = new Date(logbook.submissionTimestamp).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: '2-digit',
+        });
 
-        <button
-          type="button"
-          className="button-main create"
-          onClick={handleModalAction}
-        >
-          View
-        </button>
-      </div>
-      <div className="logbook-entry">
-        <div className="logbook-entry-content">
-          <p className="logbook-entry-title">Jun 07 Logbook</p>
-          <p className="logbook-entry-date">Submitted on: Jun 07, 2024</p>
-        </div>
+        return (
+          <div key={index} className="logbook-entry">
+            <div className="logbook-entry-content">
+              <p className="logbook-entry-title">{`${creationDate} Logbook`}</p>
+              <p className="logbook-entry-date">{`Submitted on: ${submissionDate}`}</p>
+            </div>
 
-        <button
-          type="button"
-          className="button-main create"
-          onClick={handleModalAction}
-        >
-          View
-        </button>
-      </div>
-      <div className="logbook-entry">
-        <div className="logbook-entry-content">
-          <p className="logbook-entry-title">Jun 08 Logbook</p>
-          <p className="logbook-entry-date">Submitted on: Jun 10, 2024</p>
-        </div>
-
-        <button
-          type="button"
-          className="button-main create"
-          onClick={handleModalAction}
-        >
-          View
-        </button>
-      </div>
+            <button
+              type="button"
+              className="button-main create"
+              onClick={() => {
+                setSelectedLogbook(logbook);
+                handleModalAction();
+              }}
+            >
+              View
+            </button>
+          </div>
+        );
+      })}
     </div>
   );
 };

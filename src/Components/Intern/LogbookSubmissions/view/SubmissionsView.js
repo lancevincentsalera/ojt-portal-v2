@@ -8,7 +8,14 @@ const SubmissionsView = ({
   handleModalAction,
   tab,
   handleTabChange,
+  logbooks,
 }) => {
+  const pendingLogbooks = logbooks.filter(
+    (logbook) => logbook.logbookStatus === "Pending"
+  );
+  const feedbackedLogbooks = logbooks.filter(
+    (logbook) => logbook.logbookStatus === "Submitted"
+  );
   return (
     <>
       {showModal && (
@@ -43,12 +50,14 @@ const SubmissionsView = ({
           <PendingFeedbackLogbooks
             showModal={showModal}
             handleModalAction={handleModalAction}
+            logbooks={pendingLogbooks}
           />
         )}
         {tab.feedbacked && (
           <FeedbackedLogbooks
             showModal={showModal}
             handleModalAction={handleModalAction}
+            logbooks={feedbackedLogbooks}
           />
         )}
       </div>
