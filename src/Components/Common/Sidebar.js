@@ -95,8 +95,12 @@ const Sidebar = ({ userRole }) => {
   const getLinks = () => {
     console.log(isLoggedIn);
     console.log(userInfo);
+
+    if (!isLoggedIn || !userInfo) return [];
+
+    const userType = userInfo.user ? userInfo.user.userType : userInfo.userType;
     if (isLoggedIn) {
-      switch (userInfo.user.userType) {
+      switch (userType) {
         case "Student":
           return studentLinks;
         case "Mentor":
