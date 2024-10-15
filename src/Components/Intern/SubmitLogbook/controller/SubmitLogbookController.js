@@ -26,23 +26,32 @@ const SubmitLogbookController = () => {
         attendanceId,
         activities,
       };
-
+  
       const response = await axios.post(`${apiBaseUrl}/logbooks`, requestBody, {
         headers: {
           Authorization: `Bearer ${authUser.accessToken}`,
         },
       });
-
+  
       console.log("Logbook entry added successfully:", response.data);
       setIsSubmitting(false);
       setIsSuccess(true); 
+      setActivities("");
+      setAttendanceId(0);
     } catch (error) {
       console.error("Error adding logbook entry:", error);
-      setErrorMessage("Error adding logbook entry."); 
-      setIsSubmitting(false); 
+  
+      if (error.response && error.response.status === 422 && error.response.data.errors) {
+        const errorDetail = error.response.data.errors[0]?.message || "An unknown error occurred.";
+        setErrorMessage(errorDetail); 
+      } else {
+        setErrorMessage("Error adding logbook entry."); 
+      }
+  
+      setIsSubmitting(false);
       setIsError(true);
     }
-  };
+  };  
 
   useEffect(() => {
     const fetchStudentAttendance = async () => {
@@ -76,14 +85,16 @@ const SubmitLogbookController = () => {
         handleSubmitLogbook={handleSubmitLogbook}
       />
 
-      <LoadingModal visible={isSubmitting} /> 
+      <LoadingModal open={isSubmitting} />
+
       <OkayModal
-        visible={isSuccess}
+        open={isSuccess}
         onClose={() => setIsSuccess(false)}
         message="Logbook entry added successfully!"
       />
+
       <ErrorModal
-        visible={isError}
+        open={isError}
         onClose={() => setIsError(false)}
         errorMessage={errorMessage}
       />

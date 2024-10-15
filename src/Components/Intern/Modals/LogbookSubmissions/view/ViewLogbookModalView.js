@@ -1,4 +1,7 @@
 import React from "react";
+import { Modal, Input, Row, Col } from "antd";
+
+const { TextArea } = Input;
 
 const ViewLogbookModalView = ({ showModal, handleModalAction, selectedLogbook }) => {
   if (!selectedLogbook) return null;
@@ -9,42 +12,61 @@ const ViewLogbookModalView = ({ showModal, handleModalAction, selectedLogbook })
     day: '2-digit',
   });
 
+  const timeIn = new Date(selectedLogbook.attendance.timeIn).toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  const timeOut = new Date(selectedLogbook.attendance.timeOut).toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  const renderedHours = selectedLogbook.attendance.renderedHours;
+  const isTimeInLate = selectedLogbook.attendance.isTimeInLate ? "Yes" : "No";
+  const isTimeOutLate = selectedLogbook.attendance.isTimeOutLate ? "Yes" : "No";
+  const logbookStatus = selectedLogbook.logbookStatus;
+
   return (
-    <>
-      <div className="modal-overlay" onClick={handleModalAction}></div>
-      <div className="modal">
-        <div className="modal-content">
-          <div className="modal-header">
-            <p className="heading">{`${creationDate} Logbook`}</p>
-          </div>
-          <div className="modal-form no-subh">
-            <div className="entry-content-list">
-              <div className="entry-content-group date">
-                <p className="label">Date of Entry:</p>
-                <p className="value">{creationDate}</p>
-              </div>
-              <div className="entry-content-group">
-                <p className="label">Activities</p>
-                <p className="entry-content">{selectedLogbook.activities}</p>
-              </div>
-              <div className="entry-content-group">
-                <p className="label">Remarks</p>
-                <p className="entry-content">{selectedLogbook.remarks || "No remarks provided."}</p>
-              </div>
-            </div>
-            <div className="button-group single">
-              <button
-                type="button"
-                className="button-main"
-                onClick={handleModalAction}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
+    <Modal
+      title={`Logbook Details`}
+      open={showModal}
+      onCancel={handleModalAction}
+      footer={null}
+      bodyStyle={{ padding: "16px", maxHeight: "400px", overflowY: "auto" }} 
+      style={{ top: 20 }}
+      centered
+    >
+      <Row gutter={16} style={{ marginBottom: "16px" }}>
+        <Col span={12}>
+          <label>Date of Entry:</label>
+          <Input value={creationDate} disabled />
+        </Col>
+        <Col span={12}>
+          <label>Logbook Status:</label>
+          <Input value={logbookStatus} disabled />
+        </Col>
+      </Row>
+
+      <div style={{ marginBottom: "16px" }}>
+        <label>Attendance Information:</label>
+        <Input.TextArea
+          value={`Time In: ${timeIn} (Late: ${isTimeInLate})\nTime Out: ${timeOut} (Late: ${isTimeOutLate})\nRendered Hours: ${renderedHours} hours`}
+          disabled
+          rows={3}
+        />
       </div>
-    </>
+
+      <div style={{ marginBottom: "16px" }}>
+        <label>Activities:</label>
+        <TextArea value={selectedLogbook.activities} disabled rows={4} />
+      </div>
+
+      <div>
+        <label>Remarks:</label>
+        <TextArea value={selectedLogbook.remarks || "No remarks provided."} disabled rows={3} />
+      </div>
+    </Modal>
   );
 };
 
