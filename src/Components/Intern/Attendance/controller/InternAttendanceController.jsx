@@ -13,22 +13,15 @@ const InternAttendanceController = () => {
 
   useEffect(() => {
     fetchInternAttendance();
-    if (timeIn) {
-      setIsTimeInDisabled(true); 
-    }
-
-    if (timeOut) {
-      setIsTimeOutDisabled(true); 
-    }
-  }, [timeIn, timeOut]);
+  }, []);
 
   const fetchInternAttendance = async () => {
-    const studentId = userInfo.studentId; 
+    const userId = userInfo.user.id; 
     const today = moment().format("YYYY-MM-DD");
 
     try {
       const response = await axios.get(
-        `${apiBaseUrl}/attendance/student/${studentId}?start=${today}&end=${today}`,
+        `${apiBaseUrl}/attendance/student/${userId}?start=${today}&end=${today}`,
         {
           headers: {
             Authorization: `Bearer ${authUser.accessToken}`,
@@ -64,8 +57,7 @@ const InternAttendanceController = () => {
           },
         }
       );
-      setTimeIn(response.data.timeIn);
-      setIsTimeInDisabled(true); 
+      fetchInternAttendance();
     } catch (error) {
       console.error("Error during Time In:", error);
     }
@@ -82,8 +74,7 @@ const InternAttendanceController = () => {
           },
         }
       );
-      setTimeOut(response.data.timeOut);
-      setIsTimeOutDisabled(true);
+      fetchInternAttendance();
     } catch (error) {
       console.error("Error during Time Out:", error);
     }
