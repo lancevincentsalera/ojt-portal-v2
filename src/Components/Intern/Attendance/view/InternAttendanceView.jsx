@@ -55,7 +55,7 @@ const InternAttendanceView = ({ handleTimeIn, handleTimeOut, isTimeInDisabled, i
         }}
       >
         <div style={{ textAlign: 'center' }}>
-          <div className='heading'>Time In</div>
+        <div><span style={{ fontWeight: 'bold', fontSize: 17 }}>Time In: </span><span style={{ fontSize: 17, color: '#e74c3c' }}>{timeIn}</span></div>
           <div
             onClick={!isTimeInDisabled ? handleTimeIn : null}
             style={{
@@ -110,8 +110,8 @@ const InternAttendanceView = ({ handleTimeIn, handleTimeOut, isTimeInDisabled, i
         </div>
 
         <div style={{ textAlign: 'center' }}>
-          <div className='heading'>Time Out</div>
-          <div
+        <div><span style={{ fontWeight: 'bold', fontSize: 17 }}>Time Out: </span><span style={{ fontSize: 17, color: '#e74c3c' }}>{timeOut}</span></div>
+        <div
             onClick={!isTimeOutDisabled ? handleTimeOut : null}
             style={{
               cursor: isTimeOutDisabled ? 'not-allowed' : 'pointer',
