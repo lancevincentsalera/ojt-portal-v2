@@ -27,6 +27,9 @@ const ViewLogbookModalView = ({ showModal, handleModalAction, selectedLogbook })
   const isTimeOutLate = selectedLogbook.attendance.isTimeOutLate ? "Yes" : "No";
   const logbookStatus = selectedLogbook.logbookStatus;
 
+  const sentimentCategory = selectedLogbook.remarkSentimentCategory || 'No sentiment can be made.';
+  const sentimentScore = selectedLogbook.remarkSentimentScore !== null ? selectedLogbook.remarkSentimentScore : 'N/A';
+
   return (
     <Modal
       title={`Logbook Details`}
@@ -50,21 +53,61 @@ const ViewLogbookModalView = ({ showModal, handleModalAction, selectedLogbook })
 
       <div style={{ marginBottom: "16px" }}>
         <label>Attendance Information:</label>
-        <Input.TextArea
+        <TextArea
           value={`Time In: ${timeIn} (Late: ${isTimeInLate})\nTime Out: ${timeOut} (Late: ${isTimeOutLate})\nRendered Hours: ${renderedHours} hours`}
           disabled
           rows={3}
+          style={{
+            resize: 'none',
+            width: '100%',
+            padding: '8px',
+            backgroundColor: '#f0f0f0',
+            border: '1px solid #d9d9d9',
+            borderRadius: '4px'
+          }}
         />
       </div>
 
       <div style={{ marginBottom: "16px" }}>
         <label>Activities:</label>
-        <TextArea value={selectedLogbook.activities} disabled rows={4} />
+        <TextArea
+          value={selectedLogbook.activities}
+          disabled
+          rows={4}
+          style={{
+            resize: 'none',
+            width: '100%',
+            padding: '8px',
+            backgroundColor: '#f0f0f0',
+            border: '1px solid #d9d9d9',
+            borderRadius: '4px'
+          }}
+        />
       </div>
 
-      <div>
+      <div style={{ marginTop: "16px" }}>
         <label>Remarks:</label>
-        <TextArea value={selectedLogbook.remarks || "No remarks provided."} disabled rows={3} />
+        <TextArea
+          value={selectedLogbook.remarks || "No remarks provided."}
+          disabled
+          rows={3}
+          style={{
+            resize: 'none',
+            width: '100%',
+            padding: '8px',
+            backgroundColor: '#f0f0f0',
+            border: '1px solid #d9d9d9',
+            borderRadius: '4px'
+          }}
+        />
+      </div>
+
+      <div style={{ marginTop: "16px" }}>
+        <label>Sentimental Analysis Result: </label>
+        <p style={{ fontSize: '15px', color: '#ff6b6b' }}>
+          <h6>{sentimentCategory}
+          </h6> 
+        </p>
       </div>
     </Modal>
   );
