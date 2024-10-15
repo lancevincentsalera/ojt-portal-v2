@@ -6,7 +6,7 @@ const ActivateAccountView = ({ handleResendActivationEmail }) => {
   const navigate = useNavigate();
   const { isLoading, error } = useGlobalState();
 
-  const countdownDuration = 120;
+  const countdownDuration = 120; 
 
   const getRemainingTime = () => {
     const savedTime = localStorage.getItem("activationStartTime");
@@ -23,10 +23,6 @@ const ActivateAccountView = ({ handleResendActivationEmail }) => {
 
   useEffect(() => {
     if (timer > 0) {
-      if (!localStorage.getItem("activationStartTime")) {
-        localStorage.setItem("activationStartTime", Date.now());
-      }
-
       const intervalId = setInterval(() => {
         setTimer(getRemainingTime);
       }, 1000);
@@ -37,6 +33,16 @@ const ActivateAccountView = ({ handleResendActivationEmail }) => {
       localStorage.removeItem("activationStartTime");
     }
   }, [timer]);
+
+  const handleResendClick = () => {
+    // Reset the timer and disable the button
+    localStorage.setItem("activationStartTime", Date.now());
+    setTimer(countdownDuration);
+    setIsButtonDisabled(true);
+
+    // Call the resend email handler
+    handleResendActivationEmail();
+  };
 
   return (
     <div className="container">
@@ -75,7 +81,7 @@ const ActivateAccountView = ({ handleResendActivationEmail }) => {
             <button
               type="submit"
               className="button-main"
-              onClick={handleResendActivationEmail}
+              onClick={handleResendClick}
               disabled={isButtonDisabled}
               style={{ fontSize: "12px" }}
             >
