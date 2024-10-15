@@ -5,6 +5,7 @@ import { useAuth } from "../../../Common/AuthContext";
 import OkayModal from "../../../Common/Modals/OkayModal";
 import ErrorModal from "../../../Common/Modals/ErrorModal";
 import LoadingModal from "../../../Common/Modals/LoadingModal";
+import PromptModal from "../../../Common/Modals/PromptModal"; 
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -14,10 +15,12 @@ const SubmitLogbookController = () => {
   const [attendanceId, setAttendanceId] = useState(0);
   const [activities, setActivities] = useState("");
 
-  const [isSubmitting, setIsSubmitting] = useState(false); 
-  const [isSuccess, setIsSuccess] = useState(false); 
-  const [isError, setIsError] = useState(false); 
-  const [errorMessage, setErrorMessage] = useState(""); 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const [isPromptOpen, setIsPromptOpen] = useState(false);
 
   const handleSubmitLogbook = async () => {
     setIsSubmitting(true);
@@ -26,32 +29,41 @@ const SubmitLogbookController = () => {
         attendanceId,
         activities,
       };
-  
+
       const response = await axios.post(`${apiBaseUrl}/logbooks`, requestBody, {
         headers: {
           Authorization: `Bearer ${authUser.accessToken}`,
         },
       });
-  
+
       console.log("Logbook entry added successfully:", response.data);
       setIsSubmitting(false);
-      setIsSuccess(true); 
+      setIsSuccess(true);
       setActivities("");
       setAttendanceId(0);
     } catch (error) {
       console.error("Error adding logbook entry:", error);
-  
+
       if (error.response && error.response.status === 422 && error.response.data.errors) {
         const errorDetail = error.response.data.errors[0]?.message || "An unknown error occurred.";
-        setErrorMessage(errorDetail); 
+        setErrorMessage(errorDetail);
       } else {
-        setErrorMessage("Error adding logbook entry."); 
+        setErrorMessage("Error adding logbook entry.");
       }
-  
+
       setIsSubmitting(false);
       setIsError(true);
     }
-  };  
+  };
+
+  const handleConfirmSubmitLogbook = () => {
+    setIsPromptOpen(true); 
+  };
+
+  const handleConfirm = async () => {
+    setIsPromptOpen(false);
+    await handleSubmitLogbook(); 
+  };
 
   useEffect(() => {
     const fetchStudentAttendance = async () => {
@@ -82,7 +94,7 @@ const SubmitLogbookController = () => {
         setAttendanceId={setAttendanceId}
         activities={activities}
         setActivities={setActivities}
-        handleSubmitLogbook={handleSubmitLogbook}
+        handleSubmitLogbook={handleConfirmSubmitLogbook} 
       />
 
       <LoadingModal open={isSubmitting} />
@@ -97,6 +109,13 @@ const SubmitLogbookController = () => {
         open={isError}
         onClose={() => setIsError(false)}
         errorMessage={errorMessage}
+      />
+
+      <PromptModal
+        open={isPromptOpen}
+        onClose={() => setIsPromptOpen(false)}
+        onConfirm={handleConfirm}
+        message="Are you sure you want to submit the logbook entry?"
       />
     </>
   );
