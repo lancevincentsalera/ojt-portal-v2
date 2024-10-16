@@ -23,6 +23,7 @@ import NotFound from "./Components/Common/NotFound";
 import InternAttendanceController from "./Components/Intern/Attendance/controller/InternAttendanceController";
 import InstructorDashboardController from "./Components/Teacher/InstructorDashboard/controller/InstructorDashboardController";
 import OJTAnalytics_InstructorController from "./Components/Teacher/OJTAnalytics/controller/OJTAnalytics_InstructorController";
+import StudentMonitoringController from "./Components/Instructor/StudentMonitoring/controller/StudentMonitoringController";
 
 const ProtectedRoute = ({ children }) => {
   const { authUser, isLoggedIn, timeIn } = useAuth();
@@ -106,6 +107,7 @@ const App = () => {
                 <Route path="/supervisor-intern-list" element={<InternListController />} />
                 <Route path="/supervisor-evaluations" element={<SupervisorEvaluationsController />} />
                 <Route path="/student-data" element={<InstructorDashboardController />} />
+                <Route path="/student-monitoring" element={<StudentMonitoringController />} />
                 <Route path="/ojt-analytics" element={<OJTAnalytics_InstructorController />} />
               </Route>
             </Route>

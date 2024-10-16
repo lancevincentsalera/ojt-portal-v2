@@ -92,6 +92,10 @@ const Sidebar = ({ userRole }) => {
       name: "Instructor Dashboard",
     },
     {
+      goto: "/student-monitoring",
+      name: "Student Monitoring",
+    },
+    {
       goto: "/ojt-analytics",
       name: "OJT Analytics",
     },
