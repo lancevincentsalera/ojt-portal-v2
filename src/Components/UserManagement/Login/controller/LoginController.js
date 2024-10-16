@@ -43,20 +43,11 @@ const LoginController = ({ view }) => {
 
       setAuthUser(userData, response.data);
       setIsLoggedIn(true);
-      console.log(response.data);
-      switch (response.data.user.userType) {
-        case "Student":
-          navigate("/intern-dashboard");
-          break;
-        case "Mentor":
-          navigate("/supervisor-dashboard");
-          break;
-        case "Chair":
-          navigate("/student-monitoring");
-          break;
-        default:
-          navigate("/NotFound");
-      }
+      if (response.data.userType === "Admin") navigate("/admin-users");
+      else if (response.data.user.userType === "Teacher")
+        navigate("/student-data");
+      else navigate("/intern-attendance");
+      setIsLoading(false);
     } catch (err) {
       if (err.response.status === 422) {
         setAllowPath(true);

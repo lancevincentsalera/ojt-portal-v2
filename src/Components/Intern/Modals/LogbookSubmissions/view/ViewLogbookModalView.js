@@ -1,49 +1,115 @@
 import React from "react";
+import { Modal, Input, Row, Col } from "antd";
 
-const ViewLogbookModalView = ({ showModal, handleModalAction }) => {
+const { TextArea } = Input;
+
+const ViewLogbookModalView = ({ showModal, handleModalAction, selectedLogbook }) => {
+  if (!selectedLogbook) return null;
+
+  const creationDate = new Date(selectedLogbook.creationTimestamp).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+  });
+
+  const timeIn = new Date(selectedLogbook.attendance.timeIn).toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  const timeOut = new Date(selectedLogbook.attendance.timeOut).toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  const renderedHours = selectedLogbook.attendance.renderedHours;
+  const isTimeInLate = selectedLogbook.attendance.isTimeInLate ? "Yes" : "No";
+  const isTimeOutLate = selectedLogbook.attendance.isTimeOutLate ? "Yes" : "No";
+  const logbookStatus = selectedLogbook.logbookStatus;
+
+  const sentimentCategory = selectedLogbook.remarkSentimentCategory || 'No sentiment can be made.';
+  const sentimentScore = selectedLogbook.remarkSentimentScore !== null ? selectedLogbook.remarkSentimentScore : 'N/A';
+
   return (
-    <>
-      <div className="modal-overlay" onClick={handleModalAction}></div>
-      <div className="modal">
-        <div className="modal-content">
-          <div className="modal-header">
-            <p className="heading">Jun 09 Logbook</p>
-          </div>
-          <div className="modal-form no-subh">
-            <div className="entry-content-list">
-              <div className="entry-content-group date">
-                <p className="label">Date of Entry:</p>
-                <p className="value">Jun 09, 2024</p>
-              </div>
-              <div className="entry-content-group">
-                <p className="label">Activities</p>
-                <p className="entry-content">
-                  Completed the quarterly financial report and presented it to
-                  the management team. Also conducted a team meeting to discuss
-                  project milestones and deadlines.
-                </p>
-              </div>
-              <div className="entry-content-group">
-                <p className="label">Remarks</p>
-                <p className="entry-content">
-                  Supervisor's feedback goes here. This is a detailed remark
-                  provided by the supervisor based on the activities done.
-                </p>
-              </div>
-            </div>
-            <div className="button-group single">
-              <button
-                type="button"
-                className="button-main "
-                onClick={handleModalAction}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
+    <Modal
+      title={`Logbook Details`}
+      open={showModal}
+      onCancel={handleModalAction}
+      footer={null}
+      bodyStyle={{ padding: "16px", maxHeight: "400px", overflowY: "auto" }} 
+      style={{ top: 20 }}
+      centered
+    >
+      <Row gutter={16} style={{ marginBottom: "16px" }}>
+        <Col span={12}>
+          <label>Date of Entry:</label>
+          <Input value={creationDate} disabled />
+        </Col>
+        <Col span={12}>
+          <label>Logbook Status:</label>
+          <Input value={logbookStatus} disabled />
+        </Col>
+      </Row>
+
+      <div style={{ marginBottom: "16px" }}>
+        <label>Attendance Information:</label>
+        <TextArea
+          value={`Time In: ${timeIn} (Late: ${isTimeInLate})\nTime Out: ${timeOut} (Late: ${isTimeOutLate})\nRendered Hours: ${renderedHours} hours`}
+          disabled
+          rows={3}
+          style={{
+            resize: 'none',
+            width: '100%',
+            padding: '8px',
+            backgroundColor: '#f0f0f0',
+            border: '1px solid #d9d9d9',
+            borderRadius: '4px'
+          }}
+        />
       </div>
-    </>
+
+      <div style={{ marginBottom: "16px" }}>
+        <label>Activities:</label>
+        <TextArea
+          value={selectedLogbook.activities}
+          disabled
+          rows={4}
+          style={{
+            resize: 'none',
+            width: '100%',
+            padding: '8px',
+            backgroundColor: '#f0f0f0',
+            border: '1px solid #d9d9d9',
+            borderRadius: '4px'
+          }}
+        />
+      </div>
+
+      <div style={{ marginTop: "16px" }}>
+        <label>Remarks:</label>
+        <TextArea
+          value={selectedLogbook.remarks || "No remarks provided."}
+          disabled
+          rows={3}
+          style={{
+            resize: 'none',
+            width: '100%',
+            padding: '8px',
+            backgroundColor: '#f0f0f0',
+            border: '1px solid #d9d9d9',
+            borderRadius: '4px'
+          }}
+        />
+      </div>
+
+      <div style={{ marginTop: "16px" }}>
+        <label>Sentimental Analysis Result: </label>
+        <p style={{ fontSize: '15px', color: '#ff6b6b' }}>
+          <h6>{sentimentCategory}
+          </h6> 
+        </p>
+      </div>
+    </Modal>
   );
 };
 

@@ -23,6 +23,34 @@ export function AuthProvider(props) {
     return savedLoginState === "true";
   });
 
+  const [timeIn, setTimeInState] = useState(() => {
+    const savedTimeIn = Cookies.get("timeIn");
+    return savedTimeIn || null;
+  });
+
+  const [timeOut, setTimeOutState] = useState(() => {
+    const savedTimeOut = Cookies.get("timeOut");
+    return savedTimeOut || null;
+  });
+
+  const getNextMidnight = () => {
+    const now = new Date();
+    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0); // Midnight next day
+    return tomorrow;
+  };
+
+  const setTimeIn = (timeInValue) => {
+    const expiration = getNextMidnight();
+    Cookies.set("timeIn", timeInValue, { expires: expiration });
+    setTimeInState(timeInValue);
+  };
+
+  const setTimeOut = (timeOutValue) => {
+    const expiration = getNextMidnight();
+    Cookies.set("timeOut", timeOutValue, { expires: expiration });
+    setTimeOutState(timeOutValue);
+  };
+
   const setAuthUser = (tokenData, userData) => {
     Cookies.set("authUser", JSON.stringify(tokenData), { expires: 7 });
     Cookies.set("userInfo", JSON.stringify(userData), { expires: 7 });
@@ -46,14 +74,20 @@ export function AuthProvider(props) {
     Cookies.remove("authUser");
     Cookies.remove("userInfo");
     Cookies.remove("isLoggedIn");
+    Cookies.remove("timeIn"); 
+    Cookies.remove("timeOut"); 
   };
 
   const value = {
     authUser,
     userInfo,
+    timeIn,
+    timeOut,
     setAuthUser,
     isLoggedIn,
     setIsLoggedIn,
+    setTimeIn,
+    setTimeOut,
     handleLogout,
   };
 

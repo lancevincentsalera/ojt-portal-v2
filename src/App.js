@@ -1,4 +1,4 @@
-import "./Styles/App.scss";
+import "./output.css";
 import {
   BrowserRouter as Router,
   Route,
@@ -33,14 +33,29 @@ import NotFound from "./Components/Common/NotFound";
 import MentorTrainingPlansController from "./Components/Supervisor/TrainingPlans/controller/MentorTrainingPlansController";
 import TrainingTaskList from "./Components/Supervisor/TrainingPlans/TrainingTaskList";
 import MentorLogbookSubmissionsController from "./Components/Supervisor/LogbookSubmissions/controller/MentorLogbookSubmissionsController";
+import InternAttendanceController from "./Components/Intern/Attendance/controller/InternAttendanceController";
+import InstructorDashboardController from "./Components/Teacher/InstructorDashboard/controller/InstructorDashboardController";
+import OJTAnalytics_InstructorController from "./Components/Teacher/OJTAnalytics/controller/OJTAnalytics_InstructorController";
 
 const ProtectedRoute = ({ children }) => {
-  const { authUser, isLoggedIn } = useAuth();
+  const { authUser, isLoggedIn, timeIn } = useAuth();
+  const { pathname } = useLocation();
   const { setAllowPath } = useGlobalState();
+
+  const restrictedPaths = [
+    "/intern-dashboard",
+    "/intern-tp",
+    "/intern-entries",
+    "/intern-submit",
+  ];
 
   if (!authUser || !isLoggedIn) {
     setAllowPath(false);
     return <Navigate to="/" />;
+  }
+
+  if (timeIn === null && restrictedPaths.includes(pathname)) {
+    return <Navigate to="/intern-attendance" />;
   }
 
   return children ? children : <Outlet />;
@@ -145,6 +160,55 @@ const App = () => {
                 <Route
                   path="/supervisor-submissions"
                   element={<MentorLogbookSubmissionsController />}
+                />
+                <Route
+                  path="/admin-companies"
+                  element={<CompaniesController />}
+                />
+                <Route
+                  path="/admin-ojt-records"
+                  element={<OJTRecordsController />}
+                />
+                <Route
+                  path="/admin-training-plans"
+                  element={<TrainingPlansController />}
+                />
+                <Route
+                  path="/intern-attendance"
+                  element={<InternAttendanceController />}
+                />
+                <Route
+                  path="/intern-dashboard"
+                  element={<InternDashboardController />}
+                />
+                <Route path="/intern-tp" element={<TrainingPlanController />} />
+                <Route
+                  path="/intern-entries"
+                  element={<SubmissionsController />}
+                />
+                <Route
+                  path="/intern-submit"
+                  element={<SubmitLogbookController />}
+                />
+                <Route
+                  path="/supervisor-dashboard"
+                  element={<SupervisorDashboardController />}
+                />
+                <Route
+                  path="/supervisor-intern-list"
+                  element={<InternListController />}
+                />
+                <Route
+                  path="/supervisor-evaluations"
+                  element={<SupervisorEvaluationsController />}
+                />
+                <Route
+                  path="/student-data"
+                  element={<InstructorDashboardController />}
+                />
+                <Route
+                  path="/ojt-analytics"
+                  element={<OJTAnalytics_InstructorController />}
                 />
               </Route>
             </Route>

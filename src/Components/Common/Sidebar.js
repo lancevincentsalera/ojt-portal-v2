@@ -6,8 +6,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = ({ userRole }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const { isLoggedIn, handleLogout, userInfo } = useAuth();
+  const { isLoggedIn, handleLogout, userInfo, timeIn } = useAuth();
+  const [links, setLinks] = useState([]);
+
   const studentLinks = [
+    {
+      goto: "/intern-attendance",
+      name: "Attendance",
+    },
     {
       goto: "/intern-dashboard",
       name: "Dashboard",
@@ -91,34 +97,46 @@ const Sidebar = ({ userRole }) => {
     },
   ];
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getLinks = () => {
+  useEffect(() => {
+    if (!isLoggedIn || !userInfo) {
+      setLinks([]);
+      return;
+    }
+
+    const userType = userInfo.user ? userInfo.user.userType : userInfo.userType;
     if (isLoggedIn) {
-      switch (userInfo.user.userType) {
+      switch (userType) {
         case "Student":
-          return studentLinks;
+          setLinks(
+            studentLinks.map((link) => ({
+              ...link,
+              disabled: timeIn === null && link.name !== "Attendance",
+            }))
+          );
+          break;
         case "Mentor":
-          return supervisorLinks;
+          setLinks(supervisorLinks);
+          break;
         case "Chair":
-          return deanLinks;
+          setLinks(deanLinks);
+          break;
         case "Admin":
-          return adminLinks;
+          setLinks(adminLinks);
+          break;
         case "Teacher":
-          return instructorLinks;
+          setLinks(instructorLinks);
+          break;
         default:
-          return supervisorLinks;
+          setLinks(supervisorLinks);
+          break;
       }
     }
-  };
+  }, [isLoggedIn, userInfo, timeIn]);
 
-  const [links] = useState(getLinks());
   useEffect(() => {
     setCurrentPageIndex(
       links.findIndex((link) => link.goto === window.location.pathname)
     );
-    // setCurrentPageIndex(
-    //   studentLinks.findIndex((link) => link.goto === window.location.pathname)
-    // );
   }, [links]);
 
   return (
@@ -126,12 +144,14 @@ const Sidebar = ({ userRole }) => {
       <ul className="clicked-option">
         {links.map((link, i) => {
           return (
-            <li>
+            <li key={i}>
               <Link
-                to={link.goto}
-                onClick={() => setCurrentPageIndex(i)}
-                key={i}
-                className={currentPageIndex === i && "active"}
+                to={link.disabled ? "#" : link.goto}
+                onClick={link.disabled ? (e) => e.preventDefault() : () => setCurrentPageIndex(i)}
+                className={
+                  `${currentPageIndex === i ? "active" : ""} ${link.disabled ? "disabled" : ""}`
+                }
+                style={link.disabled ? { pointerEvents: "none", opacity: 0.5 } : {}}
               >
                 {link.name}
               </Link>
