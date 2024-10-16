@@ -1,24 +1,17 @@
-import axios from "axios";
+import { useGlobalState } from "../../../Globals/variables";
 
-const fetchLogbooks = async (mentorId, params = {}) => {
-  try {
-    const url = `${process.env.REACT_APP_API_BASE_URL}/logbooks/mentor/${mentorId}`;
-    const response = await axios.get(url, { params });
+export const MentorDashboarModel = () => {
+  const { getMentorLogbookSubmissions, getInternInfo } = useGlobalState();
 
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      return "An error occurred while fetching the logbooks.";
-    }
-  } catch (error) {
-    return "Error fetching logbooks.";
-  }
-};
+  const RecentlySubmittedLogbooks = (userInfo) => {
+    return getMentorLogbookSubmissions(userInfo.user.id);
+  };
 
-export const RecentlySubmittedLogbooks = (userInfo) => {
-  return fetchLogbooks(userInfo.user.id);
-};
+  const LogbooksAwaitingFeedback = (userInfo) => {
+    return getMentorLogbookSubmissions(userInfo.user.id, {
+      logbookStatus: "Pending",
+    });
+  };
 
-export const LogbooksAwaitingFeedback = (userInfo) => {
-  return fetchLogbooks(userInfo.user.id, { logbookStatus: "Pending" });
+  return { RecentlySubmittedLogbooks, LogbooksAwaitingFeedback, getInternInfo };
 };

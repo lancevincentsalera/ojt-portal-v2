@@ -1,5 +1,4 @@
 import React from "react";
-import SearchBar from "../../../Common/SearchBar";
 
 const InternListView = ({ internList, tableHeaders }) => {
   return (
@@ -8,7 +7,6 @@ const InternListView = ({ internList, tableHeaders }) => {
         <p className="main-heading">Interns under your supervision</p>
       </div>
       <div className="table-container">
-        <SearchBar />
         <div className="table">
           <ul className="thead">
             {tableHeaders.map((header, i) => {

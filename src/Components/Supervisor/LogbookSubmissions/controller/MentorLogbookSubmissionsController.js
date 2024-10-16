@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MentorLogbookSubmissionsView from "../view/MentorLogbookSubmissionsView";
 import { useAuth } from "../../../Common/AuthContext";
-import {
-  getInternInfo,
-  getMentorLogbookSubmissions,
-} from "../model/MentorLogbookSubmissionsModel";
+import { useGlobalState } from "../../../Globals/variables";
 
 const MentorLogbookSubmissionsController = () => {
   const { userInfo } = useAuth();
@@ -14,6 +11,14 @@ const MentorLogbookSubmissionsController = () => {
     pending: true,
     feedbacked: false,
   });
+  const { getMentorLogbookSubmissions, getInternInfo } = useGlobalState();
+  const [showModal, setShowModal] = useState(false);
+  const [logbook, setLogbook] = useState(null);
+
+  const handleShowModalAction = (index, pending) => {
+    setLogbook(pending ? pendingLogbooks[index] : feedbackedLogbooks[index]);
+    setShowModal(!showModal);
+  };
 
   useEffect(() => {
     const fetchLogbooks = async () => {
@@ -32,7 +37,7 @@ const MentorLogbookSubmissionsController = () => {
         setPendingLogbooks(
           data.filter((logbook) => logbook.remarks.length === 0)
         );
-        setFeedbackedLogbooks((logbook) =>
+        setFeedbackedLogbooks(
           data.filter((logbook) => logbook.remarks.length > 0)
         );
       } catch (err) {
@@ -41,7 +46,7 @@ const MentorLogbookSubmissionsController = () => {
     };
 
     fetchLogbooks();
-  }, [userInfo.user.id]);
+  }, [userInfo.user.id, getMentorLogbookSubmissions, getInternInfo]);
 
   const handleTabChange = (m, f) => {
     setTab({ pending: m, feedbacked: f });
@@ -53,6 +58,9 @@ const MentorLogbookSubmissionsController = () => {
       handleTabChange={handleTabChange}
       pendingLogbooks={pendingLogbooks}
       feedbackedLogbooks={feedbackedLogbooks}
+      showModal={showModal}
+      handleShowModalAction={handleShowModalAction}
+      logbook={logbook}
     />
   );
 };

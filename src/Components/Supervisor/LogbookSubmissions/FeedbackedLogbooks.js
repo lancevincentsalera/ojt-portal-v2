@@ -1,6 +1,6 @@
 import React from "react";
 
-const FeedbackedLogbooks = ({ logbooks }) => {
+const FeedbackedLogbooks = ({ logbooks, handleShowModalAction }) => {
   return (
     <div className="table-container">
       <div className="table">
@@ -31,7 +31,11 @@ const FeedbackedLogbooks = ({ logbooks }) => {
                 <p className="td">{logbook.logbookStatus}</p>
                 <p className="td">Feedbacked</p>
                 <div className="td actions">
-                  <button type="button" className="button-main btn-active">
+                  <button
+                    type="button"
+                    className="button-main btn-active"
+                    onClick={() => handleShowModalAction(i, false)}
+                  >
                     View Submission
                   </button>
                 </div>
