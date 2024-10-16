@@ -41,6 +41,7 @@ const SubmitLogbookController = () => {
       setIsSuccess(true);
       setActivities("");
       setAttendanceId(0);
+      fetchStudentAttendance();
     } catch (error) {
       console.error("Error adding logbook entry:", error);
 
@@ -66,25 +67,25 @@ const SubmitLogbookController = () => {
   };
 
   useEffect(() => {
-    const fetchStudentAttendance = async () => {
-      try {
-        const response = await axios.get(
-          `${apiBaseUrl}/attendance/student/${userInfo.user.id}/logbook`,
-          {
-            headers: {
-              Authorization: `Bearer ${authUser.accessToken}`,
-            },
-          }
-        );
-        setStudentAttendance(response.data);
-        console.log("Fetched attendance:", response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     fetchStudentAttendance();
   }, [userInfo, authUser]);
+
+  const fetchStudentAttendance = async () => {
+    try {
+      const response = await axios.get(
+        `${apiBaseUrl}/attendance/student/${userInfo.user.id}/logbook`,
+        {
+          headers: {
+            Authorization: `Bearer ${authUser.accessToken}`,
+          },
+        }
+      );
+      setStudentAttendance(response.data);
+      console.log("Fetched attendance:", response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
