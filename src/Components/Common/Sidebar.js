@@ -28,7 +28,7 @@ const Sidebar = ({ userRole }) => {
     },
     {
       goto: "/intern-submit",
-      name: "Submit Logbook",
+      name: "Submit Logbook Entry",
     },
   ];
 
