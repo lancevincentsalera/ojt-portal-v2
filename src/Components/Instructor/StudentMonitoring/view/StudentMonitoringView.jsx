@@ -3,7 +3,7 @@ import { Collapse, Empty } from 'antd';
 
 const { Panel } = Collapse;
 
-const StudentMonitoringView = ({ students, studentPerformance }) => {
+const StudentMonitoringView = ({ students, studentPerformance, handleFetchStudentLogbooks }) => {
   const [activeKey, setActiveKey] = useState(['0']);
 
   const handleCollapseChange = (key) => {
@@ -33,7 +33,7 @@ const StudentMonitoringView = ({ students, studentPerformance }) => {
             }
             style={{ backgroundColor: '#f8fafc', borderRadius: '8px' }}
           >
-            {/* Student details grid */}
+            <div style={{ fontWeight: 'bold', fontSize: '14px', marginBottom: '8px' }}>Student Details</div>
             <div style={{ 
               display: 'grid', 
               gridTemplateColumns: 'repeat(7, 1fr)', 
@@ -102,7 +102,7 @@ const StudentMonitoringView = ({ students, studentPerformance }) => {
 };
 
 const cellHeaderStyle = {
-  color: '#4caf50',
+  color: '#ff6b6b',
   fontWeight: 'bold',
   border: '1px solid #e0e0e0',
   padding: '8px',
