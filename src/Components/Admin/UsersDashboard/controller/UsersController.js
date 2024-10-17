@@ -71,7 +71,6 @@ const UsersController = () => {
         },
       });
 
-      console.log(response, "++++++++++++++++++++++++++++++++++++++++=");
       setIsSuccess(true);
       setSuccessMessage("Account deactivated successfully!");
     } catch (error) {
@@ -96,7 +95,6 @@ const UsersController = () => {
     else await handleActivateAccount(id);
   };
 
-  console.log(id);
   return (
     <>
       <UsersView
