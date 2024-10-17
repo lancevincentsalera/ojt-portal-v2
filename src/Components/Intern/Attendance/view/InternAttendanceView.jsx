@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
+import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
-const InternAttendanceView = ({ handleTimeIn, handleTimeOut, isTimeInDisabled, isTimeOutDisabled, timeIn, timeOut }) => {
+const InternAttendanceView = ({
+  handleTimeIn,
+  handleTimeOut,
+  isTimeInDisabled,
+  isTimeOutDisabled,
+  timeIn,
+  timeOut,
+}) => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
-    const savedTimeIn = Cookies.get('timeIn');
-    const savedTimeOut = Cookies.get('timeOut');
+    const savedTimeIn = Cookies.get("timeIn");
+    const savedTimeOut = Cookies.get("timeOut");
 
     if (isTimeInDisabled && savedTimeIn) {
       setCurrentTime(new Date(savedTimeIn));
@@ -26,11 +33,11 @@ const InternAttendanceView = ({ handleTimeIn, handleTimeOut, isTimeInDisabled, i
     const seconds = currentTime.getSeconds();
 
     switch (type) {
-      case 'hours':
+      case "hours":
         return (hours + minutes / 60) * 30;
-      case 'minutes':
+      case "minutes":
         return (minutes + seconds / 60) * 6;
-      case 'seconds':
+      case "seconds":
         return seconds * 6;
       default:
         return 0;
@@ -40,32 +47,35 @@ const InternAttendanceView = ({ handleTimeIn, handleTimeOut, isTimeInDisabled, i
   return (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '70vh',
-        flexDirection: 'column',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "70vh",
+        flexDirection: "column",
       }}
     >
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'space-around',
-          gap: '350px',
+          display: "flex",
+          justifyContent: "space-around",
+          gap: "350px",
         }}
       >
-        <div style={{ textAlign: 'center' }}>
-        <div><span style={{ fontWeight: 'bold', fontSize: 17 }}>Time In: </span><span style={{ fontSize: 17, color: '#e74c3c' }}>{timeIn}</span></div>
+        <div style={{ textAlign: "center" }}>
+          <div>
+            <span style={{ fontWeight: "bold", fontSize: 17 }}>Time In: </span>
+            <span style={{ fontSize: 17, color: "#e74c3c" }}>{timeIn}</span>
+          </div>
           <div
             onClick={!isTimeInDisabled ? handleTimeIn : null}
             style={{
-              cursor: isTimeInDisabled ? 'not-allowed' : 'pointer',
-              marginTop: '20px',
+              cursor: isTimeInDisabled ? "not-allowed" : "pointer",
+              marginTop: "20px",
               opacity: isTimeInDisabled ? 0.5 : 1,
-              pointerEvents: isTimeInDisabled ? 'none' : 'auto',
+              pointerEvents: isTimeInDisabled ? "none" : "auto",
             }}
           >
-            <div className={`card ${isTimeInDisabled ? 'disabled' : ''}`}>
+            <div className={`clock ${isTimeInDisabled ? "disabled" : ""}`}>
               <div className="numbers">
                 <span className="number"></span>
                 <span className="number"></span>
@@ -84,22 +94,28 @@ const InternAttendanceView = ({ handleTimeIn, handleTimeOut, isTimeInDisabled, i
                 <span
                   className="h"
                   style={{
-                    transform: `translate(-50%, -100%) rotateZ(${getRotation('hours')}deg)`,
-                    animation: isTimeInDisabled ? 'none' : '',
+                    transform: `translate(-50%, -100%) rotateZ(${getRotation(
+                      "hours"
+                    )}deg)`,
+                    animation: isTimeInDisabled ? "none" : "",
                   }}
                 ></span>
                 <span
                   className="m"
                   style={{
-                    transform: `translate(-50%, -100%) rotateZ(${getRotation('minutes')}deg)`,
-                    animation: isTimeInDisabled ? 'none' : '',
+                    transform: `translate(-50%, -100%) rotateZ(${getRotation(
+                      "minutes"
+                    )}deg)`,
+                    animation: isTimeInDisabled ? "none" : "",
                   }}
                 ></span>
                 <span
                   className="s"
                   style={{
-                    transform: `translate(-50%, -80%) rotateZ(${getRotation('seconds')}deg)`,
-                    animation: isTimeInDisabled ? 'none' : '',
+                    transform: `translate(-50%, -80%) rotateZ(${getRotation(
+                      "seconds"
+                    )}deg)`,
+                    animation: isTimeInDisabled ? "none" : "",
                   }}
                 ></span>
                 <span className="center"></span>
@@ -109,18 +125,21 @@ const InternAttendanceView = ({ handleTimeIn, handleTimeOut, isTimeInDisabled, i
           </div>
         </div>
 
-        <div style={{ textAlign: 'center' }}>
-        <div><span style={{ fontWeight: 'bold', fontSize: 17 }}>Time Out: </span><span style={{ fontSize: 17, color: '#e74c3c' }}>{timeOut}</span></div>
-        <div
+        <div style={{ textAlign: "center" }}>
+          <div>
+            <span style={{ fontWeight: "bold", fontSize: 17 }}>Time Out: </span>
+            <span style={{ fontSize: 17, color: "#e74c3c" }}>{timeOut}</span>
+          </div>
+          <div
             onClick={!isTimeOutDisabled ? handleTimeOut : null}
             style={{
-              cursor: isTimeOutDisabled ? 'not-allowed' : 'pointer',
-              marginTop: '20px',
+              cursor: isTimeOutDisabled ? "not-allowed" : "pointer",
+              marginTop: "20px",
               opacity: isTimeOutDisabled ? 0.5 : 1,
-              pointerEvents: isTimeOutDisabled ? 'none' : 'auto',
+              pointerEvents: isTimeOutDisabled ? "none" : "auto",
             }}
           >
-            <div className={`card ${isTimeOutDisabled ? 'disabled' : ''}`}>
+            <div className={`clock ${isTimeOutDisabled ? "disabled" : ""}`}>
               <div className="numbers">
                 <span className="number"></span>
                 <span className="number"></span>
@@ -139,22 +158,28 @@ const InternAttendanceView = ({ handleTimeIn, handleTimeOut, isTimeInDisabled, i
                 <span
                   className="h"
                   style={{
-                    transform: `translate(-50%, -100%) rotateZ(${getRotation('hours')}deg)`,
-                    animation: isTimeOutDisabled ? 'none' : '',
+                    transform: `translate(-50%, -100%) rotateZ(${getRotation(
+                      "hours"
+                    )}deg)`,
+                    animation: isTimeOutDisabled ? "none" : "",
                   }}
                 ></span>
                 <span
                   className="m"
                   style={{
-                    transform: `translate(-50%, -100%) rotateZ(${getRotation('minutes')}deg)`,
-                    animation: isTimeOutDisabled ? 'none' : '',
+                    transform: `translate(-50%, -100%) rotateZ(${getRotation(
+                      "minutes"
+                    )}deg)`,
+                    animation: isTimeOutDisabled ? "none" : "",
                   }}
                 ></span>
                 <span
                   className="s"
                   style={{
-                    transform: `translate(-50%, -80%) rotateZ(${getRotation('seconds')}deg)`,
-                    animation: isTimeOutDisabled ? 'none' : '',
+                    transform: `translate(-50%, -80%) rotateZ(${getRotation(
+                      "seconds"
+                    )}deg)`,
+                    animation: isTimeOutDisabled ? "none" : "",
                   }}
                 ></span>
                 <span className="center"></span>

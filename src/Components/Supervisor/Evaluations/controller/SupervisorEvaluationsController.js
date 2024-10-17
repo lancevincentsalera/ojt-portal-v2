@@ -33,7 +33,6 @@ const SupervisorEvaluationsController = () => {
   };
 
   useEffect(() => {
-    console.log(page);
     if (page > 0 && dataPerPage.length > 0) {
       setDataByPage(dataPerPage[page - 1]);
     }

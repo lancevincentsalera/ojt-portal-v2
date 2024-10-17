@@ -7,24 +7,10 @@
     font-weight: bold;
   }
 
-  
-
   .register-content {
     display: flex;
     flex-direction: column;
     margin-bottom: 0.2rem;
-
-    .tapad {
-      display: flex;
-
-      input {
-        flex: 1;
-      }
-
-      input:first-child {
-        margin-right: 0.5rem;
-      }
-    }
   }
 
   a {

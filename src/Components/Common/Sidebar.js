@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,6 +8,7 @@ const Sidebar = ({ userRole }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const { isLoggedIn, handleLogout, userInfo, timeIn } = useAuth();
   const [links, setLinks] = useState([]);
+  const location = useLocation();
 
   const studentLinks = [
     {
@@ -141,7 +142,7 @@ const Sidebar = ({ userRole }) => {
     setCurrentPageIndex(
       links.findIndex((link) => link.goto === window.location.pathname)
     );
-  }, [links]);
+  }, [links, location.pathname]);
 
   return (
     <div className="Sidebar">
@@ -151,11 +152,17 @@ const Sidebar = ({ userRole }) => {
             <li key={i}>
               <Link
                 to={link.disabled ? "#" : link.goto}
-                onClick={link.disabled ? (e) => e.preventDefault() : () => setCurrentPageIndex(i)}
-                className={
-                  `${currentPageIndex === i ? "active" : ""} ${link.disabled ? "disabled" : ""}`
+                onClick={
+                  link.disabled
+                    ? (e) => e.preventDefault()
+                    : () => setCurrentPageIndex(i)
                 }
-                style={link.disabled ? { pointerEvents: "none", opacity: 0.5 } : {}}
+                className={`${currentPageIndex === i ? "active" : ""} ${
+                  link.disabled ? "disabled" : ""
+                }`}
+                style={
+                  link.disabled ? { pointerEvents: "none", opacity: 0.5 } : {}
+                }
               >
                 {link.name}
               </Link>
