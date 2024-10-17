@@ -1,3 +1,5 @@
+import React from 'react';
+import { ConfigProvider } from 'antd';
 import "./output.css";
 import {
   BrowserRouter as Router,
@@ -96,127 +98,134 @@ const App = () => {
     <AuthProvider>
       <Router>
         <GlobalStateProvider>
-          <Routes>
-            <Route path="/" element={<LoginController />} />
-            <Route path="/register" element={<RegisterController />} />
-            <Route
-              path="/forgot-password"
-              element={<ForgotPasswordController />}
-            />
+          <ConfigProvider theme={{ 
+            components: {
+              
+            } 
+            }}
+          >
+            <Routes>
+              <Route path="/" element={<LoginController />} />
+              <Route path="/register" element={<RegisterController />} />
+              <Route
+                path="/forgot-password"
+                element={<ForgotPasswordController />}
+              />
 
-            <Route
-              path="/activate-account"
-              element={
-                <ConditionalRoute>
-                  <ActivateAccountController />
-                </ConditionalRoute>
-              }
-            />
+              <Route
+                path="/activate-account"
+                element={
+                  <ConditionalRoute>
+                    <ActivateAccountController />
+                  </ConditionalRoute>
+                }
+              />
 
-            <Route element={<Layout />}>
-              <Route element={<ProtectedRoute />}>
-                <Route path="/admin-users" element={<UsersController />} />
-                <Route
-                  path="/admin-companies"
-                  element={<CompaniesController />}
-                />
-                <Route
-                  path="/admin-ojt-records"
-                  element={<OJTRecordsController />}
-                />
-                <Route
-                  path="/admin-training-plans"
-                  element={<TrainingPlansController />}
-                />
-                <Route
-                  path="/intern-dashboard"
-                  element={<InternDashboardController />}
-                />
-                <Route path="/intern-tp" element={<TrainingPlanController />} />
-                <Route
-                  path="/intern-entries"
-                  element={<SubmissionsController />}
-                />
-                <Route path="/student-monitoring" element={<StudentMonitoringController />} />
-                <Route
-                  path="/intern-submit"
-                  element={<SubmitLogbookController />}
-                />
-                <Route
-                  path="/supervisor-dashboard"
-                  element={<SupervisorDashboardController />}
-                />
-                <Route
-                  path="/supervisor-intern-list"
-                  element={<InternListController />}
-                />
-                <Route
-                  path="/supervisor-evaluations"
-                  element={<SupervisorEvaluationsController />}
-                />
-                <Route
-                  path="/supervisor-tp"
-                  element={<MentorTrainingPlansController />}
-                />
-                <Route path="/task-list" element={<TrainingTaskList />} />
-                <Route
-                  path="/supervisor-submissions"
-                  element={<MentorLogbookSubmissionsController />}
-                />
-                <Route
-                  path="/admin-companies"
-                  element={<CompaniesController />}
-                />
-                <Route
-                  path="/admin-ojt-records"
-                  element={<OJTRecordsController />}
-                />
-                <Route
-                  path="/admin-training-plans"
-                  element={<TrainingPlansController />}
-                />
-                <Route
-                  path="/intern-attendance"
-                  element={<InternAttendanceController />}
-                />
-                <Route
-                  path="/intern-dashboard"
-                  element={<InternDashboardController />}
-                />
-                <Route path="/intern-tp" element={<TrainingPlanController />} />
-                <Route
-                  path="/intern-entries"
-                  element={<SubmissionsController />}
-                />
-                <Route
-                  path="/intern-submit"
-                  element={<SubmitLogbookController />}
-                />
-                <Route
-                  path="/supervisor-dashboard"
-                  element={<SupervisorDashboardController />}
-                />
-                <Route
-                  path="/supervisor-intern-list"
-                  element={<InternListController />}
-                />
-                <Route
-                  path="/supervisor-evaluations"
-                  element={<SupervisorEvaluationsController />}
-                />
-                <Route
-                  path="/student-data"
-                  element={<InstructorDashboardController />}
-                />
-                <Route
-                  path="/ojt-analytics"
-                  element={<OJTAnalytics_InstructorController />}
-                />
+              <Route element={<Layout />}>
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/admin-users" element={<UsersController />} />
+                  <Route
+                    path="/admin-companies"
+                    element={<CompaniesController />}
+                  />
+                  <Route
+                    path="/admin-ojt-records"
+                    element={<OJTRecordsController />}
+                  />
+                  <Route
+                    path="/admin-training-plans"
+                    element={<TrainingPlansController />}
+                  />
+                  <Route
+                    path="/intern-dashboard"
+                    element={<InternDashboardController />}
+                  />
+                  <Route path="/intern-tp" element={<TrainingPlanController />} />
+                  <Route
+                    path="/intern-entries"
+                    element={<SubmissionsController />}
+                  />
+                  <Route path="/student-monitoring" element={<StudentMonitoringController />} />
+                  <Route
+                    path="/intern-submit"
+                    element={<SubmitLogbookController />}
+                  />
+                  <Route
+                    path="/supervisor-dashboard"
+                    element={<SupervisorDashboardController />}
+                  />
+                  <Route
+                    path="/supervisor-intern-list"
+                    element={<InternListController />}
+                  />
+                  <Route
+                    path="/supervisor-evaluations"
+                    element={<SupervisorEvaluationsController />}
+                  />
+                  <Route
+                    path="/supervisor-tp"
+                    element={<MentorTrainingPlansController />}
+                  />
+                  <Route path="/task-list" element={<TrainingTaskList />} />
+                  <Route
+                    path="/supervisor-submissions"
+                    element={<MentorLogbookSubmissionsController />}
+                  />
+                  <Route
+                    path="/admin-companies"
+                    element={<CompaniesController />}
+                  />
+                  <Route
+                    path="/admin-ojt-records"
+                    element={<OJTRecordsController />}
+                  />
+                  <Route
+                    path="/admin-training-plans"
+                    element={<TrainingPlansController />}
+                  />
+                  <Route
+                    path="/intern-attendance"
+                    element={<InternAttendanceController />}
+                  />
+                  <Route
+                    path="/intern-dashboard"
+                    element={<InternDashboardController />}
+                  />
+                  <Route path="/intern-tp" element={<TrainingPlanController />} />
+                  <Route
+                    path="/intern-entries"
+                    element={<SubmissionsController />}
+                  />
+                  <Route
+                    path="/intern-submit"
+                    element={<SubmitLogbookController />}
+                  />
+                  <Route
+                    path="/supervisor-dashboard"
+                    element={<SupervisorDashboardController />}
+                  />
+                  <Route
+                    path="/supervisor-intern-list"
+                    element={<InternListController />}
+                  />
+                  <Route
+                    path="/supervisor-evaluations"
+                    element={<SupervisorEvaluationsController />}
+                  />
+                  <Route
+                    path="/student-data"
+                    element={<InstructorDashboardController />}
+                  />
+                  <Route
+                    path="/ojt-analytics"
+                    element={<OJTAnalytics_InstructorController />}
+                  />
+                </Route>
               </Route>
-            </Route>
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </ConfigProvider>
         </GlobalStateProvider>
       </Router>
     </AuthProvider>

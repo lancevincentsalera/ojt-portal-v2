@@ -22,6 +22,9 @@ const InternAttendanceController = () => {
   const [isPromptOpen, setIsPromptOpen] = useState(false);
   const [confirmAction, setConfirmAction] = useState(null); 
 
+  console.log(userInfo)
+
+
   useEffect(() => {
     fetchInternAttendance();
   }, []);
