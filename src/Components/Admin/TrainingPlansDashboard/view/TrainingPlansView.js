@@ -1,7 +1,8 @@
 import React from "react";
 import SearchBar from "../../../Common/SearchBar";
-import Card from "../Card";
+
 import TrainingPlansModalController from "../../Modals/TrainingPlans/controller/TrainingPlansModalController";
+import Card from "../Card";
 
 const TrainingPlansView = ({ TrainingPlans, showModal, handleModalAction }) => {
   return (

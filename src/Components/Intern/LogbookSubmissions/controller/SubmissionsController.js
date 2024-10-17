@@ -82,7 +82,7 @@ const SubmissionsController = () => {
         onConfirm={handleConfirmAction}
         message="Are you sure you want to proceed?"
       />
-    </>
+    </> 
   );
 };
 
