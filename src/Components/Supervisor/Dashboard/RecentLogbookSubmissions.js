@@ -2,6 +2,7 @@ import React from "react";
 import { FaGraduationCap } from "react-icons/fa";
 
 const RecentLogbookSubmissions = ({ LogbookSubmissions }) => {
+  console.log(LogbookSubmissions);
   return (
     <div className="large-card-container">
       <div className="large-card-heading">Recent Logbook Submissions</div>
@@ -9,7 +10,7 @@ const RecentLogbookSubmissions = ({ LogbookSubmissions }) => {
         {LogbookSubmissions.length > 0 ? (
           LogbookSubmissions.map((submission, key) => {
             const date = new Date(submission.creationTimestamp);
-            const formattedDate = date.toLocaleString("en-US", {
+            const formattedDate = date.toLocaleString({
               year: "numeric",
               month: "short",
               day: "numeric",

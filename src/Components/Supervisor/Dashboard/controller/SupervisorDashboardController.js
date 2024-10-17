@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import SupervisorDashboardView from "../view/SupervisorDashboardView";
 import { useAuth } from "../../../Common/AuthContext";
 import { MentorDashboarModel } from "../model/SupervisorDashboardModel";
+import LoadingModal from "../../../Common/Modals/LoadingModal";
 
 const SupervisorDashboardController = () => {
   const [RecentLogbookSubmissions, setRecentLogbookSubmissions] = useState([]);
@@ -9,11 +10,17 @@ const SupervisorDashboardController = () => {
   const { userInfo } = useAuth();
   const { LogbooksAwaitingFeedback, RecentlySubmittedLogbooks, getInternInfo } =
     useMemo(() => MentorDashboarModel(), []);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchAwaitingLogbooks = async () => {
-      const response = await LogbooksAwaitingFeedback(userInfo);
-      setPendingLogbookSubmissions(response.length);
+      setLoading(true);
+      try {
+        const response = await LogbooksAwaitingFeedback(userInfo);
+        setPendingLogbookSubmissions(response.length);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     const fetchRecentLogbooks = async () => {
@@ -32,6 +39,8 @@ const SupervisorDashboardController = () => {
         setRecentLogbookSubmissions(data);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -45,11 +54,15 @@ const SupervisorDashboardController = () => {
   ]);
 
   return (
-    <SupervisorDashboardView
-      LogbookSubmissions={RecentLogbookSubmissions}
-      pendingLogbookSubmissions={pendingLogbookSubmissions}
-      TotalInterns={userInfo.internCount}
-    />
+    <>
+      <SupervisorDashboardView
+        LogbookSubmissions={RecentLogbookSubmissions}
+        pendingLogbookSubmissions={pendingLogbookSubmissions}
+        TotalInterns={userInfo.internCount}
+      />
+
+      <LoadingModal open={loading} />
+    </>
   );
 };
 

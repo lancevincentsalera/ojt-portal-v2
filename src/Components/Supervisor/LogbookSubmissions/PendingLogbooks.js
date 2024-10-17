@@ -7,14 +7,14 @@ const PendingLogbooks = ({ logbooks, handleModalAction }) => {
         <ul className="thead">
           <li className="th">Intern Name</li>
           <li className="th">Department</li>
-          <li className="th">Submission Date</li>
+          <li className="th">Attendance Date</li>
           <li className="th">Submission Status</li>
           <li className="th">Feedback Status</li>
           <li className="th">Action</li>
         </ul>
         <ul className="tbody">
           {logbooks.map((logbook, i) => {
-            const date = new Date(logbook.creationTimestamp);
+            const date = new Date(logbook.attendance.timeIn);
             const formattedDate = date.toLocaleString("en-US", {
               year: "numeric",
               month: "short",

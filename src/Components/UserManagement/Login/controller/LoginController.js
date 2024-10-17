@@ -40,7 +40,7 @@ const LoginController = ({ view }) => {
       };
 
       const response = await axios.request(config);
-
+      
       setAuthUser(userData, response.data);
       setIsLoggedIn(true);
       if (response.data.userType === "Admin") navigate("/admin-users");

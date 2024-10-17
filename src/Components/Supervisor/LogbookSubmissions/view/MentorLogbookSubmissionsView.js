@@ -49,7 +49,7 @@ const MentorLogbookSubmissionsView = ({
           {tab.pending && (
             <PendingLogbooks
               logbooks={pendingLogbooks}
-              handleShowModalAction={handleShowModalAction}
+              handleModalAction={handleShowModalAction}
             />
           )}
           {tab.feedbacked && (

@@ -4,8 +4,10 @@ const LogbookSubmissionsModalView = ({
   showModal,
   handleModalAction,
   logbook,
+  handleChange,
+  submitLogbookAction,
 }) => {
-  const date = new Date(logbook.creationTimestamp);
+  const date = new Date(logbook.attendance.timeIn);
   const formatDate = (includeYear) => {
     return date.toLocaleString("en-US", {
       month: "short",
@@ -36,19 +38,42 @@ const LogbookSubmissionsModalView = ({
                 {logbook.remarks.length > 0 ? (
                   <p className="entry-content">{logbook.remarks}</p>
                 ) : (
-                  <textarea className="large-textarea" />
+                  <textarea
+                    placeholder="Remarks"
+                    className="large-textarea"
+                    onChange={handleChange}
+                  />
                 )}
               </div>
             </div>
-            <div className="button-group single">
-              <button
-                type="button"
-                className="button-main "
-                onClick={handleModalAction}
-              >
-                Close
-              </button>
-            </div>
+            {logbook.remarks.length > 0 ? (
+              <div className="button-group single">
+                <button
+                  type="button"
+                  className="button-main "
+                  onClick={handleModalAction}
+                >
+                  Close
+                </button>
+              </div>
+            ) : (
+              <div className="button-group double">
+                <button
+                  type="button"
+                  className="button-secondary "
+                  onClick={handleModalAction}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="button-main "
+                  onClick={submitLogbookAction}
+                >
+                  Confirm
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
