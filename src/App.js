@@ -37,9 +37,9 @@ import TrainingTaskList from "./Components/Supervisor/TrainingPlans/TrainingTask
 import MentorLogbookSubmissionsController from "./Components/Supervisor/LogbookSubmissions/controller/MentorLogbookSubmissionsController";
 import InternAttendanceController from "./Components/Intern/Attendance/controller/InternAttendanceController";
 import InstructorDashboardController from "./Components/Teacher/InstructorDashboard/controller/InstructorDashboardController";
-import OJTAnalytics_InstructorController from "./Components/Teacher/OJTAnalytics/controller/OJTAnalytics_InstructorController";
 import StudentMonitoringController from "./Components/Instructor/StudentMonitoring/controller/StudentMonitoringController";
 import DeanDashboardController from './Components/Dean/Dashboard/controller/DeanDashboardController';
+import OJTAnalyticsController from './Components/Teacher/OJTAnalytics/controller/OJTAnalyticsController';
 
 const ProtectedRoute = ({ children }) => {
   const { authUser, isLoggedIn, timeIn } = useAuth();
@@ -219,7 +219,7 @@ const App = () => {
                   />
                   <Route
                     path="/ojt-analytics"
-                    element={<OJTAnalytics_InstructorController />}
+                    element={<OJTAnalyticsController />}
                   />
                   <Route
                     path="/dean-dashboard"
