@@ -35,7 +35,8 @@ const InstructorDashboardController = () => {
       const response = await axios.get(`${apiBaseUrl}/students`, {
         params: { departmentCode: userInfo.department.departmentCode },
       });
-      setAllStudents(response.data);
+      const studentsWithoutMentor = response.data.filter(student => student.instructorId === null);
+      setAllStudents(studentsWithoutMentor);
     } catch (error) {
       setErrorMessage("Error fetching department students.");
       setIsError(true);
