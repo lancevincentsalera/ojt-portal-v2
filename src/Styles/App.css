@@ -1340,4 +1340,37 @@ label {
   color: #4a4a4a;
 }
 
+.student-monitoring-container {
+  padding: 20px;
+}
+.student-monitoring-container .student-dropdown {
+  margin-bottom: 20px;
+}
+.student-monitoring-container .student-dropdown a {
+  font-size: 16px;
+  color: #007bff;
+  text-decoration: none;
+}
+.student-monitoring-container .student-dropdown a:hover {
+  color: #0056b3;
+}
+.student-monitoring-container .student-card {
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 20px;
+}
+.student-monitoring-container .student-card .ant-card-head-title {
+  font-size: 18px;
+  color: #333;
+}
+.student-monitoring-container .student-card .ant-descriptions {
+  font-size: 12px; /* Reduced text size */
+}
+.student-monitoring-container .student-card .ant-descriptions-item-label {
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 4px; /* Adding space between label and value */
+}
+
 /*# sourceMappingURL=App.css.map */

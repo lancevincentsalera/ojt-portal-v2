@@ -7,6 +7,7 @@ import OkayModal from "../../../Common/Modals/OkayModal";
 import ErrorModal from "../../../Common/Modals/ErrorModal";
 import { Table, Checkbox, Modal } from 'antd';
 import PromptModal from "../../../Common/Modals/PromptModal";
+import { fetchStudentsByInstructor } from "../../Common/Functions";
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -25,7 +26,7 @@ const InstructorDashboardController = () => {
   useEffect(() => {
     if (isLoggedIn && userInfo && userInfo.department?.departmentCode) {
       fetchAllStudentsFilterDepartment();
-      fetchStudentsByInstructor(userInfo.user.id);
+      fetchStudentsByInstructor(setStudents, setIsSubmitting, setIsSuccess, setErrorMessage, setIsError, userInfo.user.id);
     }
   }, [isLoggedIn, userInfo]);
 
@@ -38,21 +39,6 @@ const InstructorDashboardController = () => {
     } catch (error) {
       setErrorMessage("Error fetching department students.");
       setIsError(true);
-    }
-  };
-
-  const fetchStudentsByInstructor = async (instructorId) => {
-    setIsSubmitting(true);
-    try {
-      const response = await axios.get(`${apiBaseUrl}/teachers/${instructorId}/students`);
-      setStudents(response.data);
-      setIsSubmitting(false);
-      setIsSuccess(true);
-    } catch (error) {
-      const errorDetail = error.response?.data?.message || "Error fetching students.";
-      setErrorMessage(errorDetail);
-      setIsError(true);
-      setIsSubmitting(false);
     }
   };
 
@@ -80,10 +66,10 @@ const InstructorDashboardController = () => {
       }));
   
       for (let student of studentsToAdd) {
-        await axios.post(`${apiBaseUrl}/teachers/student`, student);
+        await axios.put(`${apiBaseUrl}/teachers/student`, student);
       }
   
-      fetchStudentsByInstructor(userInfo.user.id); 
+      fetchStudentsByInstructor(setStudents, setIsSubmitting, setIsSuccess, setErrorMessage, setIsError, userInfo.user.id);
       setIsSuccess(true);
       setShowModal(false);
     } catch (error) {

@@ -63,7 +63,7 @@ const InstructorDashboardView = ({ students = [], openModal }) => {
   };
 
   return (
-    <div className="dashboard p-5">
+    <div>
       <div className="dashboard">
         <p className="heading">Teacher Details</p>
         <div className="dashboard-container details">
@@ -95,9 +95,9 @@ const InstructorDashboardView = ({ students = [], openModal }) => {
           <div className="bg-white p-5 rounded-lg shadow-md mb-3">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <p className="heading text-2xl font-bold mb-4">Students Summary</p>
-              <Button onClick={openModal} className='text-xs bg-[#ff6b6b] p-1 rounded-md mb-3'>
+              <button onClick={openModal} className='text-xs bg-[#ff6b6b] p-1 rounded-md mb-3'>
                 Add Student
-              </Button>
+              </button>
             </div>
             <Row gutter={[32, 32]} justify="space-between">
               <Col span={4}>
