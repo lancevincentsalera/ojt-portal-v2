@@ -10,7 +10,13 @@ const OverviewSection = ({ pendingLogbookSubmissions, TotalInterns }) => {
         <p className="small-card-heading">Total Interns</p>
         <div className="value-group">
           <p className="small-card-value">{TotalInterns}</p>
-          <button type="button" className="button-main create">
+          <button
+            type="button"
+            className="button-main create"
+            onClick={() => {
+              navigate("/supervisor-intern-list");
+            }}
+          >
             View All
           </button>
         </div>
@@ -34,7 +40,13 @@ const OverviewSection = ({ pendingLogbookSubmissions, TotalInterns }) => {
         <p className="small-card-heading">Logbooks Awaiting Feedback</p>
         <div className="value-group">
           <p className="small-card-value">{pendingLogbookSubmissions}</p>
-          <button type="button" className="button-main create">
+          <button
+            type="button"
+            className="button-main create"
+            onClick={() => {
+              navigate("/supervisor-submissions");
+            }}
+          >
             View All
           </button>
         </div>

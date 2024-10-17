@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import MentorLogbookSubmissionsView from "../view/MentorLogbookSubmissionsView";
 import { useAuth } from "../../../Common/AuthContext";
 import { useGlobalState } from "../../../Globals/variables";
+import LoadingModal from "../../../Common/Modals/LoadingModal";
 
 const MentorLogbookSubmissionsController = () => {
   const { userInfo } = useAuth();
@@ -19,9 +20,11 @@ const MentorLogbookSubmissionsController = () => {
     setLogbook(pending ? pendingLogbooks[index] : feedbackedLogbooks[index]);
     setShowModal(!showModal);
   };
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchLogbooks = async () => {
+      setLoading(true);
       try {
         const response = await getMentorLogbookSubmissions(userInfo.user.id);
         console.log(response);
@@ -42,6 +45,8 @@ const MentorLogbookSubmissionsController = () => {
         );
       } catch (err) {
         console.log(err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -53,15 +58,19 @@ const MentorLogbookSubmissionsController = () => {
   };
 
   return (
-    <MentorLogbookSubmissionsView
-      tab={tab}
-      handleTabChange={handleTabChange}
-      pendingLogbooks={pendingLogbooks}
-      feedbackedLogbooks={feedbackedLogbooks}
-      showModal={showModal}
-      handleShowModalAction={handleShowModalAction}
-      logbook={logbook}
-    />
+    <>
+      <MentorLogbookSubmissionsView
+        tab={tab}
+        handleTabChange={handleTabChange}
+        pendingLogbooks={pendingLogbooks}
+        feedbackedLogbooks={feedbackedLogbooks}
+        showModal={showModal}
+        handleShowModalAction={handleShowModalAction}
+        logbook={logbook}
+      />
+
+      <LoadingModal open={loading} />
+    </>
   );
 };
 

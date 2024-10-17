@@ -29,7 +29,19 @@ const RecentLogbookSubmissions = ({ LogbookSubmissions }) => {
             );
           })
         ) : (
-          <p className="empty">This emptiness...</p>
+          <p
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+              gap: "0.5rem",
+              color: "#ff6b6b",
+            }}
+          >
+            <FaGraduationCap size={50} />
+            No recent logbook submissions
+          </p>
         )}
       </ul>
     </div>
