@@ -59,8 +59,8 @@ const Sidebar = ({ userRole }) => {
 
   const deanLinks = [
     {
-      goto: "/student-monitoring",
-      name: "Student Monitoring",
+      goto: "/dean-dashboard",
+      name: "Dashboard",
     },
     {
       goto: "/ojt-analytics",
