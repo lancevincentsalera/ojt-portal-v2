@@ -1,17 +1,12 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa6";
-import SearchBar from "../../../Common/SearchBar";
-import Pagination from "../../../Common/Pagination";
 import UsersModalController from "../../Modals/Users/controller/UsersModalController";
 
 const UsersView = ({
-  page,
-  dataByPage,
-  dataPerPage,
-  handlePageChange,
-  handleInputPageChange,
   showModal,
   handleModalAction,
+  users,
+  handleConfirmAccountAction,
 }) => {
   return (
     <>
@@ -34,41 +29,56 @@ const UsersView = ({
           </button>
         </div>
         <div className="table-container">
-          <SearchBar />
           <div className="table">
             <ul className="thead">
-              {dataByPage.length > 0 &&
-                Object.keys(dataByPage[0]).map((key) => (
-                  <li className="th" key={key}>
-                    {key}
-                  </li>
-                ))}
+              <li className="th">Name</li>
+              <li className="th">Email</li>
+              <li className="th">Role</li>
+              <li className="th">Status</li>
               <li className="th">Actions</li>
             </ul>
             <ul className="tbody">
-              {Object.values(dataByPage).map((data, index) => (
-                <li className="tr" key={index}>
-                  {Object.values(data).map((value, index) => (
-                    <div className="td" key={index}>
-                      {value}
-                    </div>
-                  ))}
+              {users.map((user, i) => (
+                <li key={i} className="tr">
+                  <p className="td">{`${user.firstName} ${user.lastName}`}</p>
+                  <p className="td">{user.email}</p>
+                  <p className="td">{user.userType}</p>
+                  <p className="td">{user.accountStatus}</p>
                   <div className="td actions">
-                    <button className="button-main btn-active">Activate</button>
-                    <button className="button-secondary btn-restrict">
-                      Restrict
+                    <button
+                      type="button"
+                      className="button-main btn-active"
+                      disabled={
+                        user.accountStatus === "Active" ||
+                        user.accountStatus === "Pending Password Change"
+                      }
+                      onClick={() =>
+                        handleConfirmAccountAction(
+                          "Are you sure you want to activate this account?",
+                          user.id
+                        )
+                      }
+                    >
+                      Activate
+                    </button>
+                    <button
+                      type="button"
+                      className="button-secondary btn-restrict"
+                      disabled={user.accountStatus === "Deactivated"}
+                      onClick={() =>
+                        handleConfirmAccountAction(
+                          "Are you sure you want to deactivate this account?",
+                          user.id
+                        )
+                      }
+                    >
+                      Deactivate
                     </button>
                   </div>
                 </li>
               ))}
             </ul>
           </div>
-          <Pagination
-            page={page}
-            dataPerPage={dataPerPage}
-            handlePageChange={handlePageChange}
-            handleInputPageChange={handleInputPageChange}
-          />
         </div>
       </div>
     </>

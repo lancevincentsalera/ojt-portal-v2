@@ -1,115 +1,16 @@
-export const Users = [
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
+import axios from "axios";
 
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-  {
-    Name: "Lance Salera",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Active",
-  },
-
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-  {
-    Name: "John Doe",
-    Email: "contact@example.com",
-    Role: "Student",
-    Status: "Pending",
-  },
-];
+export const Users = async (authUser) => {
+  const url = process.env.REACT_APP_API_BASE_URL + "/users";
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `${authUser.tokenType} ${authUser.accessToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
