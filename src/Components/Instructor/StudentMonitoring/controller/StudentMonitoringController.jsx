@@ -6,6 +6,8 @@ import axios from "axios";
 import LoadingModal from "../../../Common/Modals/LoadingModal";
 import OkayModal from "../../../Common/Modals/OkayModal";
 import ErrorModal from "../../../Common/Modals/ErrorModal";
+import { Carousel, Modal } from "antd";
+import PromptModal from "../../../Common/Modals/PromptModal";
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -17,6 +19,9 @@ const StudentMonitoringController = () => {
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const { isLoggedIn, userInfo } = useAuth();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [studentLogbooks, setStudentLogbooks] = useState([]);
+    const { authUser } = useAuth();
 
     useEffect(() => {
         if (isLoggedIn && userInfo?.user?.id) {
@@ -25,6 +30,7 @@ const StudentMonitoringController = () => {
                     setStudents(fetchedStudents);
                     for (const student of fetchedStudents) {
                         await fetchStudentPerformance(student.user.id);
+                        await handleFetchStudentLogbooks(student.user.id);
                     }
                 },
                 setIsSubmitting, 
@@ -49,12 +55,58 @@ const StudentMonitoringController = () => {
             setIsError(true);
         }
     };
+
+    const handleFetchStudentLogbooks = async(id) => {
+        try {
+            const response = await axios.get(`${apiBaseUrl}/logbooks/student/${id}`, {
+                headers: {
+                  Authorization: `Bearer ${authUser.accessToken}`,
+                },
+              });
+              setStudentLogbooks(prevLogbooks => ({
+                ...prevLogbooks,
+                [id]: response.data, 
+            }));
+        } catch (error) {
+            const errorDetail = error.response?.data?.message || "Error fetching student logbook entries.";
+            setErrorMessage(errorDetail);
+            setIsError(true);
+        }
+    }
+
+    const renderLogbookEntry = (logbook) => {
+        return (
+            <div key={logbook.id} className="logbook-entry">
+                <form className="logbook-form">
+                    <div className="form-group">
+                        <label htmlFor="attendanceId">Attendance Date:</label>
+                        <input
+                            type="text"
+                            name="attendanceId"
+                            value={`${new Date(logbook.timeIn).toLocaleDateString()} (Time In: ${new Date(logbook.timeIn).toLocaleTimeString()})`}
+                            disabled
+                            className="disabled-input"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="activities">Activities:</label>
+                        <textarea
+                            className="large-textarea"
+                            value={logbook.activities}
+                            disabled
+                        />
+                    </div>
+                </form>
+            </div>
+        );
+    };
     
     return (
         <div>
             <StudentMonitoringView 
                 students={students} 
                 studentPerformance={studentPerformance} 
+                handleFetchStudentLogbooks={() => setIsModalOpen(true)}
             />
             <LoadingModal open={isSubmitting} />
             <OkayModal
@@ -67,6 +119,29 @@ const StudentMonitoringController = () => {
                 onClose={() => setIsError(false)}
                 errorMessage={errorMessage}
             />
+            <Modal 
+                open={isModalOpen}
+                centered
+                bodyStyle={{ maxHeight: '70vh', overflowY: 'auto' }}
+                onCancel={() => setIsModalOpen(false)}
+                footer={null}
+                title="Student Logbook Entries"
+            >
+                {Object.keys(studentLogbooks).length === 0 || 
+                Object.values(studentLogbooks).every(logbooks => logbooks.length === 0) ? (
+                    <p style={{ textAlign: 'center', color: '#e74c3c', fontSize: 20 }}>No logbooks available for this student.</p>
+                ) : (
+                    <Carousel arrows>
+                        {Object.keys(studentLogbooks).map((studentId) => (
+                            studentLogbooks[studentId].map((logbook) => (
+                                <div key={logbook.id}>
+                                    {renderLogbookEntry(logbook)}
+                                </div>
+                            ))
+                        ))}
+                    </Carousel>
+                )}
+            </Modal>
         </div>        
     );
 }
