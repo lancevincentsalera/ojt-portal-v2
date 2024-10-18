@@ -74,7 +74,13 @@ const StudentMonitoringController = () => {
         }
     }
 
+    const sanitizeDateString = (dateString) => {
+        return dateString.replace(/\s\+\d{2}:\d{2}$/, '');
+    };
+
     const renderLogbookEntry = (logbook) => {
+        const sanitizedTimeIn = sanitizeDateString(logbook.attendance.timeIn);
+        const sanitizedTimeOut = sanitizeDateString(logbook.attendance.timeOut);
         return (
             <div key={logbook.id} className="logbook-entry">
                 <form className="logbook-form">
@@ -83,7 +89,7 @@ const StudentMonitoringController = () => {
                         <input
                             type="text"
                             name="attendanceId"
-                            value={`${new Date(logbook.timeIn).toLocaleDateString()} (Time In: ${new Date(logbook.timeIn).toLocaleTimeString()})`}
+                            value={`${new Date(sanitizedTimeIn).toLocaleDateString()} (Time In: ${new Date(sanitizedTimeIn).toLocaleTimeString()})`}
                             disabled
                             className="disabled-input"
                         />
@@ -131,7 +137,10 @@ const StudentMonitoringController = () => {
                 Object.values(studentLogbooks).every(logbooks => logbooks.length === 0) ? (
                     <p style={{ textAlign: 'center', color: '#e74c3c', fontSize: 20 }}>No logbooks available for this student.</p>
                 ) : (
-                    <Carousel arrows>
+                    <Carousel 
+                        arrows 
+                        draggable 
+                    >
                         {Object.keys(studentLogbooks).map((studentId) => (
                             studentLogbooks[studentId].map((logbook) => (
                                 <div key={logbook.id}>
