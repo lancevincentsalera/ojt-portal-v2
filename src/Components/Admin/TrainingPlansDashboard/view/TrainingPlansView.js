@@ -1,7 +1,8 @@
 import React from "react";
 import SearchBar from "../../../Common/SearchBar";
-import Card from "../Card";
+
 import TrainingPlansModalController from "../../Modals/TrainingPlans/controller/TrainingPlansModalController";
+import Card from "../Card";
 
 const TrainingPlansView = ({ TrainingPlans, showModal, handleModalAction }) => {
   return (
@@ -15,7 +16,7 @@ const TrainingPlansView = ({ TrainingPlans, showModal, handleModalAction }) => {
       <div className="main-dashboard">
         <div className="main-header">
           <p className="main-heading">Training Plans</p>
-          <SearchBar />
+          {/* <SearchBar /> */}
         </div>
         <div className="cards-content">
           {TrainingPlans.map((trainingPlan, i) => (

@@ -19,12 +19,13 @@ const SupervisorEvaluationsView = ({
         <div className="main-header">
           <p className="main-heading">Intern Evaluation</p>
         </div>
-        <div className="tabs">
+        <div className="tabs" style={{ justifyContent: "normal" }}>
           <div
             className={tab.midterm ? "tab active" : "tab"}
             onClick={() => {
               handleTabChange(true, false);
             }}
+            style={{ width: "15%" }}
           >
             Midterm
           </div>
@@ -33,6 +34,7 @@ const SupervisorEvaluationsView = ({
             onClick={() => {
               handleTabChange(false, true);
             }}
+            style={{ width: "15%" }}
           >
             Final
           </div>

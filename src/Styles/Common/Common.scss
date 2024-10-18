@@ -7,24 +7,22 @@
   transform: translate(-50%, -50%);
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  padding-top: 20px; 
-  max-height: 80vh; 
-  overflow-y: auto; 
+  padding-top: 20px;
+  max-height: 80vh;
+  overflow-y: auto;
   width: 40%;
 }
 
-
-
 .error {
-  color: $darker-red; 
-  font-size: $small-text; 
+  color: $darker-red;
+  font-size: $small-text;
   font-weight: bold;
   padding: 5px 0;
 }
 
 .success {
-  color: $main-green; 
-  font-size: $small-text; 
+  color: $main-green;
+  font-size: $small-text;
   font-weight: bold;
   padding: 5px 0;
 }
@@ -99,23 +97,13 @@ textarea {
     background-color: $darker-red;
   }
 
-  &.create {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 0.8rem;
-    font-weight: bold;
-    font-size: $small-text;
-    height: 40px;
-  }
-
   &:disabled {
-    background-color: $disabled-red; 
+    background-color: $disabled-red;
     cursor: not-allowed;
 
     &:hover {
-      background-color: $disabled-red; 
-      cursor: not-allowed;             
+      background-color: $disabled-red;
+      cursor: not-allowed;
     }
   }
 }
@@ -133,6 +121,16 @@ textarea {
     background-color: #ffb8b2;
     color: white;
   }
+}
+
+.create {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.8rem;
+  font-weight: bold;
+  font-size: $small-text;
+  height: 40px;
 }
 
 option {
@@ -217,6 +215,16 @@ option {
         font-size: 100%;
       }
     }
+  }
+}
+
+.tapad {
+  display: flex;
+  gap: 0.5rem;
+
+  input,
+  label {
+    flex: 1;
   }
 }
 

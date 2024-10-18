@@ -1,0 +1,25 @@
+.intern-list {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  gap: 0.5rem;
+  border: 1px solid $main-red;
+  padding: $bar-padding;
+  max-height: 30vh;
+
+  .intern {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    input {
+      margin-bottom: 0;
+      height: 20px;
+      width: 20px;
+    }
+
+    span {
+      font-size: $sub-heading;
+    }
+  }
+}

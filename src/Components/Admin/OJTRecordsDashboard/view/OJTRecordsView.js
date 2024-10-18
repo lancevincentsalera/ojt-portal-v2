@@ -15,7 +15,7 @@ const OJTRecordsView = ({
         <p className="main-heading">OJT Records</p>
       </div>
       <div className="table-container">
-        <SearchBar />
+        {/* <SearchBar /> */}
         <div className="table">
           <ul className="thead">
             {dataByPage.length > 0 &&

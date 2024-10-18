@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = ({ userRole }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const { isLoggedIn, handleLogout, userInfo } = useAuth();
+  const { isLoggedIn, handleLogout, userInfo, timeIn } = useAuth();
+  const [links, setLinks] = useState([]);
+  const location = useLocation();
+
   const studentLinks = [
+    {
+      goto: "/intern-attendance",
+      name: "Attendance",
+    },
     {
       goto: "/intern-dashboard",
       name: "Dashboard",
@@ -22,7 +29,7 @@ const Sidebar = ({ userRole }) => {
     },
     {
       goto: "/intern-submit",
-      name: "Submit Logbook",
+      name: "Submit Logbook Entry",
     },
   ];
 
@@ -52,8 +59,8 @@ const Sidebar = ({ userRole }) => {
 
   const deanLinks = [
     {
-      goto: "/student-monitoring",
-      name: "Student Monitoring",
+      goto: "/dean-dashboard",
+      name: "Dashboard",
     },
     {
       goto: "/ojt-analytics",
@@ -86,62 +93,76 @@ const Sidebar = ({ userRole }) => {
       name: "Instructor Dashboard",
     },
     {
+      goto: "/student-monitoring",
+      name: "Student Monitoring",
+    },
+    {
       goto: "/ojt-analytics",
       name: "OJT Analytics",
     },
   ];
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getLinks = () => {
-    console.log(isLoggedIn);
-    console.log(userInfo);
-
-    if (!isLoggedIn || !userInfo) return [];
+  useEffect(() => {
+    if (!isLoggedIn || !userInfo) {
+      setLinks([]);
+      return;
+    }
 
     const userType = userInfo.user ? userInfo.user.userType : userInfo.userType;
     if (isLoggedIn) {
       switch (userType) {
         case "Student":
-          return studentLinks;
+          setLinks(
+            studentLinks.map((link) => ({
+              ...link,
+              disabled: timeIn === null && link.name !== "Attendance",
+            }))
+          );
+          break;
         case "Mentor":
-          return supervisorLinks;
+          setLinks(supervisorLinks);
+          break;
         case "Chair":
-          return deanLinks;
+          setLinks(deanLinks);
+          break;
         case "Admin":
-          return adminLinks;
+          setLinks(adminLinks);
+          break;
         case "Teacher":
-          return instructorLinks;
+          setLinks(instructorLinks);
+          break;
         default:
-          return supervisorLinks;
+          setLinks(supervisorLinks);
+          break;
       }
     }
-  };
-
-  const [links] = useState(getLinks());
+  }, [isLoggedIn, userInfo, timeIn]);
 
   useEffect(() => {
     setCurrentPageIndex(
       links.findIndex((link) => link.goto === window.location.pathname)
     );
-    // setCurrentPageIndex(
-    //   studentLinks.findIndex((link) => link.goto === window.location.pathname)
-    // );
-  }, [links]);
+  }, [links, location.pathname]);
 
   return (
     <div className="Sidebar">
       <ul className="clicked-option">
         {links.map((link, i) => {
-          {
-            /* {studentLinks.map((link, i) => { */
-          }
           return (
-            <li>
+            <li key={i}>
               <Link
-                to={link.goto}
-                onClick={() => setCurrentPageIndex(i)}
-                key={i}
-                className={currentPageIndex === i && "active"}
+                to={link.disabled ? "#" : link.goto}
+                onClick={
+                  link.disabled
+                    ? (e) => e.preventDefault()
+                    : () => setCurrentPageIndex(i)
+                }
+                className={`${currentPageIndex === i ? "active" : ""} ${
+                  link.disabled ? "disabled" : ""
+                }`}
+                style={
+                  link.disabled ? { pointerEvents: "none", opacity: 0.5 } : {}
+                }
               >
                 {link.name}
               </Link>
