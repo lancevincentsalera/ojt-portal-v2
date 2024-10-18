@@ -21,12 +21,19 @@ const CreateTrainingPlanModalController = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [isPromptOpen, setIsPromptOpen] = useState(false);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTrainingPlan((prevData) => ({
+      ...prevData,
+      [name]: value,
+      mentorId: userInfo.user.id,
+    }));
+  };
+
   const handleCreateTrainingPlanAction = async () => {
     setIsSubmitting(true);
     try {
       const url = apiBaseUrl + "/training/plans";
-      trainingPlan.mentorId = userInfo.user.id;
-      console.log(trainingPlan);
       const response = await axios.post(url, trainingPlan);
 
       if (response.status === 201) {
@@ -42,54 +49,6 @@ const CreateTrainingPlanModalController = ({
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setTrainingPlan((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const handleTaskChange = (e, index) => {
-    const { name, value } = e.target;
-    setTrainingPlan((prevData) => {
-      const list = [...prevData.tasks];
-      list[index] = {
-        ...list[index],
-        [name]: value,
-      };
-      return { ...prevData, tasks: list };
-    });
-  };
-
-  const handleTechStackAndSkillChange = (
-    e,
-    taskIndex,
-    techStackIndex,
-    skillIndex
-  ) => {
-    const { name, value } = e.target;
-    setTrainingPlan((prevData) => {
-      const taskList = [...prevData.tasks];
-      const techStackList = [...taskList[taskIndex].techStacks];
-      const skillList = [...taskList[taskIndex].skills];
-
-      techStackList[techStackIndex] = {
-        ...techStackList[techStackIndex],
-        [name]: value,
-      };
-
-      skillList[skillIndex] = {
-        ...skillList[skillIndex],
-        [name]: value,
-      };
-
-      taskList[taskIndex] = {
-        ...taskList[taskIndex],
-        techStacks: techStackList,
-        skills: skillList,
-      };
-      return { ...prevData, tasks: taskList };
-    });
   };
 
   const handleCreateTrainingPlan = () => {

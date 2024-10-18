@@ -13,70 +13,9 @@ const AssignPlanModalView = ({ handleAssignModalAction }) => {
             </span>
           </div>
           <p className="modal-sub-heading" style={{ marginBottom: "0" }}>
-            Select Trainees
+            Select Trainee
           </p>
           <form className="modal-form no-subh">
-            <div className="intern-list">
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>Select All</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-            </div>
             <div className="button-group double">
               <button
                 type="button"

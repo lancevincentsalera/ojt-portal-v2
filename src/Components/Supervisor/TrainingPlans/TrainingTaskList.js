@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AssignPlanModalController from "../Modals/TrainingPlans/controller/AssignPlanModalController";
 import AddTaskModalController from "../Modals/TrainingPlans/controller/AddTaskModalController";
 import { useLocation } from "react-router-dom";
@@ -8,7 +8,18 @@ const TrainingTaskList = () => {
   const handleAssignModalAction = () => setShowAssignModal(!showAssignModal);
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
   const location = useLocation();
-  const { trainingPlanDetails } = location.state;
+  const trainingPlanDetails =
+    location.state?.trainingPlanDetails ||
+    JSON.parse(localStorage.getItem("trainingPlanDetails"));
+
+  useEffect(() => {
+    if (trainingPlanDetails) {
+      localStorage.setItem(
+        "trainingPlanDetails",
+        JSON.stringify(trainingPlanDetails)
+      );
+    }
+  }, [trainingPlanDetails]);
 
   const handleAddTaskModalAction = () => {
     console.log(showAddTaskModal);
@@ -24,6 +35,7 @@ const TrainingTaskList = () => {
       {showAddTaskModal && (
         <AddTaskModalController
           handleAddTaskModalAction={handleAddTaskModalAction}
+          trainingPlanDetails={trainingPlanDetails}
         />
       )}
       <div className="main-dashboard">
