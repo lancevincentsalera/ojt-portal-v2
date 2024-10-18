@@ -93,11 +93,11 @@ const InternDashboardView = ({ showModal, handleModalAction, studentPerformance 
         </div>
 
         {/* Tasks & Milestones */}
-        <div className="dashboard">
+        {/* <div className="dashboard">
           <p className="heading">Tasks & Milestones</p>
           <div className="dashboard-container task-list">
             {/* Task List (remains unchanged) */}
-            <div className="dashboard-group task">
+            {/* <div className="dashboard-group task">
               <div className="task-details">
                 <p className="dashboard-heading">Complete Project Proposal</p>
                 <p className="detail">Due: Oct 10, 2025</p>
@@ -110,10 +110,10 @@ const InternDashboardView = ({ showModal, handleModalAction, studentPerformance 
               >
                 View
               </button>
-            </div>
+            </div> */}
             {/* Repeat for more tasks */}
-            <div className="dashboard-group task">
-              <div className="task-details">
+            {/* <div className="dashboard-group task"> */}
+              {/* <div className="task-details">
                 <p className="dashboard-heading">Complete Project Proposal</p>
                 <p className="detail">Due: Oct 10, 2025</p>
                 <p className="status">Status: Completed</p>
@@ -139,8 +139,8 @@ const InternDashboardView = ({ showModal, handleModalAction, studentPerformance 
               >
                 View
               </button>
-            </div>
-            <div className="dashboard-group task">
+            </div> */} 
+            {/* <div className="dashboard-group task">
               <div className="task-details">
                 <p className="dashboard-heading">Complete Project Proposal</p>
                 <p className="detail">Due: Oct 10, 2025</p>
@@ -153,9 +153,9 @@ const InternDashboardView = ({ showModal, handleModalAction, studentPerformance 
               >
                 View
               </button>
-            </div>
+            </div> */}
 
-            <div className="dashboard-group task">
+            {/* <div className="dashboard-group task">
               <div className="task-details">
                 <p className="dashboard-heading">Complete Project Proposal</p>
                 <p className="detail">Due: Oct 10, 2025</p>
@@ -168,9 +168,9 @@ const InternDashboardView = ({ showModal, handleModalAction, studentPerformance 
               >
                 View
               </button>
-            </div>
-          </div>
-        </div>
+            </div> */}
+          {/* </div> */}
+        {/* </div> */}
       </div>
     </>
   );
