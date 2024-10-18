@@ -16,7 +16,7 @@ const TrainingPlansView = ({ TrainingPlans, showModal, handleModalAction }) => {
       <div className="main-dashboard">
         <div className="main-header">
           <p className="main-heading">Training Plans</p>
-          <SearchBar />
+          {/* <SearchBar /> */}
         </div>
         <div className="cards-content">
           {TrainingPlans.map((trainingPlan, i) => (
