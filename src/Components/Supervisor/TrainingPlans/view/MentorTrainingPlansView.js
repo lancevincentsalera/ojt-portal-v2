@@ -2,11 +2,17 @@ import React from "react";
 import CreateTrainingPlanModalController from "../../Modals/TrainingPlans/controller/CreateTrainingPlanModalController";
 import Card from "../Card";
 import { FaPlus } from "react-icons/fa6";
+import MyTrainingPlans from "../MyTrainingPlans";
+import SystemGeneratedPlans from "../SystemGeneratedPlans";
 
 const MentorTrainingPlansView = ({
   TrainingPlans,
   showCreateModal,
   handleCreateModalAction,
+  tab,
+  handleTabChange,
+  systemGeneratedPlans,
+  getTrainingPlanDetails,
 }) => {
   return (
     <>
@@ -27,11 +33,33 @@ const MentorTrainingPlansView = ({
             &nbsp; Create New Plan
           </button>
         </div>
-        <div className="cards-content">
-          {TrainingPlans.map((trainingPlan, i) => (
-            <Card key={i} trainingPlan={trainingPlan} />
-          ))}
+        <div className="tabs" style={{ justifyContent: "normal" }}>
+          <div
+            className={tab.myPlans ? "tab active" : "tab"}
+            onClick={() => {
+              handleTabChange(true);
+            }}
+            style={{ width: "15%" }}
+          >
+            My Plans
+          </div>
+          <div
+            className={tab.systemGenerated ? "tab active" : "tab"}
+            onClick={() => {
+              handleTabChange(false);
+            }}
+            style={{ width: "15%" }}
+          >
+            System Generated
+          </div>
         </div>
+        {tab.myPlans && <MyTrainingPlans TrainingPlans={TrainingPlans} />}
+        {tab.systemGenerated && (
+          <SystemGeneratedPlans
+            systemGeneratedPlans={systemGeneratedPlans}
+            getTrainingPlanDetails={getTrainingPlanDetails}
+          />
+        )}
       </div>
     </>
   );

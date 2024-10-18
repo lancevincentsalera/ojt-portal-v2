@@ -41,6 +41,16 @@ export const GlobalStateProvider = ({ children }) => {
     }
   };
 
+  const getSystemGeneratedTrainingPlans = async () => {
+    try {
+      const url = apiBaseUrl + "/training/plans/fetch/from/api";
+      const response = await axios.get(url);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <GlobalStateContext.Provider
       value={{
@@ -55,6 +65,7 @@ export const GlobalStateProvider = ({ children }) => {
         setAllowPath,
         getMentorLogbookSubmissions,
         getInternInfo,
+        getSystemGeneratedTrainingPlans,
       }}
     >
       {children}

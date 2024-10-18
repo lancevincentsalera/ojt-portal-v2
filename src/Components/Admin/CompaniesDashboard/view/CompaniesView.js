@@ -1,7 +1,5 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa6";
-import SearchBar from "../../../Common/SearchBar";
-import Pagination from "../../../Common/Pagination";
 import CompaniesModalController from "../../Modals/Companies/controller/CompaniesModalController";
 
 const CompaniesView = ({ showModal, handleModalAction }) => {
@@ -27,7 +25,7 @@ const CompaniesView = ({ showModal, handleModalAction }) => {
               <li className="th">Actions</li>
             </ul>
             <ul className="tbody">
-              <li className="tr" key={index}>
+              <li className="tr">
                 <div className="td actions">
                   <button className="button-main btn-active">Activate</button>
                   <button className="button-secondary btn-restrict">

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import AssignPlanModalController from "../Modals/TrainingPlans/controller/AssignPlanModalController";
 import AddTaskModalController from "../Modals/TrainingPlans/controller/AddTaskModalController";
+import { useLocation } from "react-router-dom";
 
 const TrainingTaskList = () => {
   const [showAssignModal, setShowAssignModal] = useState(false);
   const handleAssignModalAction = () => setShowAssignModal(!showAssignModal);
-
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
+  const location = useLocation();
+  const { trainingPlanDetails } = location.state;
+
   const handleAddTaskModalAction = () => {
     console.log(showAddTaskModal);
     setShowAddTaskModal(!showAddTaskModal);
@@ -29,36 +32,31 @@ const TrainingTaskList = () => {
             <p className="tp-heading">Training Plan Details</p>
 
             <div className="tp-deet">
-              <p className="bold">Comprehensive Onboarding Program</p>
-              <p className="normal">
-                A detailed program designed to familiarize new employees with
-                the company, its policies, and their roles.
-              </p>
+              <p className="bold">{trainingPlanDetails.title}</p>
+              <p className="normal">{trainingPlanDetails.description}</p>
             </div>
             <div className="tp-more">
               <div className="tp-deet">
-                <p className="bold">Start Date</p>
-                <p className="normal">Jun 01, 2024</p>
+                <p className="bold">Total Tasks</p>
+                <p className="normal">{trainingPlanDetails.totalTasks}</p>
               </div>
               <div className="tp-deet">
-                <p className="bold">End Date</p>
-                <p className="normal">Aug 01, 2024</p>
+                <p className="bold">Easy Tasks</p>
+                <p className="normal">{trainingPlanDetails.easyTasksCount}</p>
               </div>
               <div className="tp-deet">
-                <p className="bold">Duration</p>
-                <p className="normal">2 Months</p>
+                <p className="bold">Medium Tasks</p>
+                <p className="normal">{trainingPlanDetails.mediumTasksCount}</p>
               </div>
               <div className="tp-deet">
-                <p className="bold">Assigned Supervisor</p>
-                <p className="normal">Jane Smith</p>
+                <p className="bold">Hard Tasks</p>
+                <p className="normal">{trainingPlanDetails.hardTasksCount}</p>
               </div>
               <div className="tp-deet">
-                <p className="bold">Department</p>
-                <p className="normal">Human Resources</p>
-              </div>
-              <div className="tp-deet">
-                <p className="bold">Number of Tasks</p>
-                <p className="normal">15 Tasks</p>
+                <p className="bold">System Generated</p>
+                <p className="normal">
+                  {trainingPlanDetails.isSystemGenerated ? "Yes" : "No"}
+                </p>
               </div>
             </div>
 
@@ -94,16 +92,23 @@ const TrainingTaskList = () => {
           >
             Tasks
           </span>
-          <div className="tp-task">
-            <div className="detail-group1">
-              <p className="bold">Task 3: Project Management Basics</p>
-              <p className="normal">Completed on: Jun 05, 2024</p>
-              <p className="normal">
-                Description: Learn the basics of project management, including
-                planning, execution, and monitoring.
-              </p>
+          {trainingPlanDetails.tasks.map((task, i) => (
+            <div className="tp-task" key={task.id}>
+              <div className="detail-group1">
+                <p className="bold">{task.title}</p>
+                <p className="normal">Description: {task.description}</p>
+                <p className="normal">Difficulty: {task.difficulty}</p>
+
+                <p className="normal">
+                  Tech Stacks:{" "}
+                  {task.techStacks.map((stack) => stack.name).join(", ")}
+                </p>
+                <p className="normal">
+                  Skills: {task.skills.map((skill) => skill.name).join(", ")}
+                </p>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </>

@@ -788,7 +788,6 @@ label {
 .cards-content .card .card-body {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 }
 .cards-content .card .card-body .card-desc {
   font-size: 50%;
