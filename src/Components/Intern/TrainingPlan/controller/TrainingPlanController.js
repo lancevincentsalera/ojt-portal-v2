@@ -16,7 +16,6 @@ const TrainingPlanController = () => {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const id = userInfo.user.id;
-  const [showModal, setShowModal] = useState(false);
   const [currentTab, setCurrentTab] = useState("tp");
   const [tab, setTab] = useState({
     tp: true,
@@ -55,13 +54,10 @@ const TrainingPlanController = () => {
     setCurrentTab(selectedTab);
   };
 
-  const handleModalAction = () => setShowModal(!showModal);
 
   return (
     <>
       <TrainingPlanView
-        showModal={showModal}
-        handleModalAction={handleModalAction}
         tab={tab}
         currentTab={currentTab}
         handleTabChange={handleTabChange}
