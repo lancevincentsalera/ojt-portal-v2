@@ -2,7 +2,12 @@ import { Pie } from 'react-chartjs-2';
 import { Empty, Row, Col, Card } from "antd";
 import 'chart.js/auto';  
 
-const OJTAnalyticsViewTeacher = ({ data }) => {
+const OJTAnalyticsViewTeacher = ({data}) => {
+    console.log(data);
+
+    const allSentimentsZero = data.every(student => 
+        student.positive === 0 && student.negative === 0 && student.neutral === 0
+    );
 
     const renderStudentData = (student) => {
         const { userId, firstName, lastName, positive, negative, neutral } = student;
@@ -35,7 +40,7 @@ const OJTAnalyticsViewTeacher = ({ data }) => {
     return (
         <div>
             <p style={{fontWeight: 'bold', fontSize: '20'}}>Sentimental Analysis Result</p>
-            {data && data.length > 0 ? (
+            {data && data.length > 0 && !allSentimentsZero ? (
                 <Row gutter={[16, 16]}>  
                     {data
                         .filter(student => student.positive > 0 || student.negative > 0 || student.neutral > 0)  

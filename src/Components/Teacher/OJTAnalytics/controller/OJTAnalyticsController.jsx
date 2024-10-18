@@ -12,43 +12,105 @@ const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const OJTAnalyticsController = () => {
     const { userInfo, isLoggedIn } = useAuth();
-    const [isSubmitting, setIsSubmitting] = useState(true);
-    const [studentsLogbookSentimentAvg, setStudentsLogbookSentimentAvg] = useState([]);
-    const [isSuccess, setIsSuccess] = useState(false);
+    const [pendingRequests, setPendingRequests] = useState(0); 
+    const [studentsLogbookSentimentAvg, setStudentsLogbookSentimentAvg] = useState([]); 
+    const [isSuccess, setIsSuccess] = useState(false); 
     const [isError, setIsError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("An error occurred");
+    const [errorMessage, setErrorMessage] = useState("An error occurred"); 
+    const [degreePrograms, setDegreePrograms] = useState([]);
+    const [teacherStudentsSentimentAvg, setTeacherStudentsSentimentAvg] = useState([]); 
 
     useEffect(() => {
-        if (isLoggedIn) {
-            fetchAllStudentsFilterDepartment();
+        if (isLoggedIn && userInfo.user.userType === "Chair") {
+            fetchDegreePrograms();
         }
     }, [isLoggedIn]);
 
+    useEffect(() => {
+        if (degreePrograms.length > 0 && userInfo.user.userType === "Chair") {
+            fetchAllStudentsFilterDepartment();
+        }
+    }, [degreePrograms]);
+
+    useEffect(() => {
+        if (isLoggedIn && userInfo.user.userType === "Teacher") {
+            fetchStudentsUnderTeacher();
+        }
+    }, [isLoggedIn]);
+
+    const fetchDegreePrograms = async () => {
+        try {
+            setPendingRequests(prev => prev + 1); 
+            const response = await axios.get(`${apiBaseUrl}/degree-programs/department/${userInfo.department.departmentId}`);
+            console.log("Degree Programs:", response.data); 
+            setDegreePrograms(response.data);
+            setIsError(false);
+        } catch (error) {
+            console.error(error);
+            setIsError(true);
+            setErrorMessage("Failed to fetch degree programs");
+        } finally {
+            setPendingRequests(prev => prev - 1); 
+        }
+    };
+
     const fetchAllStudentsFilterDepartment = async () => {
         try {
+            setPendingRequests(prev => prev + 1); 
             const response = await axios.get(`${apiBaseUrl}/students`, {
                 params: { departmentCode: userInfo.department.departmentCode },
             });
+            console.log("Students:", response.data);
 
             const students = response.data;
             const logbookSentiments = await fetchStudentsLogbookAndAnalyzeSentiment(students);
 
             setStudentsLogbookSentimentAvg(logbookSentiments);
             setIsSuccess(true);
+            setIsError(false); 
         } catch (error) {
+            console.error(error);
             setIsError(true);
+            setErrorMessage("Failed to fetch students for department");
         } finally {
-            setIsSubmitting(false);
+            setPendingRequests(prev => prev - 1); 
+        }
+    };
+
+    const fetchStudentsUnderTeacher = async () => {
+        try {
+            setPendingRequests(prev => prev + 1); 
+            const response = await axios.get(`${apiBaseUrl}/teachers/${userInfo.user.id}/students`);
+            console.log("Teacher's Students:", response.data); 
+
+            const students = response.data.students;
+
+            if (!Array.isArray(students)) {
+                throw new Error("Students data is not in the expected format.");
+            }
+
+            const logbookSentiments = await fetchStudentsLogbookAndAnalyzeSentiment(students);
+            setTeacherStudentsSentimentAvg(logbookSentiments);
+            setIsSuccess(true);
+            setIsError(false); 
+        } catch (error) {
+            console.error(error);
+            setIsError(true);
+            setErrorMessage("Failed to fetch students under teacher");
+        } finally {
+            setPendingRequests(prev => prev - 1); 
         }
     };
 
     const fetchStudentsLogbookAndAnalyzeSentiment = async (students) => {
-        let sentimentData = [];
+        let sentimentDataByProgram = {};
 
         for (const student of students) {
             const { id: userId, firstName, lastName } = student.user;
+            const degreeProgramId = student.degreeProgram.id;
 
             try {
+                setPendingRequests(prev => prev + 1); 
                 const logbookResponse = await axios.get(`${apiBaseUrl}/logbooks/student/${userId}`);
                 const logbooks = logbookResponse.data;
 
@@ -72,21 +134,32 @@ const OJTAnalyticsController = () => {
                     }
                 }
 
-                sentimentData.push({
-                    userId: userId,
-                    firstName: firstName,  
-                    lastName: lastName,    
-                    positive: sentimentCounts.positive,
-                    negative: sentimentCounts.negative,
-                    neutral: sentimentCounts.neutral
-                });
+                if (!sentimentDataByProgram[degreeProgramId]) {
+                    sentimentDataByProgram[degreeProgramId] = {
+                        programName: getProgramNameById(degreeProgramId),
+                        positive: 0,
+                        negative: 0,
+                        neutral: 0,
+                        studentCount: 0
+                    };
+                }
+
+                sentimentDataByProgram[degreeProgramId].positive += sentimentCounts.positive;
+                sentimentDataByProgram[degreeProgramId].negative += sentimentCounts.negative;
+                sentimentDataByProgram[degreeProgramId].neutral += sentimentCounts.neutral;
+                sentimentDataByProgram[degreeProgramId].studentCount += 1;
 
             } catch (error) {
+                console.error(error);
                 setIsError(true);
+                setErrorMessage("Error processing logbook sentiment analysis");
+            } finally {
+                setPendingRequests(prev => prev - 1); 
             }
         }
 
-        return sentimentData;
+        console.log("Sentiment Data by Program:", sentimentDataByProgram); 
+        return Object.values(sentimentDataByProgram);  
     };
 
     const analyzeSentiment = async (text) => {
@@ -98,7 +171,9 @@ const OJTAnalyticsController = () => {
             });
             return sentimentResponse.data;
         } catch (error) {
+            console.error(error);
             setIsError(true);
+            setErrorMessage("Failed to analyze sentiment");
         }
     };
 
@@ -114,24 +189,34 @@ const OJTAnalyticsController = () => {
         }
     };
 
+    const getProgramNameById = (degreeProgramId) => {
+        const program = degreePrograms.find(p => p.id === degreeProgramId);
+        return program ? program.programName : "Unknown Program";
+    };
+
     return (
         <div>
-            {userInfo.user.userType === 'Teacher' && 
+            {userInfo.user.userType === 'Chair' && 
                 <div>
                     {studentsLogbookSentimentAvg.length > 0 ? (
-                        <OJTAnalyticsViewTeacher data={studentsLogbookSentimentAvg} />
+                        <OJTAnalyticsViewDean data={studentsLogbookSentimentAvg} />
                     ) : (
                         <Empty description="No data available" />
                     )}
                 </div>
             }
-            {userInfo.user.userType === 'Chair' && 
+
+            {userInfo.user.userType === 'Teacher' && 
                 <div>
-                    <OJTAnalyticsViewDean />
+                    {teacherStudentsSentimentAvg.length > 0 ? (
+                        <OJTAnalyticsViewTeacher data={teacherStudentsSentimentAvg} />
+                    ) : (
+                        <Empty description="No data available" />
+                    )}
                 </div>
             }            
 
-            <LoadingModal open={isSubmitting} />
+            <LoadingModal open={pendingRequests > 0} /> 
             <OkayModal
                 open={isSuccess}
                 onClose={() => setIsSuccess(false)}
