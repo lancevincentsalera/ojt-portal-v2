@@ -21,27 +21,29 @@ const TrainingPlanController = () => {
     tp: true,
     graded: false,
     completed: false,
-    ongoing: false,
-    pastDue: false,
+    inProgress: false,
+    notStarted: false,
+    doneLate: false,
   });
 
   useEffect(() => {
-    const fetchTrainingPlan = async () => {
-      setIsSubmitting(true);
-      try {
-        const response = await axios.get(`${apiBaseUrl}/training/plans/student/${id}`);
-        setTrainingPlans(response.data);
-        setIsSuccess(true);
-      } catch (error) {
-        console.error(error)
-        setIsError(true);
-        setErrorMessage(error.response?.data?.errors[0].message || error.message);
-      } finally {
-        setIsSubmitting(false);
-      }
-    };
     fetchTrainingPlan();
   }, [id]);
+
+  const fetchTrainingPlan = async () => {
+    setIsSubmitting(true);
+    try {
+      const response = await axios.get(`${apiBaseUrl}/training/plans/student/${id}`);
+      setTrainingPlans(response.data);
+      setIsSuccess(true);
+    } catch (error) {
+      console.error(error)
+      setIsError(true);
+      setErrorMessage(error.response?.data?.errors[0].message || error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const handleTabChange = (selectedTab) => {
     setTab((prevState) => {
@@ -62,6 +64,7 @@ const TrainingPlanController = () => {
         currentTab={currentTab}
         handleTabChange={handleTabChange}
         trainingPlans={trainingPlans}
+        fetchTrainingPlan={fetchTrainingPlan}
       />
       <LoadingModal open={isSubmitting} />
         <OkayModal
