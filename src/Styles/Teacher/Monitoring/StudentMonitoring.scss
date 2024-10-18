@@ -1,0 +1,39 @@
+.student-monitoring-container {
+    padding: 20px;
+  
+    .student-dropdown {
+      margin-bottom: 20px;
+  
+      a {
+        font-size: 16px;
+        color: #007bff;
+        text-decoration: none;
+        &:hover {
+          color: #0056b3;
+        }
+      }
+    }
+  
+    .student-card {
+      width: 100%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-top: 20px;
+  
+      .ant-card-head-title {
+        font-size: 18px;
+        color: #333;
+      }
+  
+      .ant-descriptions {
+        font-size: 12px; /* Reduced text size */
+      }
+  
+      .ant-descriptions-item-label {
+        font-weight: 600;
+        color: #666;
+        margin-bottom: 4px; /* Adding space between label and value */
+      }
+    }
+  }
+  

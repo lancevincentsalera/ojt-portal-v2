@@ -26,9 +26,12 @@ const LoginController = ({ view }) => {
     setIsLoading(true);
     try {
       setError(null);
-
-      const userData = await LoginModel.login(email, password);
-
+  
+      const trimmedEmail = email.trim();
+      const trimmedPassword = password.trim();
+  
+      const userData = await LoginModel.login(trimmedEmail, trimmedPassword);
+  
       const config = {
         method: "get",
         maxBodyLength: Infinity,
@@ -38,12 +41,13 @@ const LoginController = ({ view }) => {
           Authorization: `${userData.tokenType} ${userData.accessToken}`,
         },
       };
-
+  
       const response = await axios.request(config);
       
       setAuthUser(userData, response.data);
       setIsLoggedIn(true);
       if (response.data.userType === "Admin") navigate("/admin-users");
+      else if (response.data.user.userType === "Chair") navigate("/dean-dashboard");
       else if (response.data.user.userType === "Teacher")
         navigate("/student-data");
       else navigate("/intern-attendance");
@@ -63,7 +67,7 @@ const LoginController = ({ view }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  };  
 
   return (
     <LoginView

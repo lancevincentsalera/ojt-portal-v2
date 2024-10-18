@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import ViewDashboardTasksController from "../../Modals/InternDashboard/controller/ViewDashboardTasksController";
 import PastDueTasks from "../PastDueTasks";
 import TrainingPlanDetails from "../TrainingPlanDetails";
 import GradedTasks from "../GradedTasks";
 import CompletedTasks from "../CompletedTasks";
 import OngoingTasks from "../OngoingTasks";
+import { Empty } from "antd";
 
 const TrainingPlanView = ({
   showModal,
@@ -12,7 +13,12 @@ const TrainingPlanView = ({
   tab,
   currentTab,
   handleTabChange,
+  trainingPlans,
 }) => {
+  const [showDetails, setShowDetails] = useState(false);
+
+  const toggleDetails = () => setShowDetails(!showDetails);
+
   return (
     <>
       {showModal && (
@@ -21,78 +27,70 @@ const TrainingPlanView = ({
           handleModalAction={handleModalAction}
         />
       )}
-      <div className="main-dashboard">
-        <div className="main-header">
-          <p className="main-heading">Assigned Training Plan</p>
-        </div>
-        <div className="main-content">
-          <p className="sub-heading">
-            Welcome to your training plan. Here you can view the tasks
-            categorized into Completed, Ongoing, and Past Due. Make sure to keep
-            track of your progress and complete all tasks on time.
-          </p>
-          <div className="tabs" style={{ justifyContent: "normal" }}>
-            <div
-              className={tab.tp ? "tab active" : "tab"}
-              onClick={() => {
-                handleTabChange("tp");
-              }}
-              style={{ width: "15%" }}
-            >
-              Training Plan Details
-            </div>
-            <div
-              className={tab.graded ? "tab active" : "tab"}
-              onClick={() => {
-                handleTabChange("graded");
-              }}
-              style={{ width: "15%" }}
-            >
-              Graded Tasks
-            </div>
-            <div
-              className={tab.completed ? "tab active" : "tab"}
-              onClick={() => {
-                handleTabChange("completed");
-              }}
-              style={{ width: "15%" }}
-            >
-              Completed Tasks
-            </div>
-            <div
-              className={tab.ongoing ? "tab active" : "tab"}
-              onClick={() => {
-                handleTabChange("ongoing");
-              }}
-              style={{ width: "15%" }}
-            >
-              Ongoing Tasks
-            </div>
-            <div
-              className={tab.pastDue ? "tab active" : "tab"}
-              onClick={() => {
-                handleTabChange("pastDue");
-              }}
-              style={{ width: "15%" }}
-            >
-              Past Due Tasks
-            </div>
+      {trainingPlans ? (
+        <div className="main-dashboard">
+          <div className="main-header">
+            <p className="main-heading">{trainingPlans.title}</p>
           </div>
-          {tab.tp && (
-            <TrainingPlanDetails handleModalAction={handleModalAction} />
-          )}
-          {tab.graded && <GradedTasks handleModalAction={handleModalAction} />}
-          {tab.completed && (
-            <CompletedTasks handleModalAction={handleModalAction} />
-          )}
-          {tab.ongoing && (
-            <OngoingTasks handleModalAction={handleModalAction} />
-          )}
-          {tab.pastDue && (
-            <PastDueTasks handleModalAction={handleModalAction} />
-          )}
+          <div className="main-content">
+            <p className="sub-heading">{trainingPlans.description}</p>
+            <div className="tabs" style={{ justifyContent: "normal" }}>
+              {["tp", "graded", "completed", "ongoing", "pastDue"].map((tabName, idx) => (
+                <div
+                  key={idx}
+                  className={tab[tabName] ? "tab active" : "tab"}
+                  onClick={() => handleTabChange(tabName)}
+                  style={{ width: "15%" }}
+                >
+                  {tabName === "tp"
+                    ? "Training Plan Details"
+                    : tabName.charAt(0).toUpperCase() + tabName.slice(1) + " Tasks"}
+                </div>
+              ))}
+            </div>
+
+            <div className="training-plan-card">
+              {showDetails && (
+                <div className="card-body">
+                  <p>Duration: {trainingPlans.durationInHours} hours</p>
+                  <p>
+                    Start Date: {trainingPlans.expectedStartDate} | End Date:{" "}
+                    {trainingPlans.expectedEndDate}
+                  </p>
+                  <div className="tasks-list">
+                    {trainingPlans.tasks.map((task) => (
+                      <div key={task.id} className="task-item">
+                        <p>
+                          <strong>{task.trainingTask.title}</strong>
+                        </p>
+                        <p>Status: {task.taskStatus}</p>
+                        <p>Due: {task.dueDate ? task.dueDate : "N/A"}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {tab.tp && <TrainingPlanDetails trainingPlan={trainingPlans} />}
+            {tab.graded && (
+              <GradedTasks tasks={trainingPlans.tasks.filter(task => task.taskStatus === "Graded")} />
+            )}
+            {tab.completed && (
+              <CompletedTasks tasks={trainingPlans.tasks.filter(task => task.taskStatus === "Completed")} />
+            )}
+            {tab.ongoing && (
+              <OngoingTasks tasks={trainingPlans.tasks.filter(task => task.taskStatus === "Ongoing")} />
+            )}
+            {tab.pastDue && (
+              <PastDueTasks tasks={trainingPlans.tasks.filter(task => new Date(task.dueDate) < new Date())} />
+            )}
+
+          </div>
         </div>
-      </div>
+      ) : (
+        <Empty description="No data available" />
+      )}
     </>
   );
 };

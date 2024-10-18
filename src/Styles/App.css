@@ -145,21 +145,11 @@ html {
   flex-direction: column;
   gap: 0.2rem;
 }
-.modal
-  .modal-content
-  .modal-form
-  .view-task-details
-  .view-task-group
-  .view-task-title {
+.modal .modal-content .modal-form .view-task-details .view-task-group .view-task-title {
   font-size: calc(80% - 3px);
   font-weight: bold;
 }
-.modal
-  .modal-content
-  .modal-form
-  .view-task-details
-  .view-task-group
-  .view-task-desc {
+.modal .modal-content .modal-form .view-task-details .view-task-group .view-task-desc {
   font-size: 50%;
 }
 .modal .modal-content .modal-form .view-task-details .mark-check {
@@ -174,12 +164,7 @@ html {
   height: 0.7rem;
   margin: 0;
 }
-.modal
-  .modal-content
-  .modal-form
-  .view-task-details
-  .mark-check
-  .checkbox-label {
+.modal .modal-content .modal-form .view-task-details .mark-check .checkbox-label {
   margin: 0;
 }
 .modal .modal-content .modal-form .entry-content-list {
@@ -193,37 +178,18 @@ html {
   flex-direction: column;
   gap: 0.3rem;
 }
-.modal
-  .modal-content
-  .modal-form
-  .entry-content-list
-  .entry-content-group.date {
+.modal .modal-content .modal-form .entry-content-list .entry-content-group.date {
   flex-direction: row;
   align-items: flex-end;
 }
-.modal
-  .modal-content
-  .modal-form
-  .entry-content-list
-  .entry-content-group
-  .label {
+.modal .modal-content .modal-form .entry-content-list .entry-content-group .label {
   font-size: 60%;
   font-weight: bold;
 }
-.modal
-  .modal-content
-  .modal-form
-  .entry-content-list
-  .entry-content-group
-  .value {
+.modal .modal-content .modal-form .entry-content-list .entry-content-group .value {
   font-size: 50%;
 }
-.modal
-  .modal-content
-  .modal-form
-  .entry-content-list
-  .entry-content-group
-  .entry-content {
+.modal .modal-content .modal-form .entry-content-list .entry-content-group .entry-content {
   background-color: white;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -813,8 +779,7 @@ label {
   border: 20px solid transparent;
   position: relative;
   overflow: hidden;
-  box-shadow: 2px 2px 2px black, inset 2px 2px 2px black,
-    -1px -1px 5px rgba(0, 0, 0, 0.473), inset -1px -1px 5px rgba(0, 0, 0, 0.473);
+  box-shadow: 2px 2px 2px black, inset 2px 2px 2px black, -1px -1px 5px rgba(0, 0, 0, 0.473), inset -1px -1px 5px rgba(0, 0, 0, 0.473);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -826,8 +791,7 @@ label {
 
 .clock:hover {
   transform: scale(1.1);
-  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.5), inset 3px 3px 8px black,
-    -2px -2px 10px rgba(0, 0, 0, 0.6), inset -2px -2px 10px rgba(0, 0, 0, 0.6);
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.5), inset 3px 3px 8px black, -2px -2px 10px rgba(0, 0, 0, 0.6), inset -2px -2px 10px rgba(0, 0, 0, 0.6);
 }
 
 .heading {
@@ -1237,6 +1201,175 @@ label {
 }
 .supervisor-dashboard .large-card-container .large-card-list .list-value p {
   font-size: 60%;
+}
+
+/* General Dashboard Styles */
+.dashboard {
+  padding: 20px;
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.dashboard-heading {
+  font-size: 16px;
+  font-weight: bold;
+  color: #4a4a4a;
+}
+
+.detail {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Modal Styles */
+.ant-modal-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #4a4a4a;
+}
+
+.ant-modal-body {
+  padding: 20px;
+}
+
+.ant-table {
+  width: 100%;
+}
+
+.ant-checkbox-wrapper {
+  margin-left: 10px;
+}
+
+/* Add Student Button */
+.add-student-button {
+  font-size: 14px;
+  background-color: #ff6b6b;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-student-button:hover {
+  background-color: #e74c3c;
+}
+
+/* Dashboard Statistics */
+.bg-white {
+  background-color: #ffffff;
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.rounded-lg {
+  border-radius: 8px;
+}
+
+.heading {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Statistics Cards */
+.statistic-card {
+  background-color: #f9f9f9;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.ant-statistic-title {
+  font-size: 16px;
+  color: #4a4a4a;
+}
+
+.ant-statistic-content {
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Chart Section */
+.chart-section {
+  margin-top: 20px;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.pie-chart {
+  height: 200px;
+  margin: 0 auto;
+}
+
+/* No Students Assigned */
+.no-students-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  text-align: center;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.no-students-message {
+  font-size: 18px;
+  color: #4a4a4a;
+}
+
+.student-monitoring-container {
+  padding: 20px;
+}
+.student-monitoring-container .student-dropdown {
+  margin-bottom: 20px;
+}
+.student-monitoring-container .student-dropdown a {
+  font-size: 16px;
+  color: #007bff;
+  text-decoration: none;
+}
+.student-monitoring-container .student-dropdown a:hover {
+  color: #0056b3;
+}
+.student-monitoring-container .student-card {
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 20px;
+}
+.student-monitoring-container .student-card .ant-card-head-title {
+  font-size: 18px;
+  color: #333;
+}
+.student-monitoring-container .student-card .ant-descriptions {
+  font-size: 12px; /* Reduced text size */
+}
+.student-monitoring-container .student-card .ant-descriptions-item-label {
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 4px; /* Adding space between label and value */
 }
 
 /*# sourceMappingURL=App.css.map */

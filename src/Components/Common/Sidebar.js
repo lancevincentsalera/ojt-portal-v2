@@ -29,7 +29,7 @@ const Sidebar = ({ userRole }) => {
     },
     {
       goto: "/intern-submit",
-      name: "Submit Logbook",
+      name: "Submit Logbook Entry",
     },
   ];
 
@@ -59,8 +59,8 @@ const Sidebar = ({ userRole }) => {
 
   const deanLinks = [
     {
-      goto: "/student-monitoring",
-      name: "Student Monitoring",
+      goto: "/dean-dashboard",
+      name: "Dashboard",
     },
     {
       goto: "/ojt-analytics",
@@ -91,6 +91,10 @@ const Sidebar = ({ userRole }) => {
     {
       goto: "/student-data",
       name: "Instructor Dashboard",
+    },
+    {
+      goto: "/student-monitoring",
+      name: "Student Monitoring",
     },
     {
       goto: "/ojt-analytics",

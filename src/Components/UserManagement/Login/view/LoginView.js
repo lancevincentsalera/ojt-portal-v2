@@ -36,6 +36,7 @@ const Login = ({
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              disabled={isLoading}
             />
             <label>Password</label>
             <input
@@ -44,6 +45,7 @@ const Login = ({
               type="password"
               placeholder="Enter your password"
               value={password}
+              disabled={isLoading}
               onChange={(e) => setPassword(e.target.value)}
             />
             {error && <div className="error">{error}</div>} 

@@ -11,7 +11,7 @@ const LoadingModal = ({ open }) => (
   >
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <LoadingOutlined style={{ color: '#bdc3c7', fontSize: '28px', marginRight: '8px' }} />
-      <p style={{ color: '#bdc3c7', fontSize: '16px', fontWeight: '500' }}>Loading...</p>
+      <p style={{ color: '#94a3b8', fontSize: '16px', fontWeight: '500' }}>Loading...</p>
     </div>
   </Modal>
 );

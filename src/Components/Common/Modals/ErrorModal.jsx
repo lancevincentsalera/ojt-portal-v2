@@ -12,7 +12,7 @@ const ErrorModal = ({ open, onClose, errorMessage }) => (
     open={open}
     onCancel={onClose}
     footer={null}
-    style={{ backgroundColor: '#ffffff', padding: '24px', borderRadius: '10px', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)' }}
+    // style={{ backgroundColor: '#ffffff', padding: '24px', borderRadius: '10px', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)' }}
     centered
   >
     <div style={{ textAlign: 'center', marginTop: '16px' }}>

@@ -1,0 +1,136 @@
+/* General Dashboard Styles */
+.dashboard {
+    padding: 20px;
+  }
+  
+  .dashboard-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dashboard-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .dashboard-heading {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4a4a4a;
+  }
+  
+  .detail {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  /* Modal Styles */
+  .ant-modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4a4a4a;
+  }
+  
+  .ant-modal-body {
+    padding: 20px;
+  }
+  
+  .ant-table {
+    width: 100%;
+  }
+  
+  .ant-checkbox-wrapper {
+    margin-left: 10px;
+  }
+  
+  /* Add Student Button */
+  .add-student-button {
+    font-size: 14px;
+    background-color: #ff6b6b;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-student-button:hover {
+    background-color: #e74c3c;
+  }
+  
+  /* Dashboard Statistics */
+  .bg-white {
+    background-color: #ffffff;
+  }
+  
+  .shadow-md {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .rounded-lg {
+    border-radius: 8px;
+  }
+  
+  .heading {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  /* Statistics Cards */
+  .statistic-card {
+    background-color: #f9f9f9;
+    padding: 16px;
+    border-radius: 8px;
+  }
+  
+  .ant-statistic-title {
+    font-size: 16px;
+    color: #4a4a4a;
+  }
+  
+  .ant-statistic-content {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Chart Section */
+  .chart-section {
+    margin-top: 20px;
+  }
+  
+  .h-full {
+    height: 100%;
+  }
+  
+  .pie-chart {
+    height: 200px;
+    margin: 0 auto;
+  }
+  
+  /* No Students Assigned */
+  .no-students-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    text-align: center;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .no-students-message {
+    font-size: 18px;
+    color: #4a4a4a;
+  }
+  

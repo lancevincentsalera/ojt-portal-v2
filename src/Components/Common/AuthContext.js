@@ -67,15 +67,18 @@ export function AuthProvider(props) {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    setIsLoggedIn(false);
+  
+    setIsLoggedInState(false);
     setAuthUserState(null);
     setUserInfoState(null);
-
+    setTimeInState(null);
+    setTimeOutState(null);
+  
     Cookies.remove("authUser");
     Cookies.remove("userInfo");
     Cookies.remove("isLoggedIn");
-    Cookies.remove("timeIn"); 
-    Cookies.remove("timeOut"); 
+    Cookies.remove("timeIn");
+    Cookies.remove("timeOut");
   };
 
   const value = {

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { StudentModel } from "../model/RegisterModel";
 import { useAuth } from "../../../Common/AuthContext";
 import { useGlobalState } from "../../../Globals/variables";
+import { handleGetDegreePrograms } from "../../../../Functions/common";
 
 const RegisterController = () => {
   const [userType, setUserType] = useState({
@@ -175,21 +176,6 @@ const RegisterController = () => {
     }
   };
 
-  const handleGetDegreePrograms = async () => {
-    try {
-      const url = `${apiBaseUrl}/degree-programs`;
-      const response = await axios.get(url);
-
-      if (response.status === 200) {
-        setDegreePrograms(response.data);
-      } else {
-        setError("An error occurred while fetching the degree programs.");
-      }
-    } catch (error) {
-      setError("Error fetching degree programs.");
-      console.error("Error fetching degree programs:", error);
-    }
-  };
 
   const handleGetTeachers = async () => {
     if (!selectedDegreeProgram) return;
@@ -209,7 +195,7 @@ const RegisterController = () => {
   };
 
   useEffect(() => {
-    handleGetDegreePrograms();
+    handleGetDegreePrograms(setDegreePrograms, setError);
   }, []);
 
   useEffect(() => {
