@@ -1,12 +1,15 @@
 import React from "react";
 import Card from "./Card";
 
-const MyTrainingPlans = ({ TrainingPlans }) => {
+const MyTrainingPlans = ({ TrainingPlans, getTrainingPlanDetails }) => {
   return (
     <div className="cards-content">
-      {console.log(TrainingPlans)}
       {TrainingPlans.map((trainingPlan, i) => (
-        <Card key={i} trainingPlan={trainingPlan} />
+        <Card
+          key={i}
+          trainingPlan={trainingPlan}
+          getTrainingPlanDetails={getTrainingPlanDetails}
+        />
       ))}
     </div>
   );

@@ -1,6 +1,5 @@
 import React from "react";
 import CreateTrainingPlanModalController from "../../Modals/TrainingPlans/controller/CreateTrainingPlanModalController";
-import Card from "../Card";
 import { FaPlus } from "react-icons/fa6";
 import MyTrainingPlans from "../MyTrainingPlans";
 import SystemGeneratedPlans from "../SystemGeneratedPlans";
@@ -53,7 +52,12 @@ const MentorTrainingPlansView = ({
             System Generated
           </div>
         </div>
-        {tab.myPlans && <MyTrainingPlans TrainingPlans={TrainingPlans} />}
+        {tab.myPlans && (
+          <MyTrainingPlans
+            TrainingPlans={TrainingPlans}
+            getTrainingPlanDetails={getTrainingPlanDetails}
+          />
+        )}
         {tab.systemGenerated && (
           <SystemGeneratedPlans
             systemGeneratedPlans={systemGeneratedPlans}

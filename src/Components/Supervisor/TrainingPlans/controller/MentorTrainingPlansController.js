@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import MentorTrainingPlansView from "../view/MentorTrainingPlansView";
-import { MentorTrainingPlans } from "../model/MentorTrainingPlansModel";
 import { useGlobalState } from "../../../Globals/variables";
 import axios from "axios";
+import { MentorTrainingPlans } from "../model/MentorTrainingPlanModel";
+import { useAuth } from "../../../Common/AuthContext";
 
 const MentorTrainingPlansController = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -14,6 +15,8 @@ const MentorTrainingPlansController = () => {
   const { getSystemGeneratedTrainingPlans } = useGlobalState();
   const [systemGeneratedPlans, setSystemGeneratedPlans] = useState([]);
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+  const { userInfo } = useAuth();
+  const [myTrainingPlans, setMyTrainingPlans] = useState([]);
 
   const handleTabChange = (plans) => {
     setTab({ myPlans: plans, systemGenerated: !plans });
@@ -38,13 +41,24 @@ const MentorTrainingPlansController = () => {
     }
   };
 
+  const getMentorTrainingPlans = async () => {
+    try {
+      const response = await MentorTrainingPlans(userInfo.user.id);
+      console.log(response);
+      setMyTrainingPlans(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     fetchSystemGeneratedPlans();
+    getMentorTrainingPlans();
   }, []);
 
   return (
     <MentorTrainingPlansView
-      TrainingPlans={MentorTrainingPlans}
+      TrainingPlans={myTrainingPlans}
       showCreateModal={showCreateModal}
       handleCreateModalAction={handleCreateModalAction}
       tab={tab}
