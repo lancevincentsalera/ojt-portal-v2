@@ -16,7 +16,7 @@ const Card = ({ trainingPlan, getTrainingPlanDetails }) => {
           </span>
           : {trainingPlan.totalTasks}
         </p>
-        <p className="card-date" style={{ fontWeight: "bold" }}>
+        {/* <p className="card-date" style={{ fontWeight: "bold" }}>
           System Generated:{" "}
           <span
             style={{
@@ -26,7 +26,7 @@ const Card = ({ trainingPlan, getTrainingPlanDetails }) => {
           >
             {trainingPlan.isSystemGenerated ? "Yes" : "No"}
           </span>
-        </p>
+        </p> */}
         <p className="card-supervisor"></p>
       </div>
       <div className="card-footer">
