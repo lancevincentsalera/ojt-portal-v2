@@ -1,6 +1,6 @@
 import React from "react";
 
-const GradedTasks = ({ tasks }) => {
+const GradedTasks = ({ tasks, handleModalAction }) => {
   return (
     <div className="tp-tasklist">
       {tasks.length === 0 ? (
@@ -13,6 +13,13 @@ const GradedTasks = ({ tasks }) => {
               <p className="normal">{task.trainingTask.description}</p>
               <p className="normal">Score: {task.score}</p>
             </div>
+            <button
+              type="button"
+              className="button-main create"
+              onClick={() => handleModalAction(task)}
+            >
+              View
+            </button>
           </div>
         ))
       )}

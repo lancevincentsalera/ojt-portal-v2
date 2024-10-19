@@ -103,64 +103,81 @@ const OJTAnalyticsController = () => {
     };
 
     const fetchStudentsLogbookAndAnalyzeSentiment = async (students) => {
-        let sentimentDataByProgram = {};
-
+        // Check user type to aggregate sentiment accordingly
+        const sentimentData = userInfo.user.userType === "Chair" ? {} : [];
+    
         for (const student of students) {
             const { id: userId, firstName, lastName } = student.user;
             const degreeProgramId = student.degreeProgram.id;
-
+    
             try {
-                setPendingRequests(prev => prev + 1); 
+                setPendingRequests(prev => prev + 1);
                 const logbookResponse = await axios.get(`${apiBaseUrl}/logbooks/student/${userId}`);
                 const logbooks = logbookResponse.data;
-
+    
                 let sentimentCounts = {
                     positive: 0,
                     negative: 0,
                     neutral: 0
                 };
-
+    
                 for (const logbook of logbooks) {
                     const { activities, remarks } = logbook;
-
+    
                     if (activities && activities.trim() !== "") {
                         const sentimentResponse = await analyzeSentiment(activities);
                         updateSentimentCounts(sentimentCounts, sentimentResponse);
                     }
-
+    
                     if (remarks && remarks.trim() !== "") {
                         const sentimentResponse = await analyzeSentiment(remarks);
                         updateSentimentCounts(sentimentCounts, sentimentResponse);
                     }
                 }
-
-                if (!sentimentDataByProgram[degreeProgramId]) {
-                    sentimentDataByProgram[degreeProgramId] = {
-                        programName: getProgramNameById(degreeProgramId),
-                        positive: 0,
-                        negative: 0,
-                        neutral: 0,
-                        studentCount: 0
-                    };
+    
+                if (userInfo.user.userType === "Chair") {
+                    // Aggregate by program for Chair
+                    if (!sentimentData[degreeProgramId]) {
+                        sentimentData[degreeProgramId] = {
+                            programName: getProgramNameById(degreeProgramId),
+                            positive: 0,
+                            negative: 0,
+                            neutral: 0,
+                            studentCount: 0
+                        };
+                    }
+    
+                    sentimentData[degreeProgramId].positive += sentimentCounts.positive;
+                    sentimentData[degreeProgramId].negative += sentimentCounts.negative;
+                    sentimentData[degreeProgramId].neutral += sentimentCounts.neutral;
+                    sentimentData[degreeProgramId].studentCount += 1;
+    
+                } else if (userInfo.user.userType === "Teacher") {
+                    // Aggregate by student for Teacher
+                    sentimentData.push({
+                        userId,
+                        firstName,
+                        lastName,
+                        positive: sentimentCounts.positive,
+                        negative: sentimentCounts.negative,
+                        neutral: sentimentCounts.neutral,
+                    });
                 }
-
-                sentimentDataByProgram[degreeProgramId].positive += sentimentCounts.positive;
-                sentimentDataByProgram[degreeProgramId].negative += sentimentCounts.negative;
-                sentimentDataByProgram[degreeProgramId].neutral += sentimentCounts.neutral;
-                sentimentDataByProgram[degreeProgramId].studentCount += 1;
-
+    
             } catch (error) {
                 console.error(error);
                 setIsError(true);
                 setErrorMessage("Error processing logbook sentiment analysis");
             } finally {
-                setPendingRequests(prev => prev - 1); 
+                setPendingRequests(prev => prev - 1);
             }
         }
-
-        console.log("Sentiment Data by Program:", sentimentDataByProgram); 
-        return Object.values(sentimentDataByProgram);  
+    
+        console.log("Sentiment Data:", sentimentData);
+    
+        return userInfo.user.userType === "Chair" ? Object.values(sentimentData) : sentimentData;
     };
+    
 
     const analyzeSentiment = async (text) => {
         try {

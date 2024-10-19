@@ -8,16 +8,20 @@ import OngoingTasks from "../OngoingTasks";
 import { Empty } from "antd";
 
 const TrainingPlanView = ({
-  showModal,
-  handleModalAction,
   tab,
   currentTab,
   handleTabChange,
   trainingPlans,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
-
+  const [selectedTask, setSelectedTask] = useState(null);
   const toggleDetails = () => setShowDetails(!showDetails);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleModalAction = (task) => {
+    setSelectedTask(task);
+    setShowModal(!showModal);
+  };
 
   return (
     <>
@@ -25,6 +29,7 @@ const TrainingPlanView = ({
         <ViewDashboardTasksController
           showModal={showModal}
           handleModalAction={handleModalAction}
+          selectedTask={selectedTask}
         />
       )}
       {trainingPlans ? (
@@ -74,16 +79,16 @@ const TrainingPlanView = ({
 
             {tab.tp && <TrainingPlanDetails trainingPlan={trainingPlans} />}
             {tab.graded && (
-              <GradedTasks tasks={trainingPlans.tasks.filter(task => task.taskStatus === "Graded")} />
+              <GradedTasks tasks={trainingPlans.tasks.filter(task => task.taskStatus === "Graded")} handleModalAction={handleModalAction}/>
             )}
             {tab.completed && (
-              <CompletedTasks tasks={trainingPlans.tasks.filter(task => task.taskStatus === "Completed")} />
+              <CompletedTasks tasks={trainingPlans.tasks.filter(task => task.taskStatus === "Completed")} handleModalAction={handleModalAction}/>
             )}
             {tab.ongoing && (
-              <OngoingTasks tasks={trainingPlans.tasks.filter(task => task.taskStatus === "Ongoing")} />
+              <OngoingTasks tasks={trainingPlans.tasks.filter(task => task.taskStatus === "Ongoing")} handleModalAction={handleModalAction}/>
             )}
             {tab.pastDue && (
-              <PastDueTasks tasks={trainingPlans.tasks.filter(task => new Date(task.dueDate) < new Date())} />
+              <PastDueTasks tasks={trainingPlans.tasks.filter(task => new Date(task.dueDate) < new Date())} handleModalAction={handleModalAction}/>
             )}
 
           </div>

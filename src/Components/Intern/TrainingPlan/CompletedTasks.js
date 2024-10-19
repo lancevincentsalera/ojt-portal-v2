@@ -1,6 +1,6 @@
 import React from "react";
 
-const CompletedTasks = ({ tasks }) => {
+const CompletedTasks = ({ tasks, handleModalAction }) => {
   return (
     <div className="tp-tasklist">
       {tasks.length === 0 ? (
@@ -13,6 +13,13 @@ const CompletedTasks = ({ tasks }) => {
               <p className="normal">Completed on: {task.dueDate || "N/A"}</p>
               <p className="normal">{task.trainingTask.description}</p>
             </div>
+            <button
+              type="button"
+              className="button-main create"
+              onClick={() => handleModalAction(task)}
+            >
+              View
+            </button>
           </div>
         ))
       )}
