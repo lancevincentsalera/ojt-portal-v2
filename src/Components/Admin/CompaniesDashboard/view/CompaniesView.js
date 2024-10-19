@@ -30,7 +30,6 @@ const CompaniesView = ({ showModal, handleModalAction, companies }) => {
               <li className="th">Contact No.</li>
               <li className="th">Contact Email</li>
               <li className="th">Address</li>
-              <li className="th">Actions</li>
             </ul>
 
             <ul className="tbody">
