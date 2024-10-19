@@ -435,8 +435,8 @@ option {
   width: 100%;
 }
 .table-container .table {
-  max-height: 100%;
-  height: 100%;
+  max-height: 80%;
+  height: 80%;
   display: flex;
   flex-direction: column;
 }
@@ -754,6 +754,7 @@ label {
 .cards-content .card .card-body {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
 }
 .cards-content .card .card-body .card-desc {
   font-size: 50%;

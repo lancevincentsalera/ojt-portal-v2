@@ -1,6 +1,12 @@
 import React from "react";
 
-const AssignPlanModalView = ({ handleAssignModalAction }) => {
+const AssignPlanModalView = ({
+  handleAssignModalAction,
+  handleChange,
+  handleAssignPlanAction,
+  students,
+  trainingPlanDetails,
+}) => {
   return (
     <>
       <div className="modal-overlay" onClick={handleAssignModalAction}></div>
@@ -12,71 +18,55 @@ const AssignPlanModalView = ({ handleAssignModalAction }) => {
               &times;
             </span>
           </div>
-          <p className="modal-sub-heading" style={{ marginBottom: "0" }}>
-            Select Trainees
-          </p>
-          <form className="modal-form no-subh">
-            <div className="intern-list">
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>Select All</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-              <div className="intern">
-                <input type="checkbox" name="check" />
-                <span>John Doe</span>
-                <span>CIT-U</span>
-              </div>
-            </div>
+          <form
+            className="modal-form no-subh"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleAssignPlanAction();
+            }}
+          >
+            <select
+              name="studentId"
+              id="trainee"
+              defaultValue={""}
+              onChange={handleChange}
+            >
+              <option value="" disabled>
+                Select Trainee
+              </option>
+              {students.interns.map((student) => (
+                <option key={student.user.id} value={student.user.id}>
+                  {student.user.firstName} {student.user.lastName} -{" "}
+                  {student.division}
+                </option>
+              ))}
+            </select>
+            <p className="modal-sub-heading" style={{ margin: "0" }}>
+              Add Task Due Dates
+            </p>
+            {trainingPlanDetails.tasks.map((task, i) => {
+              return (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <span style={{ fontSize: "50%" }}> {task.title}</span>
+                  <input
+                    key={task.id}
+                    type="date"
+                    id="dueDate"
+                    name="dueDate"
+                    placeholder="Due Date"
+                    required
+                    style={{ width: "30%" }}
+                    onChange={(e) => handleChange(e, i)}
+                  />
+                </div>
+              );
+            })}
             <div className="button-group double">
               <button
                 type="button"

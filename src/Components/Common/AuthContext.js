@@ -35,7 +35,14 @@ export function AuthProvider(props) {
 
   const getNextMidnight = () => {
     const now = new Date();
-    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0); // Midnight next day
+    const tomorrow = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate() + 1,
+      0,
+      0,
+      0
+    ); // Midnight next day
     return tomorrow;
   };
 
@@ -67,13 +74,13 @@ export function AuthProvider(props) {
 
   const handleLogout = (e) => {
     e.preventDefault();
-  
+
     setIsLoggedInState(false);
     setAuthUserState(null);
     setUserInfoState(null);
     setTimeInState(null);
     setTimeOutState(null);
-  
+
     Cookies.remove("authUser");
     Cookies.remove("userInfo");
     Cookies.remove("isLoggedIn");
