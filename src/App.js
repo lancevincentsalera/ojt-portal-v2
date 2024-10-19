@@ -1,5 +1,5 @@
-import React from 'react';
-import { ConfigProvider } from 'antd';
+import React from "react";
+import { ConfigProvider } from "antd";
 import "./output.css";
 import {
   BrowserRouter as Router,
@@ -38,8 +38,9 @@ import MentorLogbookSubmissionsController from "./Components/Supervisor/LogbookS
 import InternAttendanceController from "./Components/Intern/Attendance/controller/InternAttendanceController";
 import InstructorDashboardController from "./Components/Teacher/InstructorDashboard/controller/InstructorDashboardController";
 import StudentMonitoringController from "./Components/Instructor/StudentMonitoring/controller/StudentMonitoringController";
-import DeanDashboardController from './Components/Dean/Dashboard/controller/DeanDashboardController';
-import OJTAnalyticsController from './Components/Teacher/OJTAnalytics/controller/OJTAnalyticsController';
+import DeanDashboardController from "./Components/Dean/Dashboard/controller/DeanDashboardController";
+import OJTAnalyticsController from "./Components/Teacher/OJTAnalytics/controller/OJTAnalyticsController";
+import TaskMonitoringController from "./Components/Supervisor/TaskMonitoring/controller/TaskMonitoringController";
 
 const ProtectedRoute = ({ children }) => {
   const { authUser, isLoggedIn, timeIn } = useAuth();
@@ -99,10 +100,9 @@ const App = () => {
     <AuthProvider>
       <Router>
         <GlobalStateProvider>
-          <ConfigProvider theme={{ 
-            components: {
-              
-            } 
+          <ConfigProvider
+            theme={{
+              components: {},
             }}
           >
             <Routes>
@@ -141,12 +141,18 @@ const App = () => {
                     path="/intern-dashboard"
                     element={<InternDashboardController />}
                   />
-                  <Route path="/intern-tp" element={<TrainingPlanController />} />
+                  <Route
+                    path="/intern-tp"
+                    element={<TrainingPlanController />}
+                  />
                   <Route
                     path="/intern-entries"
                     element={<SubmissionsController />}
                   />
-                  <Route path="/student-monitoring" element={<StudentMonitoringController />} />
+                  <Route
+                    path="/student-monitoring"
+                    element={<StudentMonitoringController />}
+                  />
                   <Route
                     path="/intern-submit"
                     element={<SubmitLogbookController />}
@@ -192,7 +198,10 @@ const App = () => {
                     path="/intern-dashboard"
                     element={<InternDashboardController />}
                   />
-                  <Route path="/intern-tp" element={<TrainingPlanController />} />
+                  <Route
+                    path="/intern-tp"
+                    element={<TrainingPlanController />}
+                  />
                   <Route
                     path="/intern-entries"
                     element={<SubmissionsController />}
@@ -224,6 +233,10 @@ const App = () => {
                   <Route
                     path="/dean-dashboard"
                     element={<DeanDashboardController />}
+                  />
+                  <Route
+                    path="/supervisor-tm"
+                    element={<TaskMonitoringController />}
                   />
                 </Route>
               </Route>
