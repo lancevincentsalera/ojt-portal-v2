@@ -10,6 +10,8 @@ const TaskMonitoringView = ({
   isError,
   showModal,
   handleModalAction,
+  task,
+  internId,
 }) => {
   console.log(tasks, "=============================================<>s");
   const getStatusText = (status) => {
@@ -32,6 +34,8 @@ const TaskMonitoringView = ({
         <TaskScoringModalController
           showModal={showModal}
           handleModalAction={handleModalAction}
+          task={task}
+          internId={internId}
         />
       )}
       <div className="main-dashboard">
@@ -81,11 +85,18 @@ const TaskMonitoringView = ({
                       </p>
                     </div>
                     {(task.taskStatus === "Done" ||
-                      task.taskStatus === "DoneLate") && (
-                      <button type="button" className="button-main create">
-                        Score
-                      </button>
-                    )}
+                      task.taskStatus === "DoneLate") &&
+                      task.score === 0 && (
+                        <button
+                          type="button"
+                          className="button-main create"
+                          onClick={() =>
+                            handleModalAction(task.trainingTask.id)
+                          }
+                        >
+                          Score
+                        </button>
+                      )}
                   </div>
                 );
               })

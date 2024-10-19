@@ -1,6 +1,11 @@
 import React from "react";
 
-const TaskScoringModalView = ({ showModal, handleModalAction }) => {
+const TaskScoringModalView = ({
+  showModal,
+  handleModalAction,
+  handleScoreChange,
+  handleScoreAction,
+}) => {
   return (
     <>
       <div className="modal-overlay" onClick={handleModalAction}></div>
@@ -16,6 +21,7 @@ const TaskScoringModalView = ({ showModal, handleModalAction }) => {
             className="modal-form no-subh"
             onSubmit={(e) => {
               e.preventDefault();
+              handleScoreAction();
             }}
           >
             <label htmlFor="score">Score:</label>
@@ -24,11 +30,17 @@ const TaskScoringModalView = ({ showModal, handleModalAction }) => {
               step="0.1"
               name="score"
               id="score"
-              placeholder=""
+              placeholder="Score (1.0 - 5.0)"
+              onChange={handleScoreChange}
+              required
             />
 
             <div className="button-group double">
-              <button type="button" className="button-secondary">
+              <button
+                type="button"
+                className="button-secondary"
+                onClick={handleModalAction}
+              >
                 Cancel
               </button>
               <button type="submit" className="button-main">
