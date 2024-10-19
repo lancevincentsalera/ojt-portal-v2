@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import MentorTrainingPlansView from "../view/MentorTrainingPlansView";
 import { useGlobalState } from "../../../Globals/variables";
 import axios from "axios";
-import { MentorTrainingPlans } from "../model/MentorTrainingPlanModel";
+import {
+  fetchStudentsByMentor,
+  MentorTrainingPlans,
+} from "../model/MentorTrainingPlanModel";
 import { useAuth } from "../../../Common/AuthContext";
 
 const MentorTrainingPlansController = () => {

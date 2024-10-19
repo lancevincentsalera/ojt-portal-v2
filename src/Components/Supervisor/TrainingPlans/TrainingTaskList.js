@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import AssignPlanModalController from "../Modals/TrainingPlans/controller/AssignPlanModalController";
 import AddTaskModalController from "../Modals/TrainingPlans/controller/AddTaskModalController";
 import { useLocation } from "react-router-dom";
+import { fetchStudentsByMentor } from "./model/MentorTrainingPlanModel";
+import { useAuth } from "../../Common/AuthContext";
 
 const TrainingTaskList = () => {
   const [showAssignModal, setShowAssignModal] = useState(false);
@@ -11,7 +13,12 @@ const TrainingTaskList = () => {
   const trainingPlanDetails =
     location.state?.trainingPlanDetails ||
     JSON.parse(localStorage.getItem("trainingPlanDetails"));
-
+  const [students, setStudents] = useState(
+    localStorage.getItem("students") != null
+      ? JSON.parse(localStorage.getItem("students"))
+      : []
+  );
+  const { userInfo } = useAuth();
   useEffect(() => {
     if (trainingPlanDetails) {
       localStorage.setItem(
@@ -20,6 +27,25 @@ const TrainingTaskList = () => {
       );
     }
   }, [trainingPlanDetails]);
+
+  useEffect(() => {
+    if (students) {
+      localStorage.setItem("students", JSON.stringify(students));
+    }
+  }, [students]);
+
+  const getMentorInterns = async () => {
+    try {
+      const response = await fetchStudentsByMentor(userInfo.user.id);
+      setStudents(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getMentorInterns();
+  }, []);
 
   const handleAddTaskModalAction = () => {
     console.log(showAddTaskModal);
@@ -30,6 +56,8 @@ const TrainingTaskList = () => {
       {showAssignModal && (
         <AssignPlanModalController
           handleAssignModalAction={handleAssignModalAction}
+          trainingPlanDetails={trainingPlanDetails}
+          students={students}
         />
       )}
       {showAddTaskModal && (
