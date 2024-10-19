@@ -55,7 +55,7 @@ const StudentContent = ({
         <option value="" disabled>
           Select Degree Program
         </option>
-        {degreePrograms.map((program) => (
+        {Array.isArray(degreePrograms) && degreePrograms.map((program) => (
           <option key={program.id} value={program.id}> 
             {program.programName}
           </option>
@@ -71,7 +71,7 @@ const StudentContent = ({
         <option value="" disabled>
           Select Teacher
         </option>
-        {teachers.map((teacher) => (
+        {Array.isArray(teachers) && teachers.map((teacher) => (
           <option key={teacher.user.id} value={teacher.user.id}> 
             {teacher.user.firstName} {teacher.user.lastName}
           </option>
