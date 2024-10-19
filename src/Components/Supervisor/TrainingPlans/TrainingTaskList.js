@@ -34,6 +34,8 @@ const TrainingTaskList = () => {
     }
   }, [students]);
 
+  console.log(trainingPlanDetails);
+
   const getMentorInterns = async () => {
     try {
       const response = await fetchStudentsByMentor(userInfo.user.id);
