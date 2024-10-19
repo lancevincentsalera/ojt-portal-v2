@@ -170,10 +170,6 @@ const AddTaskModalController = ({
   };
 
   useEffect(() => {
-    trainingPlanDetails.tasks = [...trainingPlanDetails.tasks, task];
-  }, [trainingPlanDetails, task]);
-
-  useEffect(() => {
     setTask((prevData) => ({
       ...prevData,
       techStacks: techStackIdList
