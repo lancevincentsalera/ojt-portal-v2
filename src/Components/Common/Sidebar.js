@@ -43,10 +43,6 @@ const Sidebar = ({ userRole }) => {
       name: "Interns",
     },
     {
-      goto: "/supervisor-evaluations",
-      name: "Evaluations",
-    },
-    {
       goto: "/supervisor-tp",
       name: "Training Plans",
     },
