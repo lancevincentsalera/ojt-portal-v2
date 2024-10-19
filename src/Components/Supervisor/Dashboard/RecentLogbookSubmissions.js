@@ -1,7 +1,10 @@
 import React from "react";
 import { FaGraduationCap } from "react-icons/fa";
 
-const RecentLogbookSubmissions = ({ LogbookSubmissions }) => {
+const RecentLogbookSubmissions = ({
+  LogbookSubmissions,
+  handleModalAction,
+}) => {
   console.log(LogbookSubmissions);
   return (
     <div className="large-card-container">
@@ -22,7 +25,11 @@ const RecentLogbookSubmissions = ({ LogbookSubmissions }) => {
               <li key={key} className="list-value">
                 <p className="intern-name">{`${submission.internInfo.user.firstName} ${submission.internInfo.user.lastName}`}</p>
                 <p className="submission-time">{formattedDate}</p>
-                <button type="button" className="button-main create">
+                <button
+                  type="button"
+                  className="button-main create"
+                  onClick={() => handleModalAction(key)}
+                >
                   View
                 </button>
               </li>
