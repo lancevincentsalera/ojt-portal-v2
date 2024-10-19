@@ -22,14 +22,14 @@ const OverviewSection = ({ pendingLogbookSubmissions, TotalInterns }) => {
         </div>
       </div>
       <div className="small-card">
-        <p className="small-card-heading">Pending Evaluations</p>
+        <p className="small-card-heading">Ongoing Internships</p>
         <div className="value-group">
-          <p className="small-card-value">15</p>
+          <p className="small-card-value">4</p>
           <button
             type="button"
             className="button-main create"
             onClick={() => {
-              navigate("/supervisor-evaluations");
+              navigate("/supervisor-intern-list");
             }}
           >
             View All

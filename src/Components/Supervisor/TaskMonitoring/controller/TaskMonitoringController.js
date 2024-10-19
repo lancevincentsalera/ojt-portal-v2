@@ -12,8 +12,10 @@ const TaskMonitoringController = () => {
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [task, setTask] = useState({});
 
-  const handleModalAction = () => {
+  const handleModalAction = (id) => {
+    setTask(tasks.find((task) => task.trainingTask.id === id));
     setShowModal(!showModal);
   };
 
@@ -68,6 +70,8 @@ const TaskMonitoringController = () => {
         isError={isError}
         showModal={showModal}
         handleModalAction={handleModalAction}
+        task={task}
+        internId={internId}
       />
     </>
   );

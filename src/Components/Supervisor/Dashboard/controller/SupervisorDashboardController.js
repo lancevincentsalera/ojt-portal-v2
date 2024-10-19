@@ -11,6 +11,13 @@ const SupervisorDashboardController = () => {
   const { LogbooksAwaitingFeedback, RecentlySubmittedLogbooks, getInternInfo } =
     useMemo(() => MentorDashboarModel(), []);
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [logbook, setLogbook] = useState({});
+
+  const handleModalAction = (index) => {
+    setLogbook(RecentLogbookSubmissions[index]);
+    setShowModal(!showModal);
+  };
 
   useEffect(() => {
     const fetchAwaitingLogbooks = async () => {
@@ -59,6 +66,9 @@ const SupervisorDashboardController = () => {
         LogbookSubmissions={RecentLogbookSubmissions}
         pendingLogbookSubmissions={pendingLogbookSubmissions}
         TotalInterns={userInfo.internCount}
+        showModal={showModal}
+        handleModalAction={handleModalAction}
+        logbook={logbook}
       />
 
       <LoadingModal open={loading} />
