@@ -1,5 +1,4 @@
 import React from "react";
-import SearchBar from "../../../Common/SearchBar";
 
 import TrainingPlansModalController from "../../Modals/TrainingPlans/controller/TrainingPlansModalController";
 import Card from "../Card";

@@ -10,15 +10,20 @@ const TrainingTaskList = () => {
   const handleAssignModalAction = () => setShowAssignModal(!showAssignModal);
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
   const location = useLocation();
-  const trainingPlanDetails =
-    location.state?.trainingPlanDetails ||
-    JSON.parse(localStorage.getItem("trainingPlanDetails"));
+  const [trainingPlanDetails, setTrainingPlanDetails] = useState(() => {
+    const storedDetails = localStorage.getItem("trainingPlanDetails");
+    return storedDetails
+      ? JSON.parse(storedDetails)
+      : location.state?.trainingPlanDetails || { tasks: [] };
+  });
   const [students, setStudents] = useState(
     localStorage.getItem("students") != null
       ? JSON.parse(localStorage.getItem("students"))
       : []
   );
+
   const { userInfo } = useAuth();
+
   useEffect(() => {
     if (trainingPlanDetails) {
       localStorage.setItem(
@@ -33,8 +38,6 @@ const TrainingTaskList = () => {
       localStorage.setItem("students", JSON.stringify(students));
     }
   }, [students]);
-
-  console.log(trainingPlanDetails);
 
   const getMentorInterns = async () => {
     try {
@@ -66,6 +69,7 @@ const TrainingTaskList = () => {
         <AddTaskModalController
           handleAddTaskModalAction={handleAddTaskModalAction}
           trainingPlanDetails={trainingPlanDetails}
+          setTrainingPlanDetails={setTrainingPlanDetails}
         />
       )}
       <div className="main-dashboard">

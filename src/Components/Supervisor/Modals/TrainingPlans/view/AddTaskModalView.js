@@ -44,13 +44,7 @@ const AddTaskModalView = ({
               &times;
             </span>
           </div>
-          <form
-            className="modal-form no-subh"
-            onSubmit={(e) => {
-              handleAddTaskAction();
-              e.preventDefault();
-            }}
-          >
+          <form className="modal-form no-subh">
             <input
               type="text"
               id="taskTitle"
@@ -258,7 +252,11 @@ const AddTaskModalView = ({
               >
                 Cancel
               </button>
-              <button type="submit" className="button-main">
+              <button
+                type="button"
+                className="button-main"
+                onClick={handleAddTaskAction}
+              >
                 Confirm
               </button>
             </div>

@@ -14,6 +14,7 @@ import PromptModal from "../../../../Common/Modals/PromptModal";
 const AddTaskModalController = ({
   handleAddTaskModalAction,
   trainingPlanDetails,
+  setTrainingPlanDetails,
 }) => {
   const [task, setTask] = useState(addTaskModel);
   const [skills, setSkills] = useState([]);
@@ -123,6 +124,10 @@ const AddTaskModalController = ({
           })
           .filter(Boolean), // Only include non-null values
       };
+      setTrainingPlanDetails((prevData) => ({
+        ...prevData,
+        tasks: [...prevData.tasks, formattedTask],
+      }));
       const url = process.env.REACT_APP_API_BASE_URL + "/tasks/add";
       const response = await axios.put(url, formattedTask);
 
