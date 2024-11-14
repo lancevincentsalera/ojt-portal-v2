@@ -3,7 +3,12 @@ import React from "react";
 import TrainingPlansModalController from "../../Modals/TrainingPlans/controller/TrainingPlansModalController";
 import Card from "../Card";
 
-const TrainingPlansView = ({ TrainingPlans, showModal, handleModalAction }) => {
+const TrainingPlansView = ({
+  TrainingPlans,
+  showModal,
+  handleModalAction,
+  getTrainingPlanDetails,
+}) => {
   return (
     <>
       {showModal && (
@@ -22,7 +27,7 @@ const TrainingPlansView = ({ TrainingPlans, showModal, handleModalAction }) => {
             <Card
               key={i}
               trainingPlan={trainingPlan}
-              handleModalAction={handleModalAction}
+              getTrainingPlanDetails={getTrainingPlanDetails}
             />
           ))}
         </div>

@@ -59,9 +59,9 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/" />;
   }
 
-  if (timeIn === null && restrictedPaths.includes(pathname)) {
-    return <Navigate to="/intern-attendance" />;
-  }
+  // if (timeIn === null && restrictedPaths.includes(pathname)) {
+  //   return <Navigate to="/intern-attendance" />;
+  // }
 
   return children ? children : <Outlet />;
 };

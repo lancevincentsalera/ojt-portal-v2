@@ -98,12 +98,12 @@ const TrainingTaskList = () => {
                 <p className="bold">Hard Tasks</p>
                 <p className="normal">{trainingPlanDetails.hardTasksCount}</p>
               </div>
-              <div className="tp-deet">
+              {/* <div className="tp-deet">
                 <p className="bold">System Generated</p>
                 <p className="normal">
                   {trainingPlanDetails.isSystemGenerated ? "Yes" : "No"}
                 </p>
-              </div>
+              </div> */}
             </div>
 
             <div

@@ -111,7 +111,7 @@ const Sidebar = ({ userRole }) => {
           setLinks(
             studentLinks.map((link) => ({
               ...link,
-              disabled: timeIn === null && link.name !== "Attendance",
+              // disabled: timeIn === null && link.name !== "Attendance",
             }))
           );
           break;

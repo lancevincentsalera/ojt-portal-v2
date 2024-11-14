@@ -7,8 +7,18 @@ import { useEffect, useState } from "react";
 import { Empty } from "antd"; 
 import OJTAnalyticsViewTeacher from "../view/OJTAnalyticsViewTeacher";
 import OJTAnalyticsViewDean from "../view/OJTAnalyticsViewDean";
+import { Bar } from "react-chartjs-2";
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
+const colors = {
+    mainRed: 'rgba(255, 107, 107, 0.6)',        // $main-red
+    disabledRed: 'rgba(255, 158, 158, 0.6)',    // $disabled-red
+    mainGreen: 'rgba(76, 175, 80, 0.6)',        // $main-green
+    grayShade: 'rgba(189, 195, 199, 0.6)',      // $gray-shade
+    darkerRed: 'rgba(231, 76, 60, 0.6)',        // $darker-red
+    darkerGray: 'rgba(148, 163, 184, 0.6)'      // $darker-gray
+};
 
 const OJTAnalyticsController = () => {
     const { userInfo, isLoggedIn } = useAuth();
@@ -19,6 +29,11 @@ const OJTAnalyticsController = () => {
     const [errorMessage, setErrorMessage] = useState("An error occurred"); 
     const [degreePrograms, setDegreePrograms] = useState([]);
     const [teacherStudentsSentimentAvg, setTeacherStudentsSentimentAvg] = useState([]); 
+    const [skillFrequency, setSkillFrequency] = useState([]);
+    const [techStackName, setTechStackName] = useState([]);
+    const [techStackType, setTechStackType] = useState([]);
+    const [skillDesignation, setSkillDesignation] = useState([]);
+    const [studentDesignation, setStudentDesignation] = useState([]);
 
     useEffect(() => {
         if (isLoggedIn && userInfo.user.userType === "Chair") {
@@ -37,6 +52,14 @@ const OJTAnalyticsController = () => {
             fetchStudentsUnderTeacher();
         }
     }, [isLoggedIn]);
+
+    useEffect(() => {
+        fetchSkillFrequency();
+        fetchTechStackNameFrequency();
+        fetchTechStackTypeFrequency();
+        // fetchSkillDesignation();
+        fetchStudentDesignation();
+    }, [isLoggedIn])
 
     const fetchDegreePrograms = async () => {
         try {
@@ -103,7 +126,6 @@ const OJTAnalyticsController = () => {
     };
 
     const fetchStudentsLogbookAndAnalyzeSentiment = async (students) => {
-        // Check user type to aggregate sentiment accordingly
         const sentimentData = userInfo.user.userType === "Chair" ? {} : [];
     
         for (const student of students) {
@@ -211,6 +233,156 @@ const OJTAnalyticsController = () => {
         return program ? program.programName : "Unknown Program";
     };
 
+    const fetchSkillFrequency = async() => {
+        try {
+            setPendingRequests(prev => prev + 1); 
+            const response = await axios.get(`${apiBaseUrl}/analytics/skill`);
+            console.log(response.data);
+            setSkillFrequency(response.data);
+            setIsError(false);
+        } catch (error) {
+            console.error(error);
+            setIsError(true);
+            setErrorMessage("Failed to fetch skills data");
+        } finally {
+            setPendingRequests(prev => prev - 1); 
+        }
+    }
+
+    const fetchTechStackNameFrequency = async() => {
+        try {
+            setPendingRequests(prev => prev + 1); 
+            const response = await axios.get(`${apiBaseUrl}/analytics/techstack/name`);
+            console.log(response.data);
+            setTechStackName(response.data);
+            setIsError(false);
+        } catch (error) {
+            console.error(error);
+            setIsError(true);
+            setErrorMessage("Failed to tech stack name data.");
+        } finally {
+            setPendingRequests(prev => prev - 1); 
+        }
+    }
+
+    const fetchTechStackTypeFrequency = async() => {
+        try {
+            setPendingRequests(prev => prev + 1); 
+            const response = await axios.get(`${apiBaseUrl}/analytics/techstack/type`);
+            console.log(response.data);
+            setTechStackType(response.data);
+            setIsError(false);
+        } catch (error) {
+            console.error(error);
+            setIsError(true);
+            setErrorMessage("Failed to fetch tech stack type data.");
+        } finally {
+            setPendingRequests(prev => prev - 1); 
+        }
+    }
+
+    const fetchSkillDesignation = async() => {
+        try {
+            setPendingRequests(prev => prev + 1); 
+            const response = await axios.get(`${apiBaseUrl}/analytics/skill/designation`);
+            console.log(response.data);
+            setSkillDesignation(response.data);
+            setIsError(false);
+        } catch (error) {
+            console.error(error);
+            setIsError(true);
+            setErrorMessage("Failed to fetch skill designation data.");
+        } finally {
+            setPendingRequests(prev => prev - 1); 
+        }
+    }
+
+    const fetchStudentDesignation = async() => {
+        try {
+            setPendingRequests(prev => prev + 1); 
+            const response = await axios.get(`${apiBaseUrl}/analytics/student/designation`);
+            console.log(response.data);
+            setStudentDesignation(response.data);
+            setIsError(false);
+        } catch (error) {
+            console.error(error);
+            setIsError(true);
+            setErrorMessage("Failed to fetch student designation data.");
+        } finally {
+            setPendingRequests(prev => prev - 1); 
+        }
+    }
+
+    const chartDataSkill = {
+        labels: skillFrequency.slice(0, 5).map(skill => skill.key),
+        datasets: [
+            {
+                label: 'Skill Usage Frequency',
+                data: skillFrequency.slice(0, 5).map(skill => skill.usage), 
+                backgroundColor: colors.mainRed,
+                borderColor: 'rgba(255, 107, 107, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
+    
+
+    const chartDataSkillDesignation = {
+        labels: skillDesignation.slice(0, 5).map(skill => skill.key),
+        datasets: [
+            {
+                label: 'Skill Designation Frequency',
+                data: skillDesignation.slice(0, 5).map(skill => skill.usage), 
+                backgroundColor: colors.mainRed,
+                borderColor: 'rgba(255, 107, 107, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
+    
+
+    const chartDataTechStackName = {
+        labels: techStackName.slice(0, 5).map(skill => skill.key),
+        datasets: [
+            {
+                label: 'Tech Stack Name Frequency',
+                data: techStackName.slice(0, 5).map(skill => skill.usage), 
+                backgroundColor: colors.mainRed,
+                borderColor: 'rgba(255, 107, 107, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
+    
+
+    const chartDataTechStackType = {
+        labels: techStackType.slice(0, 5).map(skill => skill.key),
+        datasets: [
+            {
+                label: 'Tech Stack Type Frequency',
+                data: techStackType.slice(0, 5).map(skill => skill.usage), 
+                backgroundColor: colors.mainRed,
+                borderColor: 'rgba(255, 107, 107, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
+    
+
+    const chartDataStudentDesignation = {
+        labels: studentDesignation.slice(0, 5).map(skill => skill.key),
+        datasets: [
+            {
+                label: 'Student Designation Frequency',
+                data: studentDesignation.slice(0, 5).map(skill => skill.usage), 
+                backgroundColor: colors.mainRed,
+                borderColor: 'rgba(255, 107, 107, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
+    
+
     return (
         <div>
             {userInfo.user.userType === 'Chair' && 
@@ -232,6 +404,150 @@ const OJTAnalyticsController = () => {
                     )}
                 </div>
             }            
+
+<div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+    {/* Skill Frequency Analysis Chart */}
+    <div style={{ flex: '1 0 48%', padding: '1rem', boxSizing: 'border-box' }}>
+        <Bar 
+            data={chartDataSkill} 
+            options={{ 
+                responsive: true, 
+                scales: {
+                    y: {
+                        ticks: {
+                            color: '#4caf50', // Y-axis label color
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#4caf50', // X-axis label color
+                        }
+                    },
+                },
+            }} 
+            plugins={[
+                {
+                    beforeInit: (chart) => {
+                        chart.data.datasets.forEach((dataset) => {
+                            dataset.backgroundColor = [
+                                '#ff6b6b', // $main-red
+                                '#4caf50', // $main-green
+                                '#ff9e9e', // $disabled-red
+                            ];
+                        });
+                    },
+                },
+            ]}
+        />
+    </div>
+
+    {/* Tech Stack Name Analysis Chart */}
+    <div style={{ flex: '1 0 48%', padding: '1rem', boxSizing: 'border-box' }}>
+        <Bar 
+            data={chartDataTechStackName} 
+            options={{ 
+                responsive: true, 
+                scales: {
+                    y: {
+                        ticks: {
+                            color: '#4caf50', // Y-axis label color
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#4caf50', // X-axis label color
+                        }
+                    },
+                },
+            }} 
+            plugins={[
+                {
+                    beforeInit: (chart) => {
+                        chart.data.datasets.forEach((dataset) => {
+                            dataset.backgroundColor = [
+                                '#ff6b6b', // $main-red
+                                '#4caf50', // $main-green
+                                '#ff9e9e', // $disabled-red
+                            ];
+                        });
+                    },
+                },
+            ]}
+        />
+    </div>
+
+    {/* Tech Stack Type Analysis Chart */}
+    <div style={{ flex: '1 0 48%', padding: '1rem', boxSizing: 'border-box' }}>
+        <Bar 
+            data={chartDataTechStackType} 
+            options={{ 
+                responsive: true, 
+                scales: {
+                    y: {
+                        ticks: {
+                            color: '#4caf50', // Y-axis label color
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#4caf50', // X-axis label color
+                        }
+                    },
+                },
+            }} 
+            plugins={[
+                {
+                    beforeInit: (chart) => {
+                        chart.data.datasets.forEach((dataset) => {
+                            dataset.backgroundColor = [
+                                '#ff6b6b', // $main-red
+                                '#4caf50', // $main-green
+                                '#ff9e9e', // $disabled-red
+                            ];
+                        });
+                    },
+                },
+            ]}
+        />
+    </div>
+
+    {/* Student Designation Analysis Chart */}
+    <div style={{ flex: '1 0 48%', padding: '1rem', boxSizing: 'border-box' }}>
+        <Bar 
+            data={chartDataStudentDesignation} 
+            options={{ 
+                responsive: true, 
+                scales: {
+                    y: {
+                        ticks: {
+                            color: '#4caf50', // Y-axis label color
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#4caf50', // X-axis label color
+                        }
+                    },
+                },
+            }} 
+            plugins={[
+                {
+                    beforeInit: (chart) => {
+                        chart.data.datasets.forEach((dataset) => {
+                            dataset.backgroundColor = [
+                                '#ff6b6b', // $main-red
+                                '#4caf50', // $main-green
+                                '#ff9e9e', // $disabled-red
+                            ];
+                        });
+                    },
+                },
+            ]}
+        />
+    </div>
+</div>
+
+
 
             <LoadingModal open={pendingRequests > 0} /> 
             <OkayModal

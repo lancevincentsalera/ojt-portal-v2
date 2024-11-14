@@ -1,17 +1,17 @@
 import React from "react";
 
-const OngoingTasks = ({ tasks, handleModalAction }) => {
+const NotStartedTasks = ({ tasks, handleModalAction }) => {
   return (
     <div className="tp-tasklist">
       {tasks.length === 0 ? (
-        <p className="text-xs">No tasks in progress available</p>
+        <p className="text-xs">No tasks available</p>
       ) : (
         tasks.map((task) => (
-          <div key={task.id} className="tp-task">
+          <div key={task.id} className="tp-task past-due">
             <div className="detail-group1">
               <p className="bold">{task.trainingTask.title}</p>
-              <p className="normal">{task.trainingTask.description}</p>
               <p className="normal">Due: {task.dueDate || "N/A"}</p>
+              <p className="normal">{task.trainingTask.description}</p>
             </div>
             <button
               type="button"
@@ -27,4 +27,4 @@ const OngoingTasks = ({ tasks, handleModalAction }) => {
   );
 };
 
-export default OngoingTasks;
+export default NotStartedTasks;

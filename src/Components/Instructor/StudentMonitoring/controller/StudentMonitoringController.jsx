@@ -62,8 +62,8 @@ const StudentMonitoringController = () => {
                 headers: {
                   Authorization: `Bearer ${authUser.accessToken}`,
                 },
-              });
-              setStudentLogbooks(prevLogbooks => ({
+            });
+            setStudentLogbooks(prevLogbooks => ({
                 ...prevLogbooks,
                 [id]: response.data, 
             }));
@@ -75,12 +75,17 @@ const StudentMonitoringController = () => {
     }
 
     const sanitizeDateString = (dateString) => {
-        return dateString.replace(/\s\+\d{2}:\d{2}$/, '');
+        if (typeof dateString !== 'string') return ''; 
+        return dateString.replace(/\s\+\d{2}:\d{2}$/, ''); 
     };
 
     const renderLogbookEntry = (logbook) => {
-        const sanitizedTimeIn = sanitizeDateString(logbook.attendance.timeIn);
-        const sanitizedTimeOut = sanitizeDateString(logbook.attendance.timeOut);
+        const timeIn = logbook.attendance?.timeIn || null; 
+        const timeOut = logbook.attendance?.timeOut || null; 
+
+        const sanitizedTimeIn = sanitizeDateString(timeIn);
+        const sanitizedTimeOut = sanitizeDateString(timeOut);
+
         return (
             <div key={logbook.id} className="logbook-entry">
                 <form className="logbook-form">
@@ -89,7 +94,7 @@ const StudentMonitoringController = () => {
                         <input
                             type="text"
                             name="attendanceId"
-                            value={`${new Date(sanitizedTimeIn).toLocaleDateString()} (Time In: ${new Date(sanitizedTimeIn).toLocaleTimeString()})`}
+                            value={`${new Date(sanitizedTimeIn || Date.now()).toLocaleDateString()} (Time In: ${new Date(sanitizedTimeIn || Date.now()).toLocaleTimeString()})`}
                             disabled
                             className="disabled-input"
                         />
@@ -98,7 +103,7 @@ const StudentMonitoringController = () => {
                         <label htmlFor="activities">Activities:</label>
                         <textarea
                             className="large-textarea"
-                            value={logbook.activities}
+                            value={logbook.activities || ''} 
                             disabled
                         />
                     </div>
@@ -143,9 +148,11 @@ const StudentMonitoringController = () => {
                     >
                         {Object.keys(studentLogbooks).map((studentId) => (
                             studentLogbooks[studentId].map((logbook) => (
-                                <div key={logbook.id}>
-                                    {renderLogbookEntry(logbook)}
-                                </div>
+                                logbook.attendance ? ( 
+                                    <div key={logbook.id}>
+                                        {renderLogbookEntry(logbook)}
+                                    </div>
+                                ) : null 
                             ))
                         ))}
                     </Carousel>

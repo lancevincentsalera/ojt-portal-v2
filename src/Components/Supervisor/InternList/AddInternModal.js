@@ -1,5 +1,5 @@
 import React from "react";
-import { getCurrentDate } from "../../../../Functions/common";
+
 
 const workingDays = [ 'WeekdaysOnly', 'WeekdaysAndSaturdays', 'WholeWeek' ]
 
@@ -7,25 +7,20 @@ const formatWorkingDays = (day) => {
   return day.replace(/([A-Z])/g, ' $1').trim(); 
 };
 
-const StudentContent = ({
-  handleFormChange,
-  handleRegister,
-  handleConfirmPasswordChange,
-  error,
-  loading,
-  degreePrograms,
-  teachers
-}) => {
-  return (
-    <form className="register-content">
-      <input
-        name="studentId"
-        className="idNumber"
-        type="text"
-        placeholder="ID Number"
-        onChange={handleFormChange}
-        required
-      />
+const AddInternModal = ({handleModalAction, handleFormChange, handleRegister}) => {
+    return <>
+    <div className="modal-overlay" onClick={handleModalAction}></div>
+    <div className="modal">
+      <div className="modal-content">
+        <div className="modal-header">
+          <p className="heading">Assign Training Plan</p>
+          <span className="close" onClick={handleModalAction}>
+            &times;
+          </span>
+        </div>
+        <form
+        className="modal-form no-subh"
+        >
       <div className="tapad">
         <input
           name="firstName"
@@ -45,38 +40,8 @@ const StudentContent = ({
         />
       </div>
 
-      <select
-        name="degreeProgramId" 
-        className="program"
-        onChange={handleFormChange}
-        defaultValue="" 
-        required
-      >
-        <option value="" disabled>
-          Select Degree Program
-        </option>
-        {Array.isArray(degreePrograms) && degreePrograms.map((program) => (
-          <option key={program.id} value={program.id}> 
-            {program.programName}
-          </option>
-        ))}
-      </select>
+     
 
-      <select
-        name="teacherId" 
-        className="program"
-        onChange={handleFormChange}
-        defaultValue="" 
-      > 
-        <option value="" disabled>
-          Select Teacher
-        </option>
-        {Array.isArray(teachers) && teachers.map((teacher) => (
-          <option key={teacher.user.id} value={teacher.user.id}> 
-            {teacher.user.firstName} {teacher.user.lastName}
-          </option>
-        ))}
-      </select>
       <div className="tapad">
         <p style={{ fontSize: "0.5rem", marginRight: 190, marginLeft: 10, marginBottom:10, fontWeight: "bold" }}>Start Date</p>
         <p style={{ fontSize: "0.5rem", fontWeight: "bold" }}>Number of Hours To Render</p>
@@ -162,34 +127,24 @@ const StudentContent = ({
         onChange={handleFormChange}
         required
       />
-      <input
-        name="password"
-        className="password"
-        type="password"
-        placeholder="Password"
-        onChange={handleFormChange}
-      />
-      <input
-        name="ConfirmPassword"
-        className="confirmPassword"
-        type="password"
-        placeholder="Confirm password"
-        onChange={handleConfirmPasswordChange}
-      />
+      
+      <div className="button-group double">
+              <button
+                type="button"
+                className="button-secondary"
+                onClick={handleModalAction}
+              >
+                Cancel
+              </button>
+              <button type="button" className="button-main" onClick={handleRegister} >
+                Confirm
+              </button>
+            </div>
+      
+        </form>
+      </div>
+    </div>
+  </>
+}
 
-      {error && <div className="error">{error}</div>}
-
-      {loading ? (
-        <button type="submit" className="button-main" disabled>
-          Loading...
-        </button>
-      ) : (
-        <button type="submit" className="button-main" onClick={handleRegister}>
-          Register
-        </button>
-      )}
-    </form>
-  );
-};
-
-export default StudentContent;
+export default AddInternModal;

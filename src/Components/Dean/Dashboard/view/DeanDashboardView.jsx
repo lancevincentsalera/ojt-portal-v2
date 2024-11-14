@@ -8,6 +8,9 @@ import {
     CheckOutlined,
     CloseOutlined,
   } from '@ant-design/icons';
+import { RiBuilding4Line } from "react-icons/ri";
+import { LiaChalkboardTeacherSolid } from "react-icons/lia";
+import { SlPeople } from "react-icons/sl";
 
 const DeanDashboardView = ({ allStudents }) => {
     const { userInfo } = useAuth();
@@ -17,7 +20,7 @@ const DeanDashboardView = ({ allStudents }) => {
         acc[program] = acc[program] ? acc[program] + 1 : 1;
         return acc;
     }, {});
-
+    const totalStudentsWithCompany = allStudents.filter(student => student.mentor !== null).length;
     const internshipStatusData = allStudents.reduce((acc, student) => {
         const status = student.internshipStatus;
         acc[status] = acc[status] ? acc[status] + 1 : 1;
@@ -85,14 +88,21 @@ const DeanDashboardView = ({ allStudents }) => {
                             <Statistic
                                 title="Total Teachers"
                                 value={userInfo.teacherCount}
-                                prefix={<TeamOutlined />}
+                                prefix={<LiaChalkboardTeacherSolid />}
                             />
                         </Col>
                         <Col span={6}>
                             <Statistic
                                 title="Total Students"
                                 value={userInfo.studentCount}
-                                prefix={<TeamOutlined />}
+                                prefix={<SlPeople />}
+                            />
+                        </Col>
+                        <Col span={6}>
+                            <Statistic
+                                title="Students With Company"
+                                value={totalStudentsWithCompany}
+                                prefix={<RiBuilding4Line />}
                             />
                         </Col>
                     </Row>
