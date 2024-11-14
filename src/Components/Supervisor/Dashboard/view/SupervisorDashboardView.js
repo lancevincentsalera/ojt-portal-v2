@@ -10,6 +10,7 @@ const SupervisorDashboardView = ({
   showModal,
   handleModalAction,
   logbook,
+  ongoingInterns,
 }) => {
   return (
     <>
@@ -25,6 +26,7 @@ const SupervisorDashboardView = ({
           <OverviewSection
             pendingLogbookSubmissions={pendingLogbookSubmissions}
             TotalInterns={TotalInterns}
+            ongoingInterns={ongoingInterns}
           />
           <RecentLogbookSubmissions
             LogbookSubmissions={LogbookSubmissions}

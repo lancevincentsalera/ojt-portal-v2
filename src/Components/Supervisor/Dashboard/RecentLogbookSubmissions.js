@@ -5,22 +5,43 @@ const RecentLogbookSubmissions = ({
   LogbookSubmissions,
   handleModalAction,
 }) => {
-  console.log(LogbookSubmissions);
+  const timeAgo = (timestamp) => {
+    const now = new Date();
+    const submissionDate = new Date(timestamp);
+    const differenceInSeconds = Math.floor((now - submissionDate) / 1000);
+
+    const minutes = 60;
+    const hours = minutes * 60;
+    const days = hours * 24;
+    const months = days * 30;
+    const years = days * 365;
+
+    if (differenceInSeconds < minutes) {
+      return `${differenceInSeconds} seconds ago`;
+    } else if (differenceInSeconds < hours) {
+      const minutesAgo = Math.floor(differenceInSeconds / minutes);
+      return `${minutesAgo} minute${minutesAgo > 1 ? "s" : ""} ago`;
+    } else if (differenceInSeconds < days) {
+      const hoursAgo = Math.floor(differenceInSeconds / hours);
+      return `${hoursAgo} hour${hoursAgo > 1 ? "s" : ""} ago`;
+    } else if (differenceInSeconds < months) {
+      const daysAgo = Math.floor(differenceInSeconds / days);
+      return `${daysAgo} day${daysAgo > 1 ? "s" : ""} ago`;
+    } else if (differenceInSeconds < years) {
+      const monthsAgo = Math.floor(differenceInSeconds / months);
+      return `${monthsAgo} month${monthsAgo > 1 ? "s" : ""} ago`;
+    } else {
+      const yearsAgo = Math.floor(differenceInSeconds / years);
+      return `${yearsAgo} year${yearsAgo > 1 ? "s" : ""} ago`;
+    }
+  };
   return (
     <div className="large-card-container">
       <div className="large-card-heading">Recent Logbook Submissions</div>
       <ul className="large-card-list">
         {LogbookSubmissions.length > 0 ? (
           LogbookSubmissions.map((submission, key) => {
-            const date = new Date(submission.creationTimestamp);
-            const formattedDate = date.toLocaleString({
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-              hour12: true,
-            });
+            const formattedDate = timeAgo(submission.creationTimestamp);
             return (
               <li key={key} className="list-value">
                 <p className="intern-name">{`${submission.internInfo.user.firstName} ${submission.internInfo.user.lastName}`}</p>

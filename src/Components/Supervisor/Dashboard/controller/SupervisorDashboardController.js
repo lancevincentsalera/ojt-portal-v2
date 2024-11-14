@@ -3,6 +3,7 @@ import SupervisorDashboardView from "../view/SupervisorDashboardView";
 import { useAuth } from "../../../Common/AuthContext";
 import { MentorDashboarModel } from "../model/SupervisorDashboardModel";
 import LoadingModal from "../../../Common/Modals/LoadingModal";
+import { GetInternList } from "../../InternList/model/InternListModel";
 
 const SupervisorDashboardController = () => {
   const [RecentLogbookSubmissions, setRecentLogbookSubmissions] = useState([]);
@@ -13,6 +14,7 @@ const SupervisorDashboardController = () => {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [logbook, setLogbook] = useState({});
+  const [ongoingInterns, setOngoingInterns] = useState(0);
 
   const handleModalAction = (index) => {
     setLogbook(RecentLogbookSubmissions[index]);
@@ -30,6 +32,19 @@ const SupervisorDashboardController = () => {
       }
     };
 
+    const fetchOngoingInterns = async () => {
+      try {
+        const response = await GetInternList(userInfo.user.id);
+        setOngoingInterns(
+          response.interns.filter(
+            (intern) => intern.internshipStatus === "Ongoing"
+          ).length
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     const fetchRecentLogbooks = async () => {
       try {
         const response = await RecentlySubmittedLogbooks(userInfo);
@@ -42,8 +57,7 @@ const SupervisorDashboardController = () => {
           })
         );
 
-        console.log(data, "looooooooooooooool");
-        setRecentLogbookSubmissions(data);
+        setRecentLogbookSubmissions(filterTodaysLogbooks(data));
       } catch (error) {
         console.error(error);
       } finally {
@@ -53,12 +67,23 @@ const SupervisorDashboardController = () => {
 
     fetchAwaitingLogbooks();
     fetchRecentLogbooks();
+    fetchOngoingInterns();
   }, [
     userInfo,
     LogbooksAwaitingFeedback,
     RecentlySubmittedLogbooks,
     getInternInfo,
   ]);
+
+  const filterTodaysLogbooks = (logbooks) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return logbooks.filter(
+      (logbook) =>
+        new Date(logbook.creationTimestamp).setHours(0, 0, 0, 0).getDate() ===
+        today.getDate()
+    );
+  };
 
   return (
     <>
@@ -69,6 +94,7 @@ const SupervisorDashboardController = () => {
         showModal={showModal}
         handleModalAction={handleModalAction}
         logbook={logbook}
+        ongoingInterns={ongoingInterns}
       />
 
       <LoadingModal open={loading} />

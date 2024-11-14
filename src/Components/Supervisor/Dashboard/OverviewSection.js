@@ -1,7 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const OverviewSection = ({ pendingLogbookSubmissions, TotalInterns }) => {
+const OverviewSection = ({
+  pendingLogbookSubmissions,
+  TotalInterns,
+  ongoingInterns,
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -24,7 +28,7 @@ const OverviewSection = ({ pendingLogbookSubmissions, TotalInterns }) => {
       <div className="small-card">
         <p className="small-card-heading">Ongoing Internships</p>
         <div className="value-group">
-          <p className="small-card-value">4</p>
+          <p className="small-card-value">{ongoingInterns}</p>
           <button
             type="button"
             className="button-main create"
