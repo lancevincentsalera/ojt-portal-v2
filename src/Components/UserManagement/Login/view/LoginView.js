@@ -11,7 +11,7 @@ const Login = ({
   handleLogin,
   showForgotPasswordModal,
   handleModalAction,
-  isLoading
+  isLoading,
 }) => {
   return (
     <>
@@ -25,7 +25,7 @@ const Login = ({
         <div className="login">
           <div className="login-header">
             <FaGraduationCap size={40} />
-            <span className="heading">OJT Management Portal</span>
+            <span>OJT Management Portal</span>
           </div>
           <form className="login-content" onSubmit={handleLogin}>
             <label>Email</label>
@@ -48,20 +48,17 @@ const Login = ({
               disabled={isLoading}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {error && <div className="error">{error}</div>} 
+            {error && <div className="error">{error}</div>}
 
-            {
-              isLoading ? (
-                <button type="submit" className="button-main" disabled>
-                  Loading...
-                </button>
-              ) : (
-                <button type="submit" className="button-main">
-                  Login
-                </button>
-              )
-            }
-            
+            {isLoading ? (
+              <button type="submit" className="button-main" disabled>
+                Loading...
+              </button>
+            ) : (
+              <button type="submit" className="button-main">
+                Login
+              </button>
+            )}
           </form>
           <div className="login-footer">
             <p onClick={handleModalAction}>Forgot Password?</p>

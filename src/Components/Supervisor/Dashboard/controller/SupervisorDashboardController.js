@@ -78,11 +78,14 @@ const SupervisorDashboardController = () => {
   const filterTodaysLogbooks = (logbooks) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    return logbooks.filter(
-      (logbook) =>
-        new Date(logbook.creationTimestamp).setHours(0, 0, 0, 0).getDate() ===
-        today.getDate()
-    );
+    return logbooks.filter((logbook) => {
+      const creationTimestamp = logbook.creationTimestamp.replace(
+        / \+\d{2}:\d{2}$/,
+        ""
+      );
+      const logbookDate = new Date(creationTimestamp);
+      return logbookDate.getDate() === today.getDate();
+    });
   };
 
   return (

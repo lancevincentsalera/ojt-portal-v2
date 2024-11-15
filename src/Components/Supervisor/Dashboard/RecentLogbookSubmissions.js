@@ -7,33 +7,28 @@ const RecentLogbookSubmissions = ({
 }) => {
   const timeAgo = (timestamp) => {
     const now = new Date();
-    const submissionDate = new Date(timestamp);
+    const submissionDate = new Date(timestamp.replace(/ \+\d{2}:\d{2}$/, ""));
     const differenceInSeconds = Math.floor((now - submissionDate) / 1000);
 
-    const minutes = 60;
-    const hours = minutes * 60;
-    const days = hours * 24;
-    const months = days * 30;
-    const years = days * 365;
+    const intervals = [
+      { label: "hour", seconds: 60 * 60 },
+      { label: "minute", seconds: 60 },
+    ];
 
-    if (differenceInSeconds < minutes) {
-      return `${differenceInSeconds} seconds ago`;
-    } else if (differenceInSeconds < hours) {
-      const minutesAgo = Math.floor(differenceInSeconds / minutes);
-      return `${minutesAgo} minute${minutesAgo > 1 ? "s" : ""} ago`;
-    } else if (differenceInSeconds < days) {
-      const hoursAgo = Math.floor(differenceInSeconds / hours);
-      return `${hoursAgo} hour${hoursAgo > 1 ? "s" : ""} ago`;
-    } else if (differenceInSeconds < months) {
-      const daysAgo = Math.floor(differenceInSeconds / days);
-      return `${daysAgo} day${daysAgo > 1 ? "s" : ""} ago`;
-    } else if (differenceInSeconds < years) {
-      const monthsAgo = Math.floor(differenceInSeconds / months);
-      return `${monthsAgo} month${monthsAgo > 1 ? "s" : ""} ago`;
-    } else {
-      const yearsAgo = Math.floor(differenceInSeconds / years);
-      return `${yearsAgo} year${yearsAgo > 1 ? "s" : ""} ago`;
+    for (const interval of intervals) {
+      const count = Math.floor(differenceInSeconds / interval.seconds);
+      if (count >= 1) {
+        const label = interval.label;
+        if (count === 1) {
+          return label === "hour" ? `an ${label} ago` : `a ${label} ago`;
+        }
+        return `${count} ${label}s ago`;
+      }
     }
+
+    return differenceInSeconds === 1
+      ? "a second ago"
+      : `${differenceInSeconds} seconds ago`;
   };
   return (
     <div className="large-card-container">
