@@ -1,8 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import CryptoJS from "crypto-js";
 
-const Card = ({ trainingPlan, getTrainingPlanDetails }) => {
+const Card = ({ trainingPlan }) => {
   const navigate = useNavigate();
+  const encryptId = (id) => {
+    return CryptoJS.AES.encrypt(id.toString(), "trainingPlanID").toString();
+  };
   return (
     <div className="card">
       <div className="card-header">
@@ -33,11 +37,9 @@ const Card = ({ trainingPlan, getTrainingPlanDetails }) => {
         <button
           type="button"
           className="button-main create"
-          onClick={async () => {
-            const details = await getTrainingPlanDetails(trainingPlan.id);
-            navigate("/task-list", {
-              state: { trainingPlanDetails: details },
-            });
+          onClick={() => {
+            const encryptedId = encryptId(trainingPlan.id);
+            navigate(`/task-list?id=${encodeURIComponent(encryptedId)}`);
           }}
         >
           View Tasks

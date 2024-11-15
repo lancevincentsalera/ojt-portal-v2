@@ -1,59 +1,50 @@
 import React, { useEffect, useState } from "react";
 import AssignPlanModalController from "../Modals/TrainingPlans/controller/AssignPlanModalController";
 import AddTaskModalController from "../Modals/TrainingPlans/controller/AddTaskModalController";
+import { getTrainingPlanDetails } from "./model/MentorTrainingPlanModel";
+import CryptoJS from "crypto-js";
 import { useLocation } from "react-router-dom";
-import { fetchStudentsByMentor } from "./model/MentorTrainingPlanModel";
-import { useAuth } from "../../Common/AuthContext";
 
 const TrainingTaskList = () => {
   const [showAssignModal, setShowAssignModal] = useState(false);
   const handleAssignModalAction = () => setShowAssignModal(!showAssignModal);
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
+  const [trainingPlanDetails, setTrainingPlanDetails] = useState({ tasks: [] });
   const location = useLocation();
-  const [trainingPlanDetails, setTrainingPlanDetails] = useState(() => {
-    const storedDetails = localStorage.getItem("trainingPlanDetails");
-    return storedDetails
-      ? JSON.parse(storedDetails)
-      : location.state?.trainingPlanDetails || { tasks: [] };
-  });
-  const [students, setStudents] = useState(
-    localStorage.getItem("students") != null
-      ? JSON.parse(localStorage.getItem("students"))
-      : []
-  );
 
-  const { userInfo } = useAuth();
-
-  useEffect(() => {
-    if (trainingPlanDetails) {
-      localStorage.setItem(
-        "trainingPlanDetails",
-        JSON.stringify(trainingPlanDetails)
-      );
-    }
-  }, [trainingPlanDetails]);
-
-  useEffect(() => {
-    if (students) {
-      localStorage.setItem("students", JSON.stringify(students));
-    }
-  }, [students]);
-
-  const getMentorInterns = async () => {
+  const decryptId = (encryptedId) => {
     try {
-      const response = await fetchStudentsByMentor(userInfo.user.id);
-      setStudents(response);
+      const bytes = CryptoJS.AES.decrypt(encryptedId, "trainingPlanID");
+      const decryptedId = bytes.toString(CryptoJS.enc.Utf8);
+      console.log("decrypted: ", decryptedId);
+      return decryptedId;
     } catch (error) {
-      console.error(error);
+      console.error("Decryption error:", error);
+      return null;
     }
   };
 
   useEffect(() => {
-    getMentorInterns();
-  }, []);
+    const urlParams = new URLSearchParams(location.search);
+    const encryptedId = decodeURIComponent(urlParams.get("id"));
+
+    if (encryptedId) {
+      const decryptedId = decryptId(encryptedId);
+
+      const fetchTrainingPlanDetails = async () => {
+        try {
+          const response = await getTrainingPlanDetails(decryptedId);
+          setTrainingPlanDetails(response);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      fetchTrainingPlanDetails();
+    }
+  }, [location.search]);
 
   const handleAddTaskModalAction = () => {
-    console.log(showAddTaskModal);
     setShowAddTaskModal(!showAddTaskModal);
   };
   return (
@@ -62,7 +53,6 @@ const TrainingTaskList = () => {
         <AssignPlanModalController
           handleAssignModalAction={handleAssignModalAction}
           trainingPlanDetails={trainingPlanDetails}
-          students={students}
         />
       )}
       {showAddTaskModal && (

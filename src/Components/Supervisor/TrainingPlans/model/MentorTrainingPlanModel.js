@@ -21,3 +21,14 @@ export const fetchStudentsByMentor = async (mentorId) => {
     console.error(error);
   }
 };
+
+export const getTrainingPlanDetails = async (trainingPlanId) => {
+  try {
+    const url =
+      process.env.REACT_APP_API_BASE_URL + `/training/plans/${trainingPlanId}`;
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

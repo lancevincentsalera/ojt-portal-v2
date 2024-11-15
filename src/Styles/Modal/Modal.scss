@@ -19,6 +19,8 @@
   transform: translate(-50%, -50%);
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba($color: #000000, $alpha: 0.25);
+  max-height: 80vh;
+  overflow-y: auto;
 
   .modal-content {
     min-width: 300px;
@@ -87,7 +89,8 @@
       }
 
       &.no-subh {
-        min-width: 500px;
+        width: 500px;
+        width: 500px;
       }
 
       @import "./Admin/TrainingPlans/TrainingPlans.scss";

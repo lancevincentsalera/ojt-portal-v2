@@ -14,6 +14,16 @@ const AddTaskModalView = ({
   handleCustomSkillChange,
   techStackIdList,
   skillIdList,
+  addCustomTechstack,
+  addCustomSkill,
+  techStackList,
+  skillList,
+  skill,
+  techStack,
+  handleRemoveTechstack,
+  handleRemoveSkill,
+  allTechStacks,
+  allSkills,
 }) => {
   const commonTechStackType = [
     "Programming Language",
@@ -75,6 +85,25 @@ const AddTaskModalView = ({
               onChange={handleChange}
             />
             <p style={{ fontSize: "60%" }}>Tech Stacks</p>
+
+            <div className="chip-container">
+              {techStackList.map((techStack, index) => (
+                <div className="chip" key={index}>
+                  {techStack.name}
+                  <span
+                    className="remove-chip"
+                    onClick={() =>
+                      handleRemoveTechstack(
+                        allTechStacks.find((t) => t.name === techStack.name)
+                      )
+                    }
+                  >
+                    &#10005;
+                  </span>
+                </div>
+              ))}
+            </div>
+
             <select
               name="techStacks"
               id="techStacks"
@@ -114,6 +143,7 @@ const AddTaskModalView = ({
                   name="name"
                   placeholder="Custom Techstack Name"
                   onChange={handleCustomTechstackChange}
+                  value={techStack.name}
                   required
                 />
                 <input
@@ -122,6 +152,7 @@ const AddTaskModalView = ({
                   name="type"
                   placeholder="Custom Techstack Type"
                   onChange={handleCustomTechstackChange}
+                  value={techStack.type}
                   required
                 />
                 <textarea
@@ -130,8 +161,16 @@ const AddTaskModalView = ({
                   name="description"
                   placeholder="Custom Techstack Description"
                   onChange={handleCustomTechstackChange}
+                  value={techStack.description}
                   required
                 />
+                <button
+                  type="button"
+                  className="button-main create"
+                  onClick={addCustomTechstack}
+                >
+                  Add Custom Tech Stack
+                </button>
               </>
             ) : (
               others !== "" && (
@@ -176,17 +215,36 @@ const AddTaskModalView = ({
             )}
 
             <p style={{ fontSize: "60%" }}>Skills</p>
+
+            <div className="chip-container">
+              {skillList.map((skill, index) => (
+                <div className="chip" key={index}>
+                  {skill.name}
+                  <span
+                    className="remove-chip"
+                    onClick={() =>
+                      handleRemoveSkill(
+                        allSkills.find((s) => s.name === skill.name)
+                      )
+                    }
+                  >
+                    &#10005;
+                  </span>
+                </div>
+              ))}
+            </div>
+
             <input
               type="text"
               id="nameFilter"
               name="nameFilter"
-              placeholder="Filter by name (Hard/Soft Skills), type 'Custom Skill' for custom skill"
+              placeholder="Filter by name (Hard/Soft Skills), type 'Custom' for custom skill"
               onChange={(e) => {
                 handleNameFilterChange(e);
                 handleCustomChange(e);
               }}
             />
-            {custom === "Custom Skill" ? (
+            {custom.toLowerCase() === "custom" ? (
               <>
                 <input
                   type="text"
@@ -194,6 +252,7 @@ const AddTaskModalView = ({
                   name="name"
                   placeholder="Custom Skill Name"
                   onChange={handleCustomSkillChange}
+                  value={skill.name}
                   required
                 />
                 <textarea
@@ -202,8 +261,16 @@ const AddTaskModalView = ({
                   name="description"
                   placeholder="Custom Skill Description"
                   onChange={handleCustomSkillChange}
+                  value={skill.description}
                   required
                 />
+                <button
+                  type="button"
+                  className="button-main create"
+                  onClick={addCustomSkill}
+                >
+                  Add Custom Skill
+                </button>
               </>
             ) : (
               <div
@@ -236,14 +303,13 @@ const AddTaskModalView = ({
                         width: "0.5rem",
                         marginBottom: "0",
                       }}
-                      defaultChecked={skillIdList.includes(skill.id)}
+                      checked={skillIdList.includes(skill.id)}
                     />
                     <span style={{ fontSize: "60%" }}>{skill.name}</span>
                   </div>
                 ))}
               </div>
             )}
-
             <div className="button-group double">
               <button
                 type="button"

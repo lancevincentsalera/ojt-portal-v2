@@ -7,11 +7,11 @@ import LoadingModal from "../../../../Common/Modals/LoadingModal";
 import OkayModal from "../../../../Common/Modals/OkayModal";
 import ErrorModal from "../../../../Common/Modals/ErrorModal";
 import PromptModal from "../../../../Common/Modals/PromptModal";
+import { fetchStudentsByMentor } from "../../../TrainingPlans/model/MentorTrainingPlanModel";
 
 const AssignPlanModalController = ({
   handleAssignModalAction,
   trainingPlanDetails,
-  students,
 }) => {
   const { authUser } = useAuth();
   const [assign, setAssign] = useState({
@@ -23,6 +23,21 @@ const AssignPlanModalController = ({
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isPromptOpen, setIsPromptOpen] = useState(false);
+  const [students, setStudents] = useState({ interns: [] });
+  const { userInfo } = useAuth();
+
+  useEffect(() => {
+    const getMentorInterns = async () => {
+      try {
+        const response = await fetchStudentsByMentor(userInfo.user.id);
+        setStudents(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getMentorInterns();
+  }, []);
 
   const handleChange = (e, index = null) => {
     const { name, value } = e.target;

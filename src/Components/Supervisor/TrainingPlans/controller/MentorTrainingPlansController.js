@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MentorTrainingPlansView from "../view/MentorTrainingPlansView";
 import { useGlobalState } from "../../../Globals/variables";
-import axios from "axios";
 import {
-  fetchStudentsByMentor,
   MentorTrainingPlans,
 } from "../model/MentorTrainingPlanModel";
 import { useAuth } from "../../../Common/AuthContext";
@@ -17,7 +15,6 @@ const MentorTrainingPlansController = () => {
   });
   const { getSystemGeneratedTrainingPlans } = useGlobalState();
   const [systemGeneratedPlans, setSystemGeneratedPlans] = useState([]);
-  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
   const { userInfo } = useAuth();
   const [myTrainingPlans, setMyTrainingPlans] = useState([]);
 
@@ -29,16 +26,6 @@ const MentorTrainingPlansController = () => {
     try {
       const response = await getSystemGeneratedTrainingPlans();
       setSystemGeneratedPlans(response);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getTrainingPlanDetails = async (trainingPlanId) => {
-    try {
-      const url = apiBaseUrl + `/training/plans/${trainingPlanId}`;
-      const response = await axios.get(url);
-      return response.data;
     } catch (error) {
       console.error(error);
     }
@@ -67,7 +54,6 @@ const MentorTrainingPlansController = () => {
       tab={tab}
       handleTabChange={handleTabChange}
       systemGeneratedPlans={systemGeneratedPlans}
-      getTrainingPlanDetails={getTrainingPlanDetails}
     />
   );
 };

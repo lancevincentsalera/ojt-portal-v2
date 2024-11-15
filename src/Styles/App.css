@@ -1373,4 +1373,28 @@ label {
   margin-bottom: 4px; /* Adding space between label and value */
 }
 
+.chip-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.chip-container .chip {
+  margin: 5px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+.chip-container .chip .remove-chip {
+  margin-left: 5px;
+  font-size: 16px;
+  color: #333;
+}
+
 /*# sourceMappingURL=App.css.map */

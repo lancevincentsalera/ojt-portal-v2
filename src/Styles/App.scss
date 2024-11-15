@@ -80,6 +80,8 @@ $main-padding: 50px;
 
 // Supervisor
 @import "./Supervisor/Dashboard/SupervisorDashboard.scss";
-
 @import "./Teacher/Dashboard/InstructorDashboard.scss";
 @import "./Teacher/Monitoring/StudentMonitoring.scss";
+
+// Supervisor Modal
+@import "./Modal/Supervisor/TrainingPlans/AddTaskModal.scss";

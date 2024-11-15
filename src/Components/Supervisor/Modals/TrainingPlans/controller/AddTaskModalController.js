@@ -28,6 +28,16 @@ const AddTaskModalController = ({
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isPromptOpen, setIsPromptOpen] = useState(false);
+  const [skill, setSkill] = useState({ name: "", description: "" });
+  const [techStack, setTechStack] = useState({
+    name: "",
+    type: "",
+    description: "",
+  });
+  const [skillList, setSkillList] = useState([]);
+  const [techStackList, setTechStackList] = useState([]);
+  const [allTechStacks, setAllTechStacks] = useState([]);
+  const [allSkills, setAllSkills] = useState([]);
 
   const handleTypeFilterChange = (e) => {
     setTypeFilter(e.target.value);
@@ -37,28 +47,46 @@ const AddTaskModalController = ({
     setNameFilter(e.target.value);
   };
 
-  const fetchSkills = async (nameFilter) => {
+  const fetchData = async (
+    fetchFunction,
+    setFilteredData,
+    setAllData,
+    filterValue,
+    type
+  ) => {
     try {
-      const response = await getSystemSkills(nameFilter);
-      setSkills(response.filter((skill, i) => response.indexOf(skill) === i));
+      const response = await fetchFunction("");
+      const filteredResponse = response.filter(
+        (item, i) =>
+          response.findIndex(
+            (el) => el.name.toLowerCase() === item.name.toLowerCase()
+          ) === i
+      );
+      setAllData(filteredResponse);
+
+      const filteredData = filterValue
+        ? filteredResponse.filter((item) =>
+            (type === "s" ? item.name : item.type)
+              .toLowerCase()
+              .includes(filterValue.toLowerCase())
+          )
+        : filteredResponse;
+      setFilteredData(filteredData);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const fetchTechStacks = async (typeFilter) => {
-    try {
-      const response = await getSystemTechStacks(typeFilter);
-      setTechStacks(
-        response.filter(
-          (techStack, i) =>
-            response.findIndex((t) => t.name === techStack.name) === i
-        )
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const fetchSkills = (nameFilter) =>
+    fetchData(getSystemSkills, setSkills, setAllSkills, nameFilter, "s");
+  const fetchTechStacks = (typeFilter) =>
+    fetchData(
+      getSystemTechStacks,
+      setTechStacks,
+      setAllTechStacks,
+      typeFilter,
+      "t"
+    );
 
   useEffect(() => {
     fetchSkills(nameFilter);
@@ -77,59 +105,49 @@ const AddTaskModalController = ({
   const handleTechstackChange = (e) => {
     const { value } = e.target;
     const id = parseInt(value, 10);
+    const selectedTechStack = techStacks.find((tech) => tech.id === id);
     if (e.target.checked) {
       setTechStackIdList([...techStackIdList, id]);
     } else {
-      setTechStackIdList(
-        techStackIdList.filter((techStackId) => techStackId !== id)
-      );
+      handleRemoveTechstack(selectedTechStack);
     }
   };
 
   const handleSkillChange = (e) => {
     const { value, checked } = e.target;
     const id = parseInt(value, 10);
+    const selectedSkill = skills.find((skill) => skill.id === id);
     if (checked) {
       setSkillIdList([...skillIdList, id]);
     } else {
-      setSkillIdList(skillIdList.filter((skillId) => skillId !== id));
+      handleRemoveSkill(selectedSkill);
     }
   };
 
+  const handleRemoveTechstack = (techStack) => {
+    setTechStackIdList((prev) =>
+      prev.filter((techStackId) => techStackId !== techStack.id)
+    );
+    setTechStackList((prev) =>
+      prev.filter((tech) => tech.name !== techStack.name)
+    );
+  };
+
+  const handleRemoveSkill = (skill) => {
+    setSkillIdList((prev) => prev.filter((skillId) => skillId !== skill.id));
+    setSkillList((prev) => prev.filter((s) => s.name !== skill.name));
+  };
+
   const handleAddTaskAction = async () => {
+    console.log("task ", task);
     setIsSubmitting(true);
     try {
-      const formattedTask = {
-        ...task,
-        techStacks: techStackIdList
-          .map((id) => {
-            const techStack = techStacks.find(
-              (techStack) => techStack.id === id
-            );
-            if (techStack) {
-              const { isSystemGenerated, id: _, ...rest } = techStack;
-              return rest;
-            }
-            return null;
-          })
-          .filter(Boolean), // Only include non-null values
-        skills: skillIdList
-          .map((id) => {
-            const skill = skills.find((skill) => skill.id === id);
-            if (skill) {
-              const { isSystemGenerated, id: _, ...rest } = skill;
-              return rest;
-            }
-            return null;
-          })
-          .filter(Boolean), // Only include non-null values
-      };
       setTrainingPlanDetails((prevData) => ({
         ...prevData,
-        tasks: [...prevData.tasks, formattedTask],
+        tasks: [...prevData.tasks, task],
       }));
       const url = process.env.REACT_APP_API_BASE_URL + "/tasks/add";
-      const response = await axios.put(url, formattedTask);
+      const response = await axios.put(url, task);
 
       if (response.status === 200) {
         setIsSuccess(true);
@@ -148,57 +166,73 @@ const AddTaskModalController = ({
 
   const handleCustomTechstackChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
-    setTask((prevData) => ({
+    setTechStack((prevData) => ({
       ...prevData,
-      techStacks: [
-        ...prevData.techStacks,
-        {
-          [name]: value,
-        },
-      ],
+      [name]: value,
     }));
   };
 
   const handleCustomSkillChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
-    setTask((prevData) => ({
+    setSkill((prevData) => ({
       ...prevData,
-      skills: [
-        ...prevData.skills,
-        {
-          [name]: value,
-        },
-      ],
+      [name]: value,
     }));
   };
 
   useEffect(() => {
+    const mapNewList = (list, idList) => {
+      return idList
+        .map((id) => {
+          const elem = list.find((item) => item.id === id);
+          if (elem) {
+            const { isSystemGenerated, id: _, ...rest } = elem;
+            return rest;
+          }
+          return null;
+        })
+        .filter(Boolean);
+    };
+
+    const newTechStackList = mapNewList(techStacks, techStackIdList);
+    const newSkillList = mapNewList(skills, skillIdList);
+
+    const filterList = (list, newList) => {
+      const updatedList = [...list, ...newList];
+      return updatedList.filter(
+        (item, i) => updatedList.findIndex((el) => el.name === item.name) === i
+      );
+    };
+
+    setTechStackList((prev) => filterList(prev, newTechStackList));
+    setSkillList((prev) => filterList(prev, newSkillList));
+
     setTask((prevData) => ({
       ...prevData,
-      techStacks: techStackIdList
-        .map((id) => {
-          const techStack = techStacks.find((techStack) => techStack.id === id);
-          if (techStack) {
-            const { isSystemGenerated, id: _, ...rest } = techStack;
-            return rest;
-          }
-          return null;
-        })
-        .filter(Boolean),
-      skills: skillIdList
-        .map((id) => {
-          const skill = skills.find((skill) => skill.id === id);
-          if (skill) {
-            const { isSystemGenerated, id: _, ...rest } = skill;
-            return rest;
-          }
-          return null;
-        })
-        .filter(Boolean),
+      techStacks: filterList(prevData.techStacks, newTechStackList),
+      skills: filterList(prevData.skills, newSkillList),
     }));
   }, [techStackIdList, skillIdList, skills, techStacks]);
+
+  const addCustomTechstack = () => {
+    const updatedTechStackList = [...techStackList, techStack];
+    setTechStackList(updatedTechStackList);
+    setTask((prevData) => ({
+      ...prevData,
+      techStacks: updatedTechStackList,
+    }));
+    setTechStack({ name: "", type: "", description: "" });
+  };
+
+  const addCustomSkill = () => {
+    const updatedSkillList = [...skillList, skill];
+    setSkillList(updatedSkillList);
+    setTask((prevData) => ({
+      ...prevData,
+      skills: updatedSkillList,
+    }));
+    setSkill({ name: "", description: "" });
+  };
 
   const handleConfirmAddTask = () => {
     setIsPromptOpen(true);
@@ -225,6 +259,16 @@ const AddTaskModalController = ({
         handleCustomSkillChange={handleCustomSkillChange}
         techStackIdList={techStackIdList}
         skillIdList={skillIdList}
+        addCustomTechstack={addCustomTechstack}
+        addCustomSkill={addCustomSkill}
+        techStackList={techStackList}
+        skillList={skillList}
+        skill={skill}
+        techStack={techStack}
+        handleRemoveTechstack={handleRemoveTechstack}
+        handleRemoveSkill={handleRemoveSkill}
+        allTechStacks={allTechStacks}
+        allSkills={allSkills}
       />
 
       <LoadingModal open={isSubmitting} />
@@ -232,7 +276,7 @@ const AddTaskModalController = ({
         open={isSuccess}
         onClose={() => {
           setIsSuccess(false);
-          window.location.reload();
+          handleAddTaskModalAction();
         }}
         message={"Task added successfully!"}
       />

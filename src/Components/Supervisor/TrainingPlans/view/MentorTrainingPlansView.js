@@ -11,7 +11,6 @@ const MentorTrainingPlansView = ({
   tab,
   handleTabChange,
   systemGeneratedPlans,
-  getTrainingPlanDetails,
 }) => {
   return (
     <>
@@ -52,17 +51,9 @@ const MentorTrainingPlansView = ({
             System Generated
           </div>
         </div>
-        {tab.myPlans && (
-          <MyTrainingPlans
-            TrainingPlans={TrainingPlans}
-            getTrainingPlanDetails={getTrainingPlanDetails}
-          />
-        )}
+        {tab.myPlans && <MyTrainingPlans TrainingPlans={TrainingPlans} />}
         {tab.systemGenerated && (
-          <SystemGeneratedPlans
-            systemGeneratedPlans={systemGeneratedPlans}
-            getTrainingPlanDetails={getTrainingPlanDetails}
-          />
+          <SystemGeneratedPlans systemGeneratedPlans={systemGeneratedPlans} />
         )}
       </div>
     </>
