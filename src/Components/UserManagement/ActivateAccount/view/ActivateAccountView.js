@@ -9,9 +9,9 @@ const ActivateAccountView = ({ handleResendActivationEmail }) => {
   const countdownDuration = 120;
 
   const getRemainingTime = () => {
-    let savedTime = Number(localStorage.getItem("activationStartTime"));
-
+    const savedTime = Number(localStorage.getItem("activationStartTime"));
     if (savedTime) {
+      localStorage.removeItem("activationStartTime");
       const elapsedTime = Math.floor((Date.now() - savedTime) / 1000);
       const remainingTime = countdownDuration - elapsedTime;
       return remainingTime > 0 ? remainingTime : 0;
