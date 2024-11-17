@@ -107,55 +107,55 @@ const RegisterController = () => {
       const url = `${apiBaseUrl}${endpoint}`;
 
       console.log("userData", userData);
-      const payload = userType.student
-        ? {
-            newStudent: true,
-            email: userData.email,
-            password: userData.password ? userData.password : null,
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            studentId: userData.studentId,
-            degreeProgramId: parseInt(userData.degreeProgramId, 10),
-            designation: userData.designation,
-            mentorId: userData.mentorId
-              ? parseInt(userData.mentorId, 10)
-              : null,
-            teacherId: userData.teacherId
-              ? parseInt(userData.teacherId, 10)
-              : null,
-            division: userData.division,
-            startDate: userData.startDate || null,
-            hrsToRender: parseInt(userData.hrsToRender, 10),
-            shift: {
-              start: userData.start || null,
-              end: userData.end || null,
-              dailyDutyHrs: userData.dailyDutyHrs
-                ? parseInt(userData.dailyDutyHrs, 10)
-                : 0,
-              workingDays: userData.workingDays
-                ? userData.workingDays
-                : "WeekdaysOnly",
-            },
-          }
-        : {
-            email: userData.email,
-            password: userData.password,
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            company: {
-              companyName: userData.companyName,
-              contactNo: userData.contactNo,
-              contactEmail: userData.contactEmail,
-              address: {
-                street: userData.street,
-                city: userData.city,
-                state: userData.state,
-                country: userData.country,
-              },
-            },
-            department: userData.department,
-            designation: userData.designation,
-          };
+      const payload = { ...userData, newStudent: true } 
+      // userType.student ? // {
+          //     newStudent: true,
+          //     email: userData.email,
+          //     password: userData.password ? userData.password : null,
+          //     firstName: userData.firstName,
+          //     lastName: userData.lastName,
+          //     studentId: userData.studentId,
+          //     degreeProgramId: parseInt(userData.degreeProgramId, 10),
+          //     designation: userData.designation,
+          //     mentorId: userData.mentorId
+          //       ? parseInt(userData.mentorId, 10)
+          //       : 0,
+          //     teacherId: userData.teacherId
+          //       ? parseInt(userData.teacherId, 10)
+          //       : 0,
+          //     division: userData.division || null,
+          //     startDate: userData.startDate || null,
+          //     hrsToRender: parseInt(userData.hrsToRender, 10),
+          //     shift: {
+          //       start: userData.start || null,
+          //       end: userData.end || null,
+          //       dailyDutyHrs: userData.dailyDutyHrs
+          //         ? parseInt(userData.dailyDutyHrs, 10)
+          //         : 0,
+          //       workingDays: userData.workingDays
+          //         ? userData.workingDays
+          //         : "WeekdaysOnly",
+          //     },
+          //   }
+        // : {
+        //     email: userData.email,
+        //     password: userData.password,
+        //     firstName: userData.firstName,
+        //     lastName: userData.lastName,
+        //     company: {
+        //       companyName: userData.companyName,
+        //       contactNo: userData.contactNo,
+        //       contactEmail: userData.contactEmail,
+        //       address: {
+        //         street: userData.street,
+        //         city: userData.city,
+        //         state: userData.state,
+        //         country: userData.country,
+        //       },
+        //     },
+        //     department: userData.department,
+        //     designation: userData.designation,
+        //   };
 
       const response = await axios.post(url, payload);
 
@@ -166,16 +166,20 @@ const RegisterController = () => {
         setError("Registration failed. Please try again.");
       }
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.errors && error.response.data.errors.length > 0) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.errors &&
+        error.response.data.errors.length > 0
+      ) {
         setError(error.response.data.errors[0].message);
-    } else {
+      } else {
         setError("An unknown error occurred.");
-    }    
+      }
     } finally {
       setLoading(false);
     }
   };
-
 
   const handleGetTeachers = async () => {
     if (!selectedDegreeProgram) return;

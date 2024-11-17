@@ -9,7 +9,8 @@ const ActivateAccountView = ({ handleResendActivationEmail }) => {
   const countdownDuration = 120;
 
   const getRemainingTime = () => {
-    const savedTime = Number(localStorage.getItem("activationStartTime"));
+    let savedTime = Number(localStorage.getItem("activationStartTime"));
+
     if (savedTime) {
       const elapsedTime = Math.floor((Date.now() - savedTime) / 1000);
       const remainingTime = countdownDuration - elapsedTime;
@@ -19,7 +20,7 @@ const ActivateAccountView = ({ handleResendActivationEmail }) => {
     return countdownDuration;
   };
 
-  const [timer, setTimer] = useState(getRemainingTime());
+  const [timer, setTimer] = useState(getRemainingTime);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {

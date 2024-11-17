@@ -1,10 +1,10 @@
 import React from "react";
 import { getCurrentDate } from "../../../../Functions/common";
 
-const workingDays = [ 'WeekdaysOnly', 'WeekdaysAndSaturdays', 'WholeWeek' ]
+const workingDays = ["WeekdaysOnly", "WeekdaysAndSaturdays", "WholeWeek"];
 
 const formatWorkingDays = (day) => {
-  return day.replace(/([A-Z])/g, ' $1').trim(); 
+  return day.replace(/([A-Z])/g, " $1").trim();
 };
 
 const StudentContent = ({
@@ -14,7 +14,7 @@ const StudentContent = ({
   error,
   loading,
   degreePrograms,
-  teachers
+  teachers,
 }) => {
   return (
     <form className="register-content">
@@ -46,38 +46,40 @@ const StudentContent = ({
       </div>
 
       <select
-        name="degreeProgramId" 
+        name="degreeProgramId"
         className="program"
         onChange={handleFormChange}
-        defaultValue="" 
+        defaultValue=""
         required
       >
         <option value="" disabled>
           Select Degree Program
         </option>
-        {Array.isArray(degreePrograms) && degreePrograms.map((program) => (
-          <option key={program.id} value={program.id}> 
-            {program.programName}
-          </option>
-        ))}
+        {Array.isArray(degreePrograms) &&
+          degreePrograms.map((program) => (
+            <option key={program.id} value={program.id}>
+              {program.programName}
+            </option>
+          ))}
       </select>
 
       <select
-        name="teacherId" 
+        name="teacherId"
         className="program"
         onChange={handleFormChange}
-        defaultValue="" 
-      > 
+        defaultValue=""
+      >
         <option value="" disabled>
           Select Teacher
         </option>
-        {Array.isArray(teachers) && teachers.map((teacher) => (
-          <option key={teacher.user.id} value={teacher.user.id}> 
-            {teacher.user.firstName} {teacher.user.lastName}
-          </option>
-        ))}
+        {Array.isArray(teachers) &&
+          teachers.map((teacher) => (
+            <option key={teacher.user.id} value={teacher.user.id}>
+              {teacher.user.firstName} {teacher.user.lastName}
+            </option>
+          ))}
       </select>
-      <div className="tapad">
+      {/* <div className="tapad">
         <p style={{ fontSize: "0.5rem", marginRight: 190, marginLeft: 10, marginBottom:10, fontWeight: "bold" }}>Start Date</p>
         <p style={{ fontSize: "0.5rem", fontWeight: "bold" }}>Number of Hours To Render</p>
       </div>
@@ -153,7 +155,7 @@ const StudentContent = ({
           placeholder="Division"
           onChange={handleFormChange}
         />
-      </div>
+      </div> */}
       <input
         name="email"
         className="email"
