@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useState, useContext, useEffect } from "react";
+import { reuseCommonFunctionality } from "../../Functions/common";
 
 const GlobalStateContext = createContext();
 
@@ -8,6 +9,9 @@ export const GlobalStateProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+  const [departments, setDepartments] = useState([]);
+  const [degreePrograms, setDegreePrograms] = useState([]);
+  const [teachers, setTeachers] = useState([]);
 
   const [allowPath, setAllowPath] = useState(() => {
     return JSON.parse(localStorage.getItem("allowPath")) || false;
@@ -51,6 +55,34 @@ export const GlobalStateProvider = ({ children }) => {
     }
   };
 
+  const handleGetDegreePrograms = async () => {
+    await reuseCommonFunctionality(
+      "degree-programs",
+      setDegreePrograms,
+      setError,
+      "An error occurred while fetching the teachers."
+    );
+  };
+
+  const handleGetTeachers = async (selectedDegreeProgram) => {
+    if (!selectedDegreeProgram) return;
+    await reuseCommonFunctionality(
+      `teachers/departments/${selectedDegreeProgram}`,
+      setTeachers,
+      setError,
+      "An error occurred while fetching the teachers."
+    );
+  };
+
+  const handleGetDepartments = async () => {
+    await reuseCommonFunctionality(
+      "departments",
+      setDepartments,
+      setError,
+      "An error occurred while fetching the teachers"
+    );
+  };
+
   return (
     <GlobalStateContext.Provider
       value={{
@@ -66,6 +98,12 @@ export const GlobalStateProvider = ({ children }) => {
         getMentorLogbookSubmissions,
         getInternInfo,
         getSystemGeneratedTrainingPlans,
+        departments,
+        teachers,
+        degreePrograms,
+        handleGetDegreePrograms,
+        handleGetTeachers,
+        handleGetDepartments,
       }}
     >
       {children}

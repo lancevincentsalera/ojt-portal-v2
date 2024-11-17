@@ -4,6 +4,7 @@ import ChairFields from "../ChairFields";
 import SupervisorFields from "../SupervisorFields";
 import StudentFields from "../StudentFields";
 import TeacherFields from "../TeacherFields";
+import { FaGraduationCap } from "react-icons/fa6";
 
 const UsersModalView = ({
   showModal,
@@ -14,7 +15,7 @@ const UsersModalView = ({
   degreePrograms,
   teachers,
   departments,
-  handleCreateUser,
+  confirmActionHandler,
 }) => {
   return (
     <>
@@ -31,7 +32,7 @@ const UsersModalView = ({
             className="modal-form no-subh"
             onSubmit={(e) => {
               e.preventDefault();
-              handleCreateUser();
+              confirmActionHandler();
             }}
           >
             <div
@@ -54,9 +55,9 @@ const UsersModalView = ({
                 </option>
                 <option value="admin">Admin</option>
                 <option value="chair">Chair</option>
-                <option value="supervisor">Supervisor</option>
+                <option value="mentor">Mentor</option>
                 <option value="student">Student</option>
-                <option value="instructor">Instructor</option>
+                <option value="teacher">Teacher</option>
               </select>
             </div>
             {(() => {
@@ -71,7 +72,7 @@ const UsersModalView = ({
                     />
                   );
 
-                case "supervisor":
+                case "mentor":
                   return (
                     <SupervisorFields handleUserChange={handleUserChange} />
                   );
@@ -85,7 +86,7 @@ const UsersModalView = ({
                     />
                   );
 
-                case "instructor":
+                case "teacher":
                   return (
                     <TeacherFields
                       handleUserChange={handleUserChange}
@@ -94,7 +95,21 @@ const UsersModalView = ({
                   );
 
                 default:
-                  return <AdminFields handleUserChange={handleUserChange} />;
+                  return (
+                    <p
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "100%",
+                        gap: "0.5rem",
+                        color: "#ff6b6b",
+                      }}
+                    >
+                      <FaGraduationCap size={50} />
+                      Please select a user type
+                    </p>
+                  );
               }
             })()}
             <div className="button-group double">

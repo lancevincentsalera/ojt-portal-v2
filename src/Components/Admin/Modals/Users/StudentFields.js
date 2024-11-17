@@ -69,7 +69,7 @@ const StudentFields = ({ handleUserChange, degreePrograms, teachers }) => {
           </option>
         ))}
       </select>
-      <div className="tapad">
+      {/* <div className="tapad">
         <p
           style={{
             fontSize: "0.5rem",
@@ -175,7 +175,7 @@ const StudentFields = ({ handleUserChange, degreePrograms, teachers }) => {
           onChange={handleUserChange}
           required
         />
-      </div>
+      </div> */}
       <input
         name="email"
         className="email"

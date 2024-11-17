@@ -7,6 +7,7 @@ import LoadingModal from "../../../../Common/Modals/LoadingModal";
 import OkayModal from "../../../../Common/Modals/OkayModal";
 import ErrorModal from "../../../../Common/Modals/ErrorModal";
 import PromptModal from "../../../../Common/Modals/PromptModal";
+import { useGlobalState } from "../../../../Globals/variables";
 
 const UsersModalController = ({ showModal, handleModalAction }) => {
   const [userType, setUserType] = useState("");
@@ -18,70 +19,68 @@ const UsersModalController = ({ showModal, handleModalAction }) => {
     chairFields,
     adminFields,
   } = UsersModalModel();
-  const [error, setError] = useState(null);
-  const [degreePrograms, setDegreePrograms] = useState([]);
-  const [teachers, setTeachers] = useState([]);
-  const [selectedDegreeProgram, setSelectedDegreeProgram] = useState(null);
-  const [departments, setDepartments] = useState([]);
+  const {
+    error,
+    departments,
+    teachers,
+    degreePrograms,
+    handleGetDegreePrograms,
+    handleGetTeachers,
+    handleGetDepartments,
+  } = useGlobalState();
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
   const { authUser } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isPromptOpen, setIsPromptOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [selectedDegreeProgram, setSelectedDegreeProgram] = useState(null);
+
+  const userMapping = {
+    admin: adminFields,
+    chair: chairFields,
+    mentor: mentorFields,
+    student: internFields,
+    teacher: teacherFields,
+  };
+
+  const getMappingKey = () => {
+    return Object.keys(userMapping).find(
+      (key) => userMapping[key] === userMapping[userType]
+    );
+  };
 
   const handleUserTypeChange = (e) => {
-    setUserType(e.target.value);
-    switch (e.target.value) {
-      case "admin":
-        setUser(adminFields);
-        break;
-      case "chair":
-        setUser(chairFields);
-        break;
-      case "supervisor":
-        setUser(mentorFields);
-        break;
-      case "student":
-        setUser(internFields);
-        break;
-      case "instructor":
-        setUser(teacherFields);
-        break;
-      default:
-        setUser({});
-        break;
-    }
+    const { value } = e.target;
+    setUserType(value);
+    setUser(userMapping[value]);
   };
 
   const handleUserChange = (e) => {
     const { name, value } = e.target;
+
     if (name.startsWith("company.")) {
+      const [, key, subKey] = name.split(".");
       setUser((prevUser) => {
-        if (name.split(".").length > 2 && name.split(".")[1] === "address") {
+        if (subKey) {
           return {
             ...prevUser,
             company: {
               ...prevUser.company,
               address: {
                 ...prevUser.company.address,
-                [name.split(".")[2]]: value,
+                [subKey]: value,
               },
             },
           };
-        } else {
-          return {
-            ...prevUser,
-            company: {
-              ...prevUser.company,
-              [name.split(".")[1]]: value,
-            },
-          };
         }
-      });
-    } else if (name.startsWith("shift.")) {
-      setUser((prevUser) => {
         return {
           ...prevUser,
-          shift: {
-            ...prevUser.shift,
-            [name.split(".")[1]]: value,
+          company: {
+            ...prevUser.company,
+            [key]: value,
           },
         };
       });
@@ -92,104 +91,25 @@ const UsersModalController = ({ showModal, handleModalAction }) => {
           [name]: value,
         };
       });
+    }
 
-      if (name === "degreeProgramId") {
-        const selectedProgram = degreePrograms.find(
-          (program) => program.id === parseInt(value, 10)
-        );
-
-        if (selectedProgram) {
-          setSelectedDegreeProgram(selectedProgram.departmentCode);
-        } else {
-          setSelectedDegreeProgram(null);
-        }
-      }
+    if (name === "degreeProgramId") {
+      handleDegreeProgramChange(value);
     }
   };
 
-  const handleGetDegreePrograms = async () => {
-    try {
-      const url = `${apiBaseUrl}/degree-programs`;
-      const response = await axios.get(url);
+  const handleDegreeProgramChange = (value) => {
+    const selectedProgram = degreePrograms.find(
+      (program) => program.id === parseInt(value, 10)
+    );
 
-      if (response.status === 200) {
-        setDegreePrograms(response.data);
-      } else {
-        setError("An error occurred while fetching the degree programs.");
-      }
-    } catch (error) {
-      setError("Error fetching degree programs.");
-      console.error("Error fetching degree programs:", error);
-    }
+    setSelectedDegreeProgram(selectedProgram?.departmentCode || null);
   };
-
-  const handleGetTeachers = async () => {
-    if (!selectedDegreeProgram) return;
-    try {
-      const url = `${apiBaseUrl}/teachers/departments/${selectedDegreeProgram}`;
-      const response = await axios.get(url);
-
-      if (response.status === 200) {
-        setTeachers(response.data);
-      } else {
-        setError("An error occurred while fetching the teachers.");
-      }
-    } catch (error) {
-      setError("Error fetching teachers.");
-      console.error("Error fetching teachers:", error);
-    }
-  };
-
-  const handleGetDepartments = async () => {
-    try {
-      const url = `${apiBaseUrl}/departments`;
-      const response = await axios.get(url);
-
-      if (response.status === 200) {
-        setDepartments(response.data);
-      } else {
-        setError("An error occurred while fetching departments.");
-      }
-    } catch (error) {
-      setError("Error fetching departments.");
-      console.error("Error fetching departments:", error);
-    }
-  };
-
-  useEffect(() => {
-    handleGetDegreePrograms();
-    handleGetDepartments();
-  }, []);
-
-  useEffect(() => {
-    if (selectedDegreeProgram) {
-      handleGetTeachers();
-    }
-  }, [selectedDegreeProgram]);
 
   const handleCreateUser = async () => {
-    let url;
-    switch (userType) {
-      case "admin":
-        url = `${apiBaseUrl}/admins`;
-        break;
-      case "chair":
-        url = `${apiBaseUrl}/chairs`;
-        break;
-      case "supervisor":
-        url = `${apiBaseUrl}/mentors`;
-        break;
-      case "student":
-        url = `${apiBaseUrl}/students`;
-        break;
-      case "instructor":
-        url = `${apiBaseUrl}/teachers`;
-        break;
-      default:
-        url = `${apiBaseUrl}/admins`;
-        break;
-    }
+    setIsSubmitting(true);
     try {
+      const url = `${apiBaseUrl}/${getMappingKey()}s`;
       const response = await axios.post(url, user, {
         headers: {
           Authorization: `${authUser.tokenType} ${authUser.accessToken}`,
@@ -198,14 +118,41 @@ const UsersModalController = ({ showModal, handleModalAction }) => {
 
       console.log(response);
       if (response.status === 201 || response.status === 200) {
-        alert("User created successfully!");
+        setIsSuccess(true);
+        setSuccessMessage(`${sentenceCase(userType)} created successfully!`);
       } else {
-        alert("Error creating user.");
+        setIsError(true);
+        throw new Error("Error creating user.");
       }
     } catch (error) {
-      console.error("Error creating user:", error);
+      setErrorMessage(error);
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
+  const sentenceCase = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
+
+  const confirmActionHandler = () => {
+    setIsPromptOpen(true);
+  };
+
+  const handleConfirm = async () => {
+    setIsPromptOpen(false);
+    await handleCreateUser();
+  };
+
+  useEffect(() => {
+    handleGetDegreePrograms();
+    handleGetDepartments();
+
+    if (selectedDegreeProgram) {
+      handleGetTeachers(selectedDegreeProgram);
+    }
+  }, [selectedDegreeProgram]);
 
   return (
     <>
@@ -218,7 +165,29 @@ const UsersModalController = ({ showModal, handleModalAction }) => {
         degreePrograms={degreePrograms}
         teachers={teachers}
         departments={departments}
-        handleCreateUser={handleCreateUser}
+        confirmActionHandler={confirmActionHandler}
+      />
+
+      <LoadingModal open={isSubmitting} />
+      <OkayModal
+        open={isSuccess}
+        onClose={() => {
+          setIsSuccess(false);
+          window.location.reload();
+        }}
+        message={successMessage}
+      />
+      <ErrorModal
+        open={isError}
+        onClose={() => setIsError(false)}
+        errorMessage={error || errorMessage}
+      />
+
+      <PromptModal
+        open={isPromptOpen}
+        onConfirm={handleConfirm}
+        onClose={() => setIsPromptOpen(false)}
+        message={`Are you sure you want to create this ${userType}?`}
       />
     </>
   );

@@ -10,18 +10,23 @@ export const getCurrentDate = () => {
   return `${year}-${month}-${day}`;
 };
 
-export const handleGetDegreePrograms = async (setVar, setError) => {
+export const reuseCommonFunctionality = async (
+  apiUrl,
+  setResponse,
+  setError,
+  err
+) => {
   try {
-    const url = `${apiBaseUrl}/degree-programs`;
+    const url = `${apiBaseUrl}/${apiUrl}`;
     const response = await axios.get(url);
 
     if (response.status === 200) {
-      setVar(response.data);
+      setResponse(response.data);
     } else {
-      setError("An error occurred while fetching the degree programs.");
+      setError(err || "An error occurred while fetching the data.");
     }
   } catch (error) {
-    setError("Error fetching degree programs.");
-    console.error("Error fetching degree programs:", error);
+    setError(err || "Error fetching data.");
+    console.error(error);
   }
 };
