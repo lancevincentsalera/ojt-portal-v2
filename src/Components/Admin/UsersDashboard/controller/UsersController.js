@@ -37,48 +37,57 @@ const UsersController = () => {
     fetchUsers();
   }, [authUser]);
 
-  const handleActivateAccount = async (id) => {
+  const handleAccountAction = async (
+    apiString,
+    params,
+    success,
+    err,
+    method
+  ) => {
     setLoading(true);
     try {
-      const url =
-        process.env.REACT_APP_API_BASE_URL + `/users/activate/account`;
-      const response = await axios.get(url, {
-        params: {
-          userId: id,
-          token: authUser.accessToken,
-        },
-      });
+      const url = process.env.REACT_APP_API_BASE_URL + apiString;
+      const response = await axios[method](url, params);
 
-      console.log(response, "++++++++++++++++++++++++++++++++++++++++=");
+      console.log(response);
       setIsSuccess(true);
-      setSuccessMessage("Account activated successfully!");
+      setSuccessMessage(success);
     } catch (error) {
       console.error(error);
-      setErrorMessage("Error activating account.");
+      setIsError(true);
+      setErrorMessage(err);
     } finally {
       setLoading(false);
     }
   };
 
+  const handleActivateAccount = async (id) => {
+    handleAccountAction(
+      `/users/activate/account`,
+      {
+        params: {
+          userId: id,
+          token: authUser.accessToken,
+        },
+      },
+      "Account activated successfully!",
+      "Error activating account.",
+      "get"
+    );
+  };
+
   const handleDeactivateAccount = async (id) => {
-    setLoading(true);
-    try {
-      const url =
-        process.env.REACT_APP_API_BASE_URL + `/users/deactivate/${id}`;
-      const response = await axios.delete(url, {
+    handleAccountAction(
+      `/users/deactivate/${id}`,
+      {
         headers: {
           Authorization: `${authUser.tokenType} ${authUser.accessToken}`,
         },
-      });
-
-      setIsSuccess(true);
-      setSuccessMessage("Account deactivated successfully!");
-    } catch (error) {
-      console.error(error);
-      setErrorMessage("Error deactivating account.");
-    } finally {
-      setLoading(false);
-    }
+      },
+      "Account deactivated successfully!",
+      "Error deactivating account.",
+      "delete"
+    );
   };
 
   const handleModalAction = () => setShowModal(!showModal);

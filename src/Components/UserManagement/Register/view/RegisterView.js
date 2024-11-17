@@ -11,7 +11,7 @@ const RegisterView = ({
   error,
   loading,
   degreePrograms,
-  teachers
+  teachers,
 }) => {
   return (
     <div className="container">
@@ -26,16 +26,25 @@ const RegisterView = ({
           >
             Student
           </div>
-          <div
+          {/* <div
             className={userType.supervisor ? "tab active" : "tab"}
             onClick={() => {
               handleUserTypeChange(false, true);
             }}
           >
             Supervisor
-          </div>
+          </div> */}
         </div>
-        {userType.student ? (
+        <StudentContent
+          handleFormChange={handleFormChange}
+          handleRegister={handleRegister}
+          handleConfirmPasswordChange={handleConfirmPasswordChange}
+          error={error}
+          loading={loading}
+          degreePrograms={degreePrograms}
+          teachers={teachers}
+        />
+        {/* {userType.student ? (
           <StudentContent
             handleFormChange={handleFormChange}
             handleRegister={handleRegister}
@@ -53,7 +62,7 @@ const RegisterView = ({
             handleFormChange={handleFormChange}
             handleConfirmPasswordChange={handleConfirmPasswordChange}
           />
-        )}
+        )} */}
         <a href="/">Back to Login</a>
       </div>
     </div>

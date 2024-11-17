@@ -50,7 +50,8 @@ const UsersView = ({
                       className="button-main btn-active"
                       disabled={
                         user.accountStatus === "Active" ||
-                        user.accountStatus === "Pending Password Change"
+                        user.accountStatus === "Pending Password Change" ||
+                        user.accountStatus === "Deactivated"
                       }
                       onClick={() =>
                         handleConfirmAccountAction(

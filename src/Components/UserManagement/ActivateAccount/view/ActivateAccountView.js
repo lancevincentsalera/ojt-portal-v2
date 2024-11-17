@@ -6,31 +6,37 @@ const ActivateAccountView = ({ handleResendActivationEmail }) => {
   const navigate = useNavigate();
   const { isLoading, error } = useGlobalState();
 
-  const countdownDuration = 120; 
+  const countdownDuration = 120;
 
   const getRemainingTime = () => {
-    const savedTime = localStorage.getItem("activationStartTime");
+    const savedTime = Number(localStorage.getItem("activationStartTime"));
     if (savedTime) {
       const elapsedTime = Math.floor((Date.now() - savedTime) / 1000);
       const remainingTime = countdownDuration - elapsedTime;
       return remainingTime > 0 ? remainingTime : 0;
     }
+    localStorage.setItem("activationStartTime", Date.now());
     return countdownDuration;
   };
 
-  const [timer, setTimer] = useState(getRemainingTime);
+  const [timer, setTimer] = useState(getRemainingTime());
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
     if (timer > 0) {
       const intervalId = setInterval(() => {
-        setTimer(getRemainingTime);
+        setTimer((prevTimer) => {
+          if (prevTimer <= 1) {
+            clearInterval(intervalId);
+            setIsButtonDisabled(false);
+            localStorage.removeItem("activationStartTime");
+            return 0;
+          }
+          return prevTimer - 1;
+        });
       }, 1000);
 
       return () => clearInterval(intervalId);
-    } else {
-      setIsButtonDisabled(false);
-      localStorage.removeItem("activationStartTime");
     }
   }, [timer]);
 
