@@ -1,12 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import CryptoJS from "crypto-js";
+import { encryptId } from "../../../Functions/common";
 
 const Card = ({ trainingPlan }) => {
   const navigate = useNavigate();
-  const encryptId = (id) => {
-    return CryptoJS.AES.encrypt(id.toString(), "trainingPlanID").toString();
-  };
   return (
     <div className="card">
       <div className="card-header">

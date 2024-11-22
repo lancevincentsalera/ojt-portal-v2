@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import AssignPlanModalController from "../Modals/TrainingPlans/controller/AssignPlanModalController";
 import AddTaskModalController from "../Modals/TrainingPlans/controller/AddTaskModalController";
 import { getTrainingPlanDetails } from "./model/MentorTrainingPlanModel";
-import CryptoJS from "crypto-js";
 import { useLocation } from "react-router-dom";
+import { decryptId } from "../../../Functions/common";
 
 const TrainingTaskList = () => {
   const [showAssignModal, setShowAssignModal] = useState(false);
@@ -11,18 +11,6 @@ const TrainingTaskList = () => {
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
   const [trainingPlanDetails, setTrainingPlanDetails] = useState({ tasks: [] });
   const location = useLocation();
-
-  const decryptId = (encryptedId) => {
-    try {
-      const bytes = CryptoJS.AES.decrypt(encryptedId, "trainingPlanID");
-      const decryptedId = bytes.toString(CryptoJS.enc.Utf8);
-      console.log("decrypted: ", decryptedId);
-      return decryptedId;
-    } catch (error) {
-      console.error("Decryption error:", error);
-      return null;
-    }
-  };
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);

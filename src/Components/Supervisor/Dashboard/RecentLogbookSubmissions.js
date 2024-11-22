@@ -5,10 +5,18 @@ const RecentLogbookSubmissions = ({
   LogbookSubmissions,
   handleModalAction,
 }) => {
-  const timeAgo = (timestamp) => {
+  const isWithinLast24Hours = (timestamp) => {
     const now = new Date();
     const submissionDate = new Date(timestamp.replace(/ \+\d{2}:\d{2}$/, ""));
     const differenceInSeconds = Math.floor((now - submissionDate) / 1000);
+    return differenceInSeconds <= 24 * 60 * 60; // True if within 24 hours
+  };
+
+  const timeAgo = (timestamp) => {
+    const now = new Date();
+    const submissionDate = new Date(timestamp.replace(/ \+\d{2}:\d{2}$/, ""));
+    let differenceInSeconds = Math.floor((now - submissionDate) / 1000);
+    differenceInSeconds %= 24 * 60 * 60;
 
     const intervals = [
       { label: "hour", seconds: 60 * 60 },
@@ -30,12 +38,17 @@ const RecentLogbookSubmissions = ({
       ? "a second ago"
       : `${differenceInSeconds} seconds ago`;
   };
+
+  const recentLogbooks = LogbookSubmissions.filter((submission) =>
+    isWithinLast24Hours(submission.creationTimestamp)
+  );
+
   return (
     <div className="large-card-container">
       <div className="large-card-heading">Recent Logbook Submissions</div>
       <ul className="large-card-list">
-        {LogbookSubmissions.length > 0 ? (
-          LogbookSubmissions.map((submission, key) => {
+        {recentLogbooks.length > 0 ? (
+          recentLogbooks.map((submission, key) => {
             const formattedDate = timeAgo(submission.creationTimestamp);
             return (
               <li key={key} className="list-value">

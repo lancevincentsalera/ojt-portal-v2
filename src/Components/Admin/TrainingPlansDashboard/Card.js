@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { encryptId } from "../../../Functions/common";
 
 const Card = ({ trainingPlan, getTrainingPlanDetails }) => {
   const navigate = useNavigate();
@@ -34,10 +35,8 @@ const Card = ({ trainingPlan, getTrainingPlanDetails }) => {
           type="button"
           className="button-main create"
           onClick={async () => {
-            const details = await getTrainingPlanDetails(trainingPlan.id);
-            navigate("/task-list", {
-              state: { trainingPlanDetails: details },
-            });
+            const encryptedId = encryptId(trainingPlan.id);
+            navigate(`/task-list?id=${encodeURIComponent(encryptedId)}`);
           }}
         >
           View Tasks
