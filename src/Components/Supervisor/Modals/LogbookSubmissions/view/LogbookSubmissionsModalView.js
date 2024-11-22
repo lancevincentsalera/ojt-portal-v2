@@ -66,7 +66,7 @@ const LogbookSubmissionsModalView = ({
                   Cancel
                 </button>
                 <button
-                  type="submit"
+                  type="button"
                   className="button-main "
                   onClick={submitLogbookAction}
                 >
