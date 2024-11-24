@@ -15,6 +15,7 @@ const TrainingPlanView = ({
   trainingPlans,
   fetchTrainingPlan
 }) => {
+
   const [showDetails, setShowDetails] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const toggleDetails = () => setShowDetails(!showDetails);
@@ -25,17 +26,12 @@ const TrainingPlanView = ({
     setShowModal(!showModal);
   };
 
-  const hasTrainingPlans = trainingPlans && trainingPlans.tasks;
+  const hasTrainingPlans = trainingPlans && trainingPlans?.tasks;
 
-  const updatedTasks = hasTrainingPlans ? trainingPlans.tasks.map(task => {
-    const isLate = new Date(task.dueDate) < new Date();
-    return {
-      ...task,
-      taskStatus: isLate ? "Completed" : task.taskStatus,
-    };
-  }) : [];
 
-  const gradedTasks = updatedTasks.filter(task => task.score > 0);
+
+  const gradedTasks = trainingPlans?.tasks.filter(task => task.score > 0);
+
 
   return (
     <>
@@ -84,7 +80,7 @@ const TrainingPlanView = ({
                     {trainingPlans.expectedEndDate}
                   </p>
                   <div className="tasks-list">
-                    {updatedTasks.map((task) => (
+                    {trainingPlans?.tasks.map((task) => (
                       <div key={task.id} className="task-item">
                         <p>
                           <strong>{task.trainingTask.title}</strong>
@@ -107,25 +103,25 @@ const TrainingPlanView = ({
             )}
             {tab.completed && (
               <CompletedTasks
-                tasks={updatedTasks.filter((task) => task.taskStatus === "Completed" && task.score === 0)}
+                tasks={trainingPlans?.tasks.filter((task) => task.taskStatus === "Done" && task.score === 0)}
                 handleModalAction={handleModalAction}
               />
             )}
             {tab.inProgress && (
               <OngoingTasks
-                tasks={updatedTasks.filter((task) => task.taskStatus === "InProgress")}
+                tasks={trainingPlans?.tasks.filter((task) => task.taskStatus === "InProgress")}
                 handleModalAction={handleModalAction}
               />
             )}
             {tab.notStarted && (
               <NotStartedTasks
-                tasks={updatedTasks.filter((task) => task.taskStatus === "NotStarted")}
+                tasks={trainingPlans?.tasks.filter((task) => task.taskStatus === "NotStarted")}
                 handleModalAction={handleModalAction}
               />
             )}
             {tab.doneLate && (
               <DoneLateTasks
-                tasks={updatedTasks.filter((task) => task.taskStatus === "DoneLate")}
+                tasks={trainingPlans?.tasks.filter((task) => task.taskStatus === "DoneLate")}
                 handleModalAction={handleModalAction}
               />
             )}
