@@ -30,6 +30,8 @@ const TaskScoringModalView = ({
               step="0.1"
               name="score"
               id="score"
+              min={1.0}
+              max={5.0}
               placeholder="Score (1.0 - 5.0)"
               onChange={handleScoreChange}
               required

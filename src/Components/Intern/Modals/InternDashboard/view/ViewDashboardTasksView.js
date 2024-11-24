@@ -15,7 +15,12 @@ const formatStatusText = (status) => {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 };
 
-const ViewDashboardTasksView = ({ showModal, handleModalAction, selectedTask, fetchTrainingPlan }) => {
+const ViewDashboardTasksView = ({
+  showModal,
+  handleModalAction,
+  selectedTask,
+  fetchTrainingPlan,
+}) => {
   const { userInfo } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -32,7 +37,11 @@ const ViewDashboardTasksView = ({ showModal, handleModalAction, selectedTask, fe
     if (selectedTask) {
       const { taskStatus, dueDate } = selectedTask;
 
-      if (taskStatus === "Done" || taskStatus === "DoneLate" || taskStatus === "Completed") {
+      if (
+        taskStatus === "Done" ||
+        taskStatus === "DoneLate" ||
+        taskStatus === "Completed"
+      ) {
         setCheckboxVisible(false);
       } else {
         setCheckboxVisible(true);
@@ -44,7 +53,12 @@ const ViewDashboardTasksView = ({ showModal, handleModalAction, selectedTask, fe
         setCheckboxLabel("Mark as Completed");
       }
 
-      if (new Date() > new Date(dueDate) && taskStatus !== "Done") {
+      if (
+        taskStatus === "InProgress" &&
+        dueDate &&
+        new Date() > new Date(dueDate) &&
+        taskStatus !== "Done"
+      ) {
         setCheckboxLabel("Mark as Done Late");
       }
     }
@@ -62,12 +76,13 @@ const ViewDashboardTasksView = ({ showModal, handleModalAction, selectedTask, fe
       let updatedStatus;
 
       if (selectedTask.taskStatus === "NotStarted") {
-        updatedStatus = 'InProgress';
+        updatedStatus = "InProgress";
       } else if (selectedTask.taskStatus === "InProgress") {
         if (selectedTask.dueDate) {
-          updatedStatus = new Date() > new Date(selectedTask.dueDate) ? "DoneLate" : "Done";
+          updatedStatus =
+            new Date() > new Date(selectedTask.dueDate) ? "DoneLate" : "Done";
         } else {
-          updatedStatus = "Done"; 
+          updatedStatus = "Done";
         }
       }
 
@@ -86,7 +101,9 @@ const ViewDashboardTasksView = ({ showModal, handleModalAction, selectedTask, fe
       fetchTrainingPlan();
       setIsSuccess(true);
     } catch (error) {
-      setErrorMessage(error.response?.data?.message || "Failed to update task status.");
+      setErrorMessage(
+        error.response?.data?.message || "Failed to update task status."
+      );
       setIsError(true);
     } finally {
       setIsSubmitting(false);
@@ -102,12 +119,13 @@ const ViewDashboardTasksView = ({ showModal, handleModalAction, selectedTask, fe
       let updatedStatus;
 
       if (selectedTask.taskStatus === "NotStarted") {
-        updatedStatus = 'InProgress';
+        updatedStatus = "InProgress";
       } else if (selectedTask.taskStatus === "InProgress") {
         if (selectedTask.dueDate) {
-          updatedStatus = new Date() > new Date(selectedTask.dueDate) ? "DoneLate" : "Done";
+          updatedStatus =
+            new Date() > new Date(selectedTask.dueDate) ? "DoneLate" : "Done";
         } else {
-          updatedStatus = "Done"; 
+          updatedStatus = "Done";
         }
       }
 
@@ -121,7 +139,9 @@ const ViewDashboardTasksView = ({ showModal, handleModalAction, selectedTask, fe
       fetchTrainingPlan();
       setIsSuccess(true);
     } catch (error) {
-      setErrorMessage(error.response?.data?.message || "Failed to update task status.");
+      setErrorMessage(
+        error.response?.data?.message || "Failed to update task status."
+      );
       setIsError(true);
     } finally {
       setIsSubmitting(false); // End submitting state
@@ -132,7 +152,10 @@ const ViewDashboardTasksView = ({ showModal, handleModalAction, selectedTask, fe
     <>
       <div className="modal-overlay" onClick={handleModalAction}></div>
       <div className="modal">
-        <div className="modal-content" style={{ maxHeight: "70vh", overflowY: "auto" }}>
+        <div
+          className="modal-content"
+          style={{ maxHeight: "70vh", overflowY: "auto" }}
+        >
           <div className="modal-header">
             <p className="heading">View Task Details</p>
           </div>
@@ -140,12 +163,16 @@ const ViewDashboardTasksView = ({ showModal, handleModalAction, selectedTask, fe
             <div className="view-task-details">
               <div className="view-task-group">
                 <p className="view-task-title">Task Title</p>
-                <p className="view-task-desc">{selectedTask.trainingTask.title}</p>
+                <p className="view-task-desc">
+                  {selectedTask.trainingTask.title}
+                </p>
               </div>
 
               <div className="view-task-group">
                 <p className="view-task-title">Description</p>
-                <p className="view-task-desc">{selectedTask.trainingTask.description}</p>
+                <p className="view-task-desc">
+                  {selectedTask.trainingTask.description}
+                </p>
               </div>
 
               <div className="view-task-group">
@@ -172,13 +199,17 @@ const ViewDashboardTasksView = ({ showModal, handleModalAction, selectedTask, fe
 
               <div className="view-task-group">
                 <p className="view-task-title">Task Status</p>
-                <p className="view-task-desc">{formatStatusText(selectedTask.taskStatus)}</p>
+                <p className="view-task-desc">
+                  {formatStatusText(selectedTask.taskStatus)}
+                </p>
               </div>
 
               <div className="view-task-group">
                 <p className="view-task-title">Due Date</p>
                 <p className="view-task-desc">
-                  {selectedTask.dueDate ? selectedTask.dueDate : "No due date available"}
+                  {selectedTask.dueDate
+                    ? selectedTask.dueDate
+                    : "No due date available"}
                 </p>
               </div>
 
@@ -199,12 +230,24 @@ const ViewDashboardTasksView = ({ showModal, handleModalAction, selectedTask, fe
             </div>
             <div className="button-group">
               {/* Remove Save button if task status is Done or DoneLate */}
-              {!(selectedTask.taskStatus === "Done" || selectedTask.taskStatus === "DoneLate" || selectedTask.taskStatus === "Completed") && (
-                <button type="submit" className="button-main" disabled={isSubmitting}>
+              {!(
+                selectedTask.taskStatus === "Done" ||
+                selectedTask.taskStatus === "DoneLate" ||
+                selectedTask.taskStatus === "Completed"
+              ) && (
+                <button
+                  type="submit"
+                  className="button-main"
+                  disabled={isSubmitting}
+                >
                   {isSubmitting ? "Saving..." : "Save"}
                 </button>
               )}
-              <button type="button" className="button-secondary" onClick={handleModalAction}>
+              <button
+                type="button"
+                className="button-secondary"
+                onClick={handleModalAction}
+              >
                 Close
               </button>
             </div>

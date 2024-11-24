@@ -29,6 +29,7 @@ const LogbookSubmissionsModalController = ({
   };
 
   const submitLogbookAction = async () => {
+    setIsSubmitting(true);
     try {
       console.log(authUser);
       const response = await axios.patch(
@@ -55,6 +56,8 @@ const LogbookSubmissionsModalController = ({
       setIsError(true);
       setErrorMessage("Failed to add remarks.", error);
       console.error(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -74,7 +77,7 @@ const LogbookSubmissionsModalController = ({
         handleModalAction={handleModalAction}
         logbook={logbook}
         handleChange={handleChange}
-        submitLogbookAction={submitLogbookAction}
+        submitLogbookAction={confirmHandleAction}
       />
 
       <LoadingModal open={isSubmitting} />

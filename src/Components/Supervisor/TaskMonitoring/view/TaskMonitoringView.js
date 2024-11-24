@@ -58,6 +58,12 @@ const TaskMonitoringView = ({
                 );
               })}
           </select>
+
+          <p className="sub-heading">
+            This view allows you to monitor tasks assigned to your intern. The
+            "Score" button will appear when a task is marked as "Done" or "Done
+            Late" and has not yet been scored.
+          </p>
           <div className="tp-tasklist">
             <span
               style={{
@@ -82,6 +88,15 @@ const TaskMonitoringView = ({
                       </p>
                       <p className="normal">
                         Status: {getStatusText(task.taskStatus)}
+                      </p>
+                      <p className="normal">
+                        Score:{" "}
+                        {task.taskStatus === "Done" ||
+                        task.taskStatus === "DoneLate"
+                          ? task.score === 0
+                            ? "Not scored"
+                            : task.score
+                          : "Not yet subject to scoring"}
                       </p>
                     </div>
                     {(task.taskStatus === "Done" ||
