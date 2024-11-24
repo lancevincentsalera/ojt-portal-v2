@@ -6,7 +6,7 @@ const SubmitLogbookView = ({
   setAttendanceId,
   activities,
   setActivities,
-  handleSubmitLogbook
+  handleSubmitLogbook,
 }) => {
   return (
     <>
@@ -32,13 +32,25 @@ const SubmitLogbookView = ({
               >
                 <option value="">Select a date</option>
                 {studentAttendance.map((attendance) => (
-                  <option key={attendance.attendanceId} value={attendance.attendanceId}>
-                    {new Date(attendance.timeIn).toLocaleDateString()} (Time In: {new Date(attendance.timeIn).toLocaleTimeString()})
+                  <option
+                    key={attendance.attendanceId}
+                    value={attendance.attendanceId}
+                  >
+                    {new Date(
+                      attendance.timeIn.replace(/ \+\d{2}:\d{2}$/, "")
+                    ).toLocaleDateString()}{" "}
+                    (Time In:{" "}
+                    {new Date(
+                      attendance.timeIn.replace(/ \+\d{2}:\d{2}$/, "")
+                    ).toLocaleTimeString()}
+                    )
                   </option>
                 ))}
               </select>
             ) : (
-              <p style={{ fontSize: '14px', color: '#e74c3c' }}>All logbooks have been submitted for your attendance days.</p>
+              <p style={{ fontSize: "14px", color: "#e74c3c" }}>
+                All logbooks have been submitted for your attendance days.
+              </p>
             )}
           </div>
           <div className="form-group">
@@ -52,7 +64,11 @@ const SubmitLogbookView = ({
               disabled={studentAttendance.length <= 0}
             />
           </div>
-          <button type="submit" className="button-main" disabled={studentAttendance.length <= 0}>
+          <button
+            type="submit"
+            className="button-main"
+            disabled={studentAttendance.length <= 0}
+          >
             Submit Logbook
           </button>
         </form>

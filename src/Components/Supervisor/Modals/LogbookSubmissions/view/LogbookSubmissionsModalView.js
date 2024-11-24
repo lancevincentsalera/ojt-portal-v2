@@ -50,7 +50,7 @@ const LogbookSubmissionsModalView = ({
               <div className="button-group single">
                 <button
                   type="button"
-                  className="button-main "
+                  className="button-main single"
                   onClick={handleModalAction}
                 >
                   Close

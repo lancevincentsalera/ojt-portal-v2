@@ -16,7 +16,9 @@ const PendingLogbooks = ({ logbooks, handleModalAction }) => {
         <ul className="tbody">
           {logbooks.length > 0 ? (
             logbooks.map((logbook, i) => {
-              const date = new Date(logbook.attendance.timeIn);
+              const date = new Date(
+                logbook.attendance.timeIn.replace(/ \+\d{2}:\d{2}$/, "")
+              );
               const formattedDate = date.toLocaleString("en-US", {
                 year: "numeric",
                 month: "short",

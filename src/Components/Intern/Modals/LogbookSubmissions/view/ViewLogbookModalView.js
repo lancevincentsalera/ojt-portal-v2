@@ -3,32 +3,47 @@ import { Modal, Input, Row, Col } from "antd";
 
 const { TextArea } = Input;
 
-const ViewLogbookModalView = ({ showModal, handleModalAction, selectedLogbook }) => {
+const ViewLogbookModalView = ({
+  showModal,
+  handleModalAction,
+  selectedLogbook,
+}) => {
   if (!selectedLogbook) return null;
 
-  const creationDate = new Date(selectedLogbook.creationTimestamp).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: '2-digit',
+  const creationDate = new Date(
+    selectedLogbook.creationTimestamp.replace(/ \+\d{2}:\d{2}$/, "")
+  ).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
   });
 
-  const timeIn = new Date(selectedLogbook.attendance.timeIn).toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
+  const timeIn = new Date(
+    selectedLogbook.attendance.timeIn.replace(/ \+\d{2}:\d{2}$/, "")
+  ).toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
   });
 
-  const timeOut = new Date(selectedLogbook.attendance.timeOut).toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-
+  const timeOut = selectedLogbook.attendance.timeOut
+    ? new Date(
+        selectedLogbook.attendance.timeOut.replace(/ \+\d{2}:\d{2}$/, "")
+      ).toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    : "N/A";
   const renderedHours = selectedLogbook.attendance.renderedHours;
   const isTimeInLate = selectedLogbook.attendance.isTimeInLate ? "Yes" : "No";
   const isTimeOutLate = selectedLogbook.attendance.isTimeOutLate ? "Yes" : "No";
   const logbookStatus = selectedLogbook.logbookStatus;
 
-  const sentimentCategory = selectedLogbook.remarkSentimentCategory || 'No sentiment can be made.';
-  const sentimentScore = selectedLogbook.remarkSentimentScore !== null ? selectedLogbook.remarkSentimentScore : 'N/A';
+  const sentimentCategory =
+    selectedLogbook.remarkSentimentCategory || "No sentiment can be made.";
+  const sentimentScore =
+    selectedLogbook.remarkSentimentScore !== null
+      ? selectedLogbook.remarkSentimentScore
+      : "N/A";
 
   return (
     <Modal
@@ -36,7 +51,7 @@ const ViewLogbookModalView = ({ showModal, handleModalAction, selectedLogbook })
       open={showModal}
       onCancel={handleModalAction}
       footer={null}
-      bodyStyle={{ padding: "16px", maxHeight: "400px", overflowY: "auto" }} 
+      bodyStyle={{ padding: "16px", maxHeight: "400px", overflowY: "auto" }}
       style={{ top: 20 }}
       centered
     >
@@ -58,12 +73,12 @@ const ViewLogbookModalView = ({ showModal, handleModalAction, selectedLogbook })
           disabled
           rows={3}
           style={{
-            resize: 'none',
-            width: '100%',
-            padding: '8px',
-            backgroundColor: '#f0f0f0',
-            border: '1px solid #d9d9d9',
-            borderRadius: '4px'
+            resize: "none",
+            width: "100%",
+            padding: "8px",
+            backgroundColor: "#f0f0f0",
+            border: "1px solid #d9d9d9",
+            borderRadius: "4px",
           }}
         />
       </div>
@@ -75,12 +90,12 @@ const ViewLogbookModalView = ({ showModal, handleModalAction, selectedLogbook })
           disabled
           rows={4}
           style={{
-            resize: 'none',
-            width: '100%',
-            padding: '8px',
-            backgroundColor: '#f0f0f0',
-            border: '1px solid #d9d9d9',
-            borderRadius: '4px'
+            resize: "none",
+            width: "100%",
+            padding: "8px",
+            backgroundColor: "#f0f0f0",
+            border: "1px solid #d9d9d9",
+            borderRadius: "4px",
           }}
         />
       </div>
@@ -92,21 +107,20 @@ const ViewLogbookModalView = ({ showModal, handleModalAction, selectedLogbook })
           disabled
           rows={3}
           style={{
-            resize: 'none',
-            width: '100%',
-            padding: '8px',
-            backgroundColor: '#f0f0f0',
-            border: '1px solid #d9d9d9',
-            borderRadius: '4px'
+            resize: "none",
+            width: "100%",
+            padding: "8px",
+            backgroundColor: "#f0f0f0",
+            border: "1px solid #d9d9d9",
+            borderRadius: "4px",
           }}
         />
       </div>
 
       <div style={{ marginTop: "16px" }}>
         <label>Sentimental Analysis Result: </label>
-        <p style={{ fontSize: '15px', color: '#ff6b6b' }}>
-          <h6>{sentimentCategory}
-          </h6> 
+        <p style={{ fontSize: "15px", color: "#ff6b6b" }}>
+          <h6>{sentimentCategory}</h6>
         </p>
       </div>
     </Modal>

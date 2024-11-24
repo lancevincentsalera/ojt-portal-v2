@@ -16,7 +16,9 @@ const FeedbackedLogbooks = ({ logbooks, handleShowModalAction }) => {
         <ul className="tbody">
           {logbooks.map((logbook, i) => {
             const attendanceDate = new Date(logbook.attendance.timeIn);
-            const submissionDate = new Date(logbook.submissionTimestamp);
+            const submissionDate = new Date(
+              logbook.submissionTimestamp.replace(/ \+\d{2}:\d{2}$/, "")
+            );
             const options = {
               year: "numeric",
               month: "short",
