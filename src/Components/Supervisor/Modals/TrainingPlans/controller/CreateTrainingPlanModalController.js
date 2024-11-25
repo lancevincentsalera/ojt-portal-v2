@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CreateTrainingPlanModalView from "../view/CreateTrainingPlanModalView";
 import { trainingPlanModel } from "../model/CreateTrainingPlanModalModel";
 import axios from "axios";
@@ -7,6 +7,7 @@ import OkayModal from "../../../../Common/Modals/OkayModal";
 import ErrorModal from "../../../../Common/Modals/ErrorModal";
 import PromptModal from "../../../../Common/Modals/PromptModal";
 import { useAuth } from "../../../../Common/AuthContext";
+import { getTrainingPlanDetails } from "../../../TrainingPlans/model/MentorTrainingPlanModel";
 
 const CreateTrainingPlanModalController = ({
   mode,
@@ -27,6 +28,7 @@ const CreateTrainingPlanModalController = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [isPromptOpen, setIsPromptOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [task, setTask] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,6 +41,23 @@ const CreateTrainingPlanModalController = ({
     }));
   };
 
+  useEffect(() => {
+    if (selectedTrainingPlan) {
+      const fetchTasks = async () => {
+        try {
+          const response = await getTrainingPlanDetails(
+            selectedTrainingPlan.id
+          );
+          setTask(response.tasks);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      fetchTasks();
+    }
+  }, [selectedTrainingPlan]);
+
   const handleCreateTrainingPlanAction = async () => {
     setIsSubmitting(true);
     try {
@@ -46,7 +65,7 @@ const CreateTrainingPlanModalController = ({
       const response =
         mode === "edit"
           ? await axios.put(url, trainingPlan)
-          : await axios.post(url, trainingPlan);
+          : await axios.post(url, { ...trainingPlan, tasks: task });
 
       if (response.status === 200 || response.status === 201) {
         setIsSuccess(true);
@@ -114,7 +133,7 @@ const CreateTrainingPlanModalController = ({
         open={isSuccess}
         onClose={() => {
           setIsSuccess(false);
-          window.location.reload();
+          // window.location.reload();
         }}
         message={successMessage}
       />

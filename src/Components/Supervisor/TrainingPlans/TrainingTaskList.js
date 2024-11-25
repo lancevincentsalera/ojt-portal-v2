@@ -139,17 +139,19 @@ const TrainingTaskList = () => {
                   Skills: {task.skills.map((skill) => skill.name).join(", ")}
                 </p>
               </div>
-              <button
-                className="button-main create"
-                type="button"
-                onClick={() => {
-                  handleAddTaskModalAction();
-                  setMode("edit");
-                  setSelectedTask(task);
-                }}
-              >
-                Edit
-              </button>
+              {!task.isSystemGenerated && (
+                <button
+                  className="button-main create"
+                  type="button"
+                  onClick={() => {
+                    handleAddTaskModalAction();
+                    setMode("edit");
+                    setSelectedTask(task);
+                  }}
+                >
+                  Edit
+                </button>
+              )}
             </div>
           ))}
         </div>
