@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import CreateTrainingPlanModalController from "../../Modals/TrainingPlans/controller/CreateTrainingPlanModalController";
 import { FaPlus } from "react-icons/fa6";
 import MyTrainingPlans from "../MyTrainingPlans";
@@ -12,10 +12,20 @@ const MentorTrainingPlansView = ({
   handleTabChange,
   systemGeneratedPlans,
 }) => {
+  const [mode, setMode] = useState("create");
+  const handleSetMode = useCallback((mode) => {
+    setMode(mode);
+  }, []);
+  const [selectedTrainingPlan, setSelectedTrainingPlan] = useState(null);
+  const handleSetSelectedTrainingPlan = useCallback((trainingPlan) => {
+    setSelectedTrainingPlan(trainingPlan);
+  }, []);
   return (
     <>
       {showCreateModal && (
         <CreateTrainingPlanModalController
+          mode={mode}
+          selectedTrainingPlan={selectedTrainingPlan}
           showModal={showCreateModal}
           handleModalAction={handleCreateModalAction}
         />
@@ -25,7 +35,10 @@ const MentorTrainingPlansView = ({
           <p className="main-heading">Training Plans</p>
           <button
             className="button-main create"
-            onClick={handleCreateModalAction}
+            onClick={() => {
+              handleCreateModalAction();
+              handleSetMode("create");
+            }}
           >
             <FaPlus size={20} />
             &nbsp; Create New Plan
@@ -51,9 +64,21 @@ const MentorTrainingPlansView = ({
             System Generated
           </div>
         </div>
-        {tab.myPlans && <MyTrainingPlans TrainingPlans={TrainingPlans} />}
+        {tab.myPlans && (
+          <MyTrainingPlans
+            TrainingPlans={TrainingPlans}
+            handleSetMode={handleSetMode}
+            handleSetSelectedTrainingPlan={handleSetSelectedTrainingPlan}
+            handleModalAction={handleCreateModalAction}
+          />
+        )}
         {tab.systemGenerated && (
-          <SystemGeneratedPlans systemGeneratedPlans={systemGeneratedPlans} />
+          <SystemGeneratedPlans
+            systemGeneratedPlans={systemGeneratedPlans}
+            handleSetMode={handleSetMode}
+            handleSetSelectedTrainingPlan={handleSetSelectedTrainingPlan}
+            handleModalAction={handleCreateModalAction}
+          />
         )}
       </div>
     </>

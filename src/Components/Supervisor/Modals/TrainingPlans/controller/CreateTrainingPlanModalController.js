@@ -9,10 +9,16 @@ import PromptModal from "../../../../Common/Modals/PromptModal";
 import { useAuth } from "../../../../Common/AuthContext";
 
 const CreateTrainingPlanModalController = ({
+  mode,
+  selectedTrainingPlan = null,
   showModal,
   handleModalAction,
 }) => {
-  const [trainingPlan, setTrainingPlan] = useState(trainingPlanModel);
+  const [trainingPlan, setTrainingPlan] = useState(() =>
+    mode !== "create" && selectedTrainingPlan
+      ? selectedTrainingPlan
+      : trainingPlanModel
+  );
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
   const { userInfo } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,13 +26,16 @@ const CreateTrainingPlanModalController = ({
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isPromptOpen, setIsPromptOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTrainingPlan((prevData) => ({
       ...prevData,
       [name]: value,
-      mentorId: userInfo.user.id,
+      ...(mode === "edit"
+        ? { trainingPlanId: selectedTrainingPlan?.id || 0 }
+        : { mentorId: userInfo.user.id }),
     }));
   };
 
@@ -34,18 +43,47 @@ const CreateTrainingPlanModalController = ({
     setIsSubmitting(true);
     try {
       const url = apiBaseUrl + "/training/plans";
-      const response = await axios.post(url, trainingPlan);
+      const response =
+        mode === "edit"
+          ? await axios.put(url, trainingPlan)
+          : await axios.post(url, trainingPlan);
 
-      if (response.status === 201) {
+      if (response.status === 200 || response.status === 201) {
         setIsSuccess(true);
+        setSuccessMessage(
+          `Training plan ${
+            mode === "create"
+              ? "created"
+              : mode === "edit"
+              ? "updated"
+              : "copied"
+          } successfully!`
+        );
       } else {
         setIsError(true);
-        setErrorMessage("Error creating training plan.");
+        setErrorMessage(
+          `Error ${
+            mode === "create"
+              ? "creating"
+              : mode === "edit"
+              ? "updating"
+              : "copying"
+          } training plan`
+        );
       }
     } catch (error) {
       console.error(error);
       setIsError(true);
-      setErrorMessage("Error creating training plan: ", error);
+      setErrorMessage(
+        `Error ${
+          mode === "create"
+            ? "creating"
+            : mode === "edit"
+            ? "updating"
+            : "copying"
+        } training plan`,
+        error
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -67,6 +105,8 @@ const CreateTrainingPlanModalController = ({
         handleModalAction={handleModalAction}
         handleChange={handleChange}
         handleCreateTrainingPlan={handleCreateTrainingPlan}
+        mode={mode}
+        selectedTrainingPlan={trainingPlan}
       />
       <LoadingModal open={isSubmitting} />
 
@@ -74,9 +114,9 @@ const CreateTrainingPlanModalController = ({
         open={isSuccess}
         onClose={() => {
           setIsSuccess(false);
-          window.location.reload();
+          // window.location.reload();
         }}
-        message="Training plan created successfully!"
+        message={successMessage}
       />
 
       <ErrorModal
@@ -89,7 +129,9 @@ const CreateTrainingPlanModalController = ({
         open={isPromptOpen}
         onClose={() => setIsPromptOpen(false)}
         onConfirm={handleConfirm}
-        message="Are you sure you want to submit create this training plan?"
+        message={`Are you sure you want to ${
+          mode === "edit" ? "update" : mode
+        } this training plan?`}
       />
     </>
   );

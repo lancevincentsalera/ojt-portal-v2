@@ -2,7 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { encryptId } from "../../../Functions/common";
 
-const Card = ({ trainingPlan }) => {
+const Card = ({
+  trainingPlan,
+  handleSetMode,
+  handleSetSelectedTrainingPlan,
+  handleModalAction,
+}) => {
   const navigate = useNavigate();
   return (
     <div className="card">
@@ -30,7 +35,7 @@ const Card = ({ trainingPlan }) => {
         </p> */}
         <p className="card-supervisor"></p>
       </div>
-      <div className="card-footer">
+      <div className="card-footer button-group double">
         <button
           type="button"
           className="button-main create"
@@ -40,6 +45,17 @@ const Card = ({ trainingPlan }) => {
           }}
         >
           View Tasks
+        </button>
+        <button
+          type="button"
+          className="button-secondary create"
+          onClick={() => {
+            handleSetMode(trainingPlan.isSystemGenerated ? "copy" : "edit");
+            handleSetSelectedTrainingPlan(trainingPlan);
+            handleModalAction();
+          }}
+        >
+          {trainingPlan.isSystemGenerated ? "Make a Copy" : "Edit"}
         </button>
       </div>
     </div>

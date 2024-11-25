@@ -1,12 +1,22 @@
 import React from "react";
 import Card from "./Card";
 
-const SystemGeneratedPlans = ({ systemGeneratedPlans }) => {
+const SystemGeneratedPlans = ({
+  systemGeneratedPlans,
+  handleSetMode,
+  handleSetSelectedTrainingPlan,
+  handleModalAction,
+}) => {
   return (
     <div className="cards-content">
-      {console.log(systemGeneratedPlans)}
       {systemGeneratedPlans.map((trainingPlan) => (
-        <Card key={trainingPlan.id} trainingPlan={trainingPlan} />
+        <Card
+          key={trainingPlan.id}
+          trainingPlan={trainingPlan}
+          handleSetMode={handleSetMode}
+          handleSetSelectedTrainingPlan={handleSetSelectedTrainingPlan}
+          handleModalAction={handleModalAction}
+        />
       ))}
     </div>
   );

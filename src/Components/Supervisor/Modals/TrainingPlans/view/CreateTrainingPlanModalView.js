@@ -5,6 +5,8 @@ const CreateTrainingPlanModalView = ({
   handleModalAction,
   handleChange,
   handleCreateTrainingPlan,
+  mode,
+  selectedTrainingPlan,
 }) => {
   return (
     <>
@@ -12,7 +14,11 @@ const CreateTrainingPlanModalView = ({
       <div className="modal">
         <div className="modal-content">
           <div className="modal-header">
-            <p className="heading">Create Training Plan</p>
+            <p className="heading">
+              {mode === "copy"
+                ? "Make a Copy"
+                : `${mode === "create" ? "Create" : "Edit"} Training Plan`}
+            </p>
             <span className="close" onClick={handleModalAction}>
               &times;
             </span>
@@ -31,6 +37,7 @@ const CreateTrainingPlanModalView = ({
               placeholder="Title"
               required
               onChange={handleChange}
+              value={selectedTrainingPlan.title}
             />
             <textarea
               type="text"
@@ -40,6 +47,7 @@ const CreateTrainingPlanModalView = ({
               className="large-textarea"
               required
               onChange={handleChange}
+              value={selectedTrainingPlan.description}
             />
             <div className="button-group double">
               <button
