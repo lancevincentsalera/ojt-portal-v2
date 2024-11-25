@@ -114,7 +114,7 @@ const CreateTrainingPlanModalController = ({
         open={isSuccess}
         onClose={() => {
           setIsSuccess(false);
-          // window.location.reload();
+          window.location.reload();
         }}
         message={successMessage}
       />
