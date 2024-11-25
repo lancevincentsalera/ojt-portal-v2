@@ -32,18 +32,6 @@ export const addTaskModel = {
   title: "",
   description: "",
   difficulty: "",
-  techStacks: [
-    {
-      name: "",
-      type: "",
-      description: "",
-    },
-  ],
-  skills: [
-    {
-      name: "",
-      description: "",
-    },
-  ],
-  trainingPlanId: 0,
+  techStacks: [],
+  skills: [],
 };

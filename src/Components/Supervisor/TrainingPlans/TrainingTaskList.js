@@ -11,6 +11,8 @@ const TrainingTaskList = () => {
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
   const [trainingPlanDetails, setTrainingPlanDetails] = useState({ tasks: [] });
   const location = useLocation();
+  const [mode, setMode] = useState("add");
+  const [selectedTask, setSelectedTask] = useState(null);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -45,6 +47,8 @@ const TrainingTaskList = () => {
       )}
       {showAddTaskModal && (
         <AddTaskModalController
+          mode={mode}
+          taskToEdit={mode === "edit" ? selectedTask : null}
           handleAddTaskModalAction={handleAddTaskModalAction}
           trainingPlanDetails={trainingPlanDetails}
           setTrainingPlanDetails={setTrainingPlanDetails}
@@ -101,7 +105,11 @@ const TrainingTaskList = () => {
               <button
                 type="button"
                 className="button-secondary"
-                onClick={handleAddTaskModalAction}
+                onClick={() => {
+                  handleAddTaskModalAction();
+                  setMode("add");
+                  setSelectedTask(null);
+                }}
               >
                 Add Task
               </button>
@@ -131,6 +139,17 @@ const TrainingTaskList = () => {
                   Skills: {task.skills.map((skill) => skill.name).join(", ")}
                 </p>
               </div>
+              <button
+                className="button-main create"
+                type="button"
+                onClick={() => {
+                  handleAddTaskModalAction();
+                  setMode("edit");
+                  setSelectedTask(task);
+                }}
+              >
+                Edit
+              </button>
             </div>
           ))}
         </div>

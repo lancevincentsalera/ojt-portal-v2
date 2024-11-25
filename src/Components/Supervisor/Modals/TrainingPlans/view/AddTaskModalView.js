@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const AddTaskModalView = ({
+  task,
   handleAddTaskModalAction,
   handleChange,
   handleTechstackChange,
@@ -24,6 +25,7 @@ const AddTaskModalView = ({
   handleRemoveSkill,
   allTechStacks,
   allSkills,
+  mode,
 }) => {
   const commonTechStackType = [
     "Programming Language",
@@ -49,16 +51,23 @@ const AddTaskModalView = ({
       <div className="modal">
         <div className="modal-content">
           <div className="modal-header">
-            <p className="heading">Add Task</p>
+            <p className="heading">{mode === "add" ? "Add" : "Edit"} Task</p>
             <span className="close" onClick={handleAddTaskModalAction}>
               &times;
             </span>
           </div>
-          <form className="modal-form no-subh">
+          <form
+            className="modal-form no-subh"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleAddTaskAction();
+            }}
+          >
             <input
               type="text"
               id="taskTitle"
               name="title"
+              value={task.title}
               placeholder="Task Title"
               required
               onChange={handleChange}
@@ -66,8 +75,9 @@ const AddTaskModalView = ({
             <select
               name="difficulty"
               id="difficulty"
-              defaultValue={""}
+              value={task.difficulty}
               onChange={handleChange}
+              required
             >
               <option value="" disabled>
                 Select Difficulty
@@ -83,6 +93,7 @@ const AddTaskModalView = ({
               className="large-textarea"
               required
               onChange={handleChange}
+              value={task.description}
             />
             <p style={{ fontSize: "60%" }}>Tech Stacks</p>
 
@@ -318,11 +329,7 @@ const AddTaskModalView = ({
               >
                 Cancel
               </button>
-              <button
-                type="button"
-                className="button-main"
-                onClick={handleAddTaskAction}
-              >
+              <button type="submit" className="button-main">
                 Confirm
               </button>
             </div>
