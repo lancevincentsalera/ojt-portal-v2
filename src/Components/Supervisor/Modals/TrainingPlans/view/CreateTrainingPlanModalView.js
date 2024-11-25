@@ -38,6 +38,7 @@ const CreateTrainingPlanModalView = ({
               required
               onChange={handleChange}
               value={selectedTrainingPlan.title}
+              maxLength={30}
             />
             <textarea
               type="text"
@@ -48,6 +49,7 @@ const CreateTrainingPlanModalView = ({
               required
               onChange={handleChange}
               value={selectedTrainingPlan.description}
+              maxLength={200}
             />
             <div className="button-group double">
               <button
