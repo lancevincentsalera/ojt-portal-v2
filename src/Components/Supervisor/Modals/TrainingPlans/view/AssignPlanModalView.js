@@ -60,7 +60,6 @@ const AssignPlanModalView = ({
                     id="dueDate"
                     name="dueDate"
                     placeholder="Due Date"
-                    required
                     style={{ width: "30%" }}
                     onChange={(e) => handleChange(e, i)}
                   />
