@@ -9,14 +9,14 @@ const PendingFeedbackLogbooks = ({
     <div className="logbook-entry-list">
       {logbooks.map((logbook, index) => {
         const creationDate = new Date(
-          logbook.creationTimestamp.replace(/ \+\d{2}:\d{2}$/, "")
+          logbook.creationTimestamp?.replace(/ \+\d{2}:\d{2}$/, "")
         ).toLocaleDateString("en-US", {
           year: "numeric",
           month: "short",
           day: "2-digit",
         });
         const submissionDate = new Date(
-          logbook.submissionTimestamp.replace(/ \+\d{2}:\d{2}$/, "")
+          logbook.submissionTimestamp?.replace(/ \+\d{2}:\d{2}$/, "")
         ).toLocaleDateString("en-US", {
           year: "numeric",
           month: "short",

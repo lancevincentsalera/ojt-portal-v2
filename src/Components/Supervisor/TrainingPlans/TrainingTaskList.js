@@ -4,6 +4,7 @@ import AddTaskModalController from "../Modals/TrainingPlans/controller/AddTaskMo
 import { getTrainingPlanDetails } from "./model/MentorTrainingPlanModel";
 import { useLocation } from "react-router-dom";
 import { decryptId } from "../../../Functions/common";
+import { useAuth } from "../../Common/AuthContext";
 
 const TrainingTaskList = () => {
   const [showAssignModal, setShowAssignModal] = useState(false);
@@ -13,6 +14,9 @@ const TrainingTaskList = () => {
   const location = useLocation();
   const [mode, setMode] = useState("add");
   const [selectedTask, setSelectedTask] = useState(null);
+  const { userInfo } = useAuth();
+
+  console.log(userInfo);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -87,33 +91,34 @@ const TrainingTaskList = () => {
                 </p>
               </div> */}
             </div>
-
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.2rem",
-              }}
-            >
-              <button
-                type="button"
-                className="button-main"
-                onClick={handleAssignModalAction}
-              >
-                Assign Plan to Trainee(s)
-              </button>
-              <button
-                type="button"
-                className="button-secondary"
-                onClick={() => {
-                  handleAddTaskModalAction();
-                  setMode("add");
-                  setSelectedTask(null);
+            {userInfo.userType !== "Admin" && (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.2rem",
                 }}
               >
-                Add Task
-              </button>
-            </div>
+                <button
+                  type="button"
+                  className="button-main"
+                  onClick={handleAssignModalAction}
+                >
+                  Assign Plan to Trainee(s)
+                </button>
+                <button
+                  type="button"
+                  className="button-secondary"
+                  onClick={() => {
+                    handleAddTaskModalAction();
+                    setMode("add");
+                    setSelectedTask(null);
+                  }}
+                >
+                  Add Task
+                </button>
+              </div>
+            )}
           </div>
           <span
             style={{
