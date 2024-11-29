@@ -22,7 +22,7 @@ export const reuseCommonFunctionality = async (
     const response = await axios.get(url);
 
     if (response.status === 200 || response.status === 201) {
-      setResponse(response.data);
+      setResponse(response.data.filter(Boolean));
     } else {
       setError(err || "An error occurred while fetching the data.");
     }
