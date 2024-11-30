@@ -1,12 +1,14 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa6";
 import UsersModalController from "../../Modals/Users/controller/UsersModalController";
+import { MdOutlineSubdirectoryArrowRight } from "react-icons/md";
 
 const UsersView = ({
   showModal,
   handleModalAction,
   users,
   handleConfirmAccountAction,
+  setOpenAddSubmentorModal
 }) => {
   return (
     <>
@@ -17,8 +19,9 @@ const UsersView = ({
         />
       )}
       <div className="main-dashboard">
-        <div className="main-header">
-          <p className="main-heading">Users</p>
+      <div className="main-header">
+      <p className="main-heading">Users</p>
+      <div className="flex gap-x-2"> 
           <button
             type="button"
             className="button-main create"
@@ -27,7 +30,16 @@ const UsersView = ({
             <FaPlus size={20} />
             &nbsp; Create New User
           </button>
+          <button
+            type="button"
+            className="button-main create"
+            onClick={() => setOpenAddSubmentorModal(true)}
+          >
+            <MdOutlineSubdirectoryArrowRight size={20}/>
+            &nbsp; Transfer Mentorship
+          </button>
         </div>
+      </div>
         <div className="table-container">
           <div className="table">
             <ul className="thead">

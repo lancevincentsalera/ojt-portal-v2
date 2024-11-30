@@ -7,6 +7,7 @@ import axios from "axios";
 import OkayModal from "../../../Common/Modals/OkayModal";
 import ErrorModal from "../../../Common/Modals/ErrorModal";
 import PromptModal from "../../../Common/Modals/PromptModal";
+import AsyncModalTransferMentorship from "../../../Modals/AsyncModalTransferMentorship";
 
 const UsersController = () => {
   const [showModal, setShowModal] = useState(false);
@@ -20,6 +21,8 @@ const UsersController = () => {
   const [promptMessage, setPromptMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [id, setId] = useState(null);
+  const [openAddSubmentorModal, setOpenAddSubmentorModal] = useState(false);
+  const [mentors, setMentors] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -27,6 +30,8 @@ const UsersController = () => {
       try {
         const response = await Users(authUser);
         setUsers(response);
+        const mentorUsers = response.filter(user => user.userType === "Mentor"); 
+        setMentors(mentorUsers);
       } catch (error) {
         console.error(error);
       } finally {
@@ -111,7 +116,17 @@ const UsersController = () => {
         handleModalAction={handleModalAction}
         users={users}
         handleConfirmAccountAction={handleConfirmAccountAction}
+        setOpenAddSubmentorModal={setOpenAddSubmentorModal}
       />
+
+      {openAddSubmentorModal && (
+        <AsyncModalTransferMentorship
+          isOpen={openAddSubmentorModal}
+          setIsOpen={setOpenAddSubmentorModal}
+          availableMentors={mentors}
+          loading={loading} 
+        />
+      )}
 
       <LoadingModal open={loading} />
       <OkayModal
