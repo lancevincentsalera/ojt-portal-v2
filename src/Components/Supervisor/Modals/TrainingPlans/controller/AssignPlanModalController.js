@@ -14,9 +14,11 @@ const AssignPlanModalController = ({
   trainingPlanDetails,
 }) => {
   const { authUser } = useAuth();
-  const [assign, setAssign] = useState({
-    ...assingPlanModel,
-    trainingPlanId: trainingPlanDetails.id,
+  const [assign, setAssign] = useState(() => {
+    return {
+      ...assingPlanModel,
+      trainingPlanId: trainingPlanDetails.id,
+    };
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
