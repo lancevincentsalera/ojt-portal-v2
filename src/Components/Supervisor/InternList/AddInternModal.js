@@ -22,7 +22,13 @@ const AddInternModal = ({
               &times;
             </span>
           </div>
-          <form className="modal-form no-subh">
+          <form
+            className="modal-form no-subh"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleRegister();
+            }}
+          >
             <div className="tapad">
               <input
                 name="firstName"
@@ -160,11 +166,7 @@ const AddInternModal = ({
               >
                 Cancel
               </button>
-              <button
-                type="button"
-                className="button-main"
-                onClick={handleRegister}
-              >
+              <button type="submit" className="button-main">
                 Confirm
               </button>
             </div>

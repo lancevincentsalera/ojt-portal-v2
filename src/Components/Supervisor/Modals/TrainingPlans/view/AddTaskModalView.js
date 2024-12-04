@@ -155,7 +155,6 @@ const AddTaskModalView = ({
                   placeholder="Custom Techstack Name"
                   onChange={handleCustomTechstackChange}
                   value={techStack.name}
-                  required
                 />
                 <input
                   type="text"
@@ -164,7 +163,6 @@ const AddTaskModalView = ({
                   placeholder="Custom Techstack Type"
                   onChange={handleCustomTechstackChange}
                   value={techStack.type}
-                  required
                 />
                 <textarea
                   className="large-textarea"
@@ -173,7 +171,6 @@ const AddTaskModalView = ({
                   placeholder="Custom Techstack Description"
                   onChange={handleCustomTechstackChange}
                   value={techStack.description}
-                  required
                 />
                 <button
                   type="button"
@@ -264,7 +261,6 @@ const AddTaskModalView = ({
                   placeholder="Custom Skill Name"
                   onChange={handleCustomSkillChange}
                   value={skill.name}
-                  required
                 />
                 <textarea
                   className="large-textarea"
@@ -273,7 +269,6 @@ const AddTaskModalView = ({
                   placeholder="Custom Skill Description"
                   onChange={handleCustomSkillChange}
                   value={skill.description}
-                  required
                 />
                 <button
                   type="button"

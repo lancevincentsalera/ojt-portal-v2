@@ -75,12 +75,12 @@ const AssignPlanModalController = ({
         },
       });
 
-      if (response.status !== 200 || response.status !== 201) {
+      if (response.status === 200 || response.status === 201) {
+        setIsSuccess(true);
+      } else {
         setIsError(true);
         setErrorMessage("Error assigning training plan.");
       }
-
-      setIsSuccess(true);
     } catch (error) {
       console.error(error);
       setIsError(true);
