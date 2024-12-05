@@ -35,9 +35,6 @@ const CreateTrainingPlanModalController = ({
     setTrainingPlan((prevData) => ({
       ...prevData,
       [name]: value,
-      ...(mode === "edit"
-        ? { trainingPlanId: selectedTrainingPlan?.id || 0 }
-        : { mentorId: userInfo.user.id }),
     }));
   };
 
@@ -62,10 +59,19 @@ const CreateTrainingPlanModalController = ({
     setIsSubmitting(true);
     try {
       const url = apiBaseUrl + "/training/plans";
+      const payload = {
+        ...trainingPlan,
+        ...(mode === "edit"
+          ? { trainingPlanId: selectedTrainingPlan?.id || 0 }
+          : { mentorId: userInfo.user.id }),
+      };
       const response =
         mode === "edit"
-          ? await axios.put(url, trainingPlan)
-          : await axios.post(url, { ...trainingPlan, tasks: task });
+          ? await axios.put(url, payload)
+          : await axios.post(url, {
+              ...payload,
+              tasks: task,
+            });
 
       if (response.status === 200 || response.status === 201) {
         setIsSuccess(true);
