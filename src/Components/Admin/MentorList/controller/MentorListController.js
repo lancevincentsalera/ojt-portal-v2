@@ -4,6 +4,7 @@ import { Users } from "../../UsersDashboard/model/UsersModels";
 import { useAuth } from "../../../Common/AuthContext";
 import axios from "axios";
 import { getAvailableSubMentors } from "../model/MentorListModel";
+import LoadingModal from "../../../Common/Modals/LoadingModal";
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const MentorListController = () => {
@@ -19,6 +20,7 @@ const MentorListController = () => {
 
   useEffect(() => {
     const fetchMentors = async () => {
+      setLoading(true);
       try {
         const mentors = await Users(authUser);
 
@@ -35,6 +37,8 @@ const MentorListController = () => {
         setMentors(response.filter((mentor) => mentor.subMentorCount > 0));
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -54,14 +58,17 @@ const MentorListController = () => {
   };
 
   return (
-    <MentorListView
-      mentors={mentors}
-      showModal={showModal}
-      handleModalAction={handleModalAction}
-      fetchAvailableMentors={fetchAvailableMentors}
-      headMentor={headMentor}
-      loading={loading}
-    />
+    <>
+      <MentorListView
+        mentors={mentors}
+        showModal={showModal}
+        handleModalAction={handleModalAction}
+        fetchAvailableMentors={fetchAvailableMentors}
+        headMentor={headMentor}
+        loading={loading}
+      />
+      <LoadingModal open={loading} />
+    </>
   );
 };
 
