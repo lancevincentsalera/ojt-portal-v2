@@ -9,7 +9,6 @@ import axios from "axios";
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
-
 const CompaniesController = () => {
   const [showModal, setShowModal] = useState(false);
   const [companies, setCompanies] = useState([]);
@@ -23,41 +22,31 @@ const CompaniesController = () => {
 
   useEffect(() => {
     fetchCompanies();
-  }, [isLoggedIn])
+  }, [isLoggedIn]);
 
-  const fetchCompanies = async() => {
+  const fetchCompanies = async () => {
     setIsSubmitting(true);
-    setIsSubmitting(false);
-    setIsSuccess(true);
     try {
       const response = await axios.get(`${apiBaseUrl}/companies`);
-      setCompanies(response.data)
-    } catch (error ) {
+      setCompanies(response.data);
+    } catch (error) {
+      const errorDetail =
+        error.response?.data?.message || "Error fetching companies.";
       setErrorMessage(errorDetail);
-      const errorDetail = error.response?.data?.message || "Error fetching companies.";
       setIsError(true);
+    } finally {
       setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <div>
-          <CompaniesView
+      <CompaniesView
         showModal={showModal}
         handleModalAction={handleModalAction}
         companies={companies}
       />
       <LoadingModal open={isSubmitting} />
-      <OkayModal
-        open={isSuccess}
-        onClose={() => setIsSuccess(false)}
-        message="Student performance fetched successfully!"
-      />
-      <ErrorModal
-        open={isError}
-        onClose={() => setIsError(false)}
-        errorMessage={errorMessage}
-      />
     </div>
   );
 };

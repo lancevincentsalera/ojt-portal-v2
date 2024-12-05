@@ -81,6 +81,10 @@ const Sidebar = ({ userRole }) => {
       goto: "/admin-training-plans",
       name: "Training Plans",
     },
+    {
+      goto: "/admin-hmentors",
+      name: "Head Mentors",
+    },
   ];
 
   const instructorLinks = [

@@ -41,6 +41,7 @@ import StudentMonitoringController from "./Components/Instructor/StudentMonitori
 import DeanDashboardController from "./Components/Dean/Dashboard/controller/DeanDashboardController";
 import OJTAnalyticsController from "./Components/Teacher/OJTAnalytics/controller/OJTAnalyticsController";
 import TaskMonitoringController from "./Components/Supervisor/TaskMonitoring/controller/TaskMonitoringController";
+import MentorListController from "./Components/Admin/MentorList/controller/MentorListController";
 
 const ProtectedRoute = ({ children }) => {
   const { authUser, isLoggedIn, timeIn } = useAuth();
@@ -237,6 +238,10 @@ const App = () => {
                   <Route
                     path="/supervisor-tm"
                     element={<TaskMonitoringController />}
+                  />
+                  <Route
+                    path="/admin-hmentors"
+                    element={<MentorListController />}
                   />
                 </Route>
               </Route>

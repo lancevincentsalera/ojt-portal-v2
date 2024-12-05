@@ -36,7 +36,6 @@ const MentorLogbookSubmissionsController = () => {
             return { ...logbook, internInfo };
           })
         );
-        console.log(data, "==================");
         setPendingLogbooks(
           data.filter((logbook) => logbook.remarks.length === 0)
         );
